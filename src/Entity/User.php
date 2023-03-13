@@ -2,14 +2,16 @@
 
 namespace App\Entity;
 
-use App\Repository\UserRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
+use App\Repository\UserRepository;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 
+#[UniqueEntity('email')]
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
@@ -77,6 +79,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: Article::class)]
     private Collection $articles;
+
+    #[ORM\Column(length: 255)]
+    private ?string $city = null;
 
     public function __construct()
     {
@@ -378,6 +383,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
                 $article->setUser(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getCity(): ?string
+    {
+        return $this->city;
+    }
+
+    public function setCity(string $city): self
+    {
+        $this->city = $city;
 
         return $this;
     }

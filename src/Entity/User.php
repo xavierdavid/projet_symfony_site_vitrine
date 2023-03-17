@@ -83,10 +83,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 255)]
     private ?string $city = null;
 
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Partner::class)]
+    private Collection $partners;
+
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Collaborator::class)]
+    private Collection $collaborators;
+
     public function __construct()
     {
         $this->products = new ArrayCollection();
         $this->articles = new ArrayCollection();
+        $this->partners = new ArrayCollection();
+        $this->collaborators = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -395,6 +403,66 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setCity(string $city): self
     {
         $this->city = $city;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Partner>
+     */
+    public function getPartners(): Collection
+    {
+        return $this->partners;
+    }
+
+    public function addPartner(Partner $partner): self
+    {
+        if (!$this->partners->contains($partner)) {
+            $this->partners->add($partner);
+            $partner->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removePartner(Partner $partner): self
+    {
+        if ($this->partners->removeElement($partner)) {
+            // set the owning side to null (unless already changed)
+            if ($partner->getUser() === $this) {
+                $partner->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Collaborator>
+     */
+    public function getCollaborators(): Collection
+    {
+        return $this->collaborators;
+    }
+
+    public function addCollaborator(Collaborator $collaborator): self
+    {
+        if (!$this->collaborators->contains($collaborator)) {
+            $this->collaborators->add($collaborator);
+            $collaborator->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCollaborator(Collaborator $collaborator): self
+    {
+        if ($this->collaborators->removeElement($collaborator)) {
+            // set the owning side to null (unless already changed)
+            if ($collaborator->getUser() === $this) {
+                $collaborator->setUser(null);
+            }
+        }
 
         return $this;
     }

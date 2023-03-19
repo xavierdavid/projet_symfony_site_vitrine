@@ -1,11 +1,18 @@
 <!-- Header -->
 <header>
   <nav>
-    <a href="#">Accueil</a>
-    <a href="#">A propos</a>
-    <a href="#">Services</a>
-    <a href="#">Actualités</a>
-    <a href="#">Ressources</a>
-    <a href="#">Contact</a>
+    <section>
+      <a href="{{path('app_home')}}">Accueil</a>
+      <a href="#">A propos</a>
+      <a href="#">Services</a>
+      <a href="#">Actualités</a>
+      <a href="#">Ressources</a>
+      <a href="#">Contact</a>
+    </section>
+    <section>
+    {% if app.user %}
+      <a href="{{path('app_logout')}}">Déconnexion</a> 
+    {% endif %}
+    </section>
   </nav>
 </header>

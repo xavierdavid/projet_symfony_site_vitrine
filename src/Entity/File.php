@@ -27,6 +27,12 @@ class File
     #[ORM\ManyToMany(targetEntity: Product::class, mappedBy: 'files')]
     private Collection $products;
 
+    #[ORM\Column(length: 255)]
+    private ?string $documentFile = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $caption = null;
+
     public function __construct()
     {
         $this->articles = new ArrayCollection();
@@ -112,6 +118,30 @@ class File
         if ($this->products->removeElement($product)) {
             $product->removeFile($this);
         }
+
+        return $this;
+    }
+
+    public function getDocumentFile(): ?string
+    {
+        return $this->documentFile;
+    }
+
+    public function setDocumentFile(string $documentFile): self
+    {
+        $this->documentFile = $documentFile;
+
+        return $this;
+    }
+
+    public function getCaption(): ?string
+    {
+        return $this->caption;
+    }
+
+    public function setCaption(string $caption): self
+    {
+        $this->caption = $caption;
 
         return $this;
     }

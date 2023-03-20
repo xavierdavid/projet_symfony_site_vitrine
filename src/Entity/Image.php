@@ -27,6 +27,12 @@ class Image
     #[ORM\ManyToMany(targetEntity: Product::class, mappedBy: 'images')]
     private Collection $products;
 
+    #[ORM\Column(length: 255)]
+    private ?string $imageFile = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $caption = null;
+
     public function __construct()
     {
         $this->articles = new ArrayCollection();
@@ -112,6 +118,30 @@ class Image
         if ($this->products->removeElement($product)) {
             $product->removeImage($this);
         }
+
+        return $this;
+    }
+
+    public function getImageFile(): ?string
+    {
+        return $this->imageFile;
+    }
+
+    public function setImageFile(string $imageFile): self
+    {
+        $this->imageFile = $imageFile;
+
+        return $this;
+    }
+
+    public function getCaption(): ?string
+    {
+        return $this->caption;
+    }
+
+    public function setCaption(string $caption): self
+    {
+        $this->caption = $caption;
 
         return $this;
     }

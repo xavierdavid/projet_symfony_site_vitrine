@@ -22,7 +22,7 @@ class AppFixtures extends Fixture
         $admin = new User;
         // Hashage du mot de passe
         $hashPassword = $this->userPasswordHasherInterface->hashPassword($admin, 'password');
-        $admin  ->setEmail("admin@gmail.com")
+        $admin  ->setEmail("xav.david28@gmail.com")
                 ->setRoles(['ROLE_ADMIN'])
                 ->setPassword($hashPassword)
                 ->setOrganizationName('organisation test')

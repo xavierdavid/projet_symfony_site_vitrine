@@ -35,6 +35,9 @@ class Contact
     #[ORM\Column]
     private ?\DateTimeImmutable $createdAt = null;
 
+    #[ORM\Column]
+    private ?bool $isRgpd = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -120,6 +123,18 @@ class Contact
     public function setCreatedAt(\DateTimeImmutable $createdAt): self
     {
         $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    public function isIsRgpd(): ?bool
+    {
+        return $this->isRgpd;
+    }
+
+    public function setIsRgpd(bool $isRgpd): self
+    {
+        $this->isRgpd = $isRgpd;
 
         return $this;
     }

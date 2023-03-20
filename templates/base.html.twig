@@ -21,6 +21,9 @@
         {# Inclusion du header #}
         {% include "partials/_header.html.twig" %}
         
+        {# Affichage des messages flash #}
+        {% include "partials/_flashbag.html.twig" %}
+        
         {# Affichage du body #}
         {% block body %}{% endblock %}
         

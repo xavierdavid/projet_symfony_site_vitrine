@@ -5,6 +5,7 @@ namespace App\Entity;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\UserRepository;
+use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -21,6 +22,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?int $id = null;
 
     #[ORM\Column(length: 180, unique: true)]
+    #[Assert\Email(message:"Votre email '{{value}}' n'est pas valide !")]
     private ?string $email = null;
 
     #[ORM\Column]
@@ -69,9 +71,13 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?string $logo = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank(message:"Le prénom doit être renseigné !")]
+    #[Assert\Length(min:3, max:255, minMessage:"Le prénom doit avoir au moins 3 caractères")]
     private ?string $administratorFirstname = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank(message:"Le nom doit être renseigné !")]
+    #[Assert\Length(min:2, max:255, minMessage:"Le nom doit avoir au moins 2 caractères")]
     private ?string $administratorLastname = null;
 
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: Product::class)]
@@ -88,6 +94,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: Collaborator::class)]
     private Collection $collaborators;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $resetToken = null;
 
     public function __construct()
     {
@@ -463,6 +472,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
                 $collaborator->setUser(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getResetToken(): ?string
+    {
+        return $this->resetToken;
+    }
+
+    public function setResetToken(?string $resetToken): self
+    {
+        $this->resetToken = $resetToken;
 
         return $this;
     }

@@ -1,4 +1,4 @@
-<!-- Header -->
+{# Header #}
 <header>
   <nav>
     <section>
@@ -10,9 +10,16 @@
       <a href="#">Contact</a>
     </section>
     <section>
-    {% if app.user %}
-      <a href="{{path('app_logout')}}">Déconnexion</a> 
-    {% endif %}
+      <ul>
+          {# Affichage des liens en fonction du statut d'authentification de l'utilisateur #}
+          {% if app.user %}
+              <li><a href="{{path('app_logout')}}">Deconnection</a></li>
+          {% endif %}
+          {# Accès aux pages d'administration si l'utilisateur a le rôle Admin #}
+          {% if is_granted('ROLE_ADMIN')%} 
+              <li><a href="{{path('app_admin_home')}}">Accéder au back-office</a></li>
+          {% endif %}
+      </ul>
     </section>
   </nav>
 </header>

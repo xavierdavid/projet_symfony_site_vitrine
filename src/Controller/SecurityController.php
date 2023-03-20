@@ -32,7 +32,7 @@ class SecurityController extends AbstractController
      * @param AuthenticationUtils $authenticationUtils
      * @return Response
      */
-    public function index(AuthenticationUtils $authenticationUtils): Response
+    public function login(AuthenticationUtils $authenticationUtils): Response
     {
         // Récupération d'une éventuelle erreur d'authentification
         $error = $authenticationUtils->getLastAuthenticationError();

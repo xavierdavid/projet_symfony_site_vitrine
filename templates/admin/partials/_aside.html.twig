@@ -1,0 +1,49 @@
+{# Aside #}
+<aside>
+  <nav>
+    <section>
+      <div>
+        <p><a href="{{path('app_admin_home')}}"><i class="fas fa-home"></i> Accueil</a></p>
+      </div>
+      <div>
+        <p><a href="#"><i class="fas fa-sitemap"></i> Services</a></p>
+      </div>
+      <div>
+        <p><a href="#"><i class="fas fa-newspaper"></i> Articles</a></p>
+      </div>
+      <div>
+        <p><a href="#"><i class="fas fa-tasks"></i> Catégories</a></p>
+      </div>
+      <div>
+        <p><a href="#"><i class="fas fa-handshake"></i> Partenaires</a></p>
+      </div>
+      <div>
+        <p><a href="#"><i class="fas fa-users"></i> Collaborateurs</a></p>
+      </div>
+      <div>
+        <p><a href="#"><i class="fas fa-id-card-alt"></i> Contact</a></p>
+      </div>
+      <div>
+        <p><a href="#"><i class="fas fa-images"></i> Images</a></p>
+      </div>
+      <div>
+        <p><a href="#"><i class="fas fa-file"></i> Fichiers</a></p>
+      </div>
+      <div>
+        <p><a href="#"><i class="fas fa-desktop"></i> Carrousel</a></p>
+      </div>
+    </section>
+    <section>
+    <br>
+    <section>
+    
+    </section>
+    {% if app.user %}
+      <a href="{{path('app_logout')}}">Déconnexion</a> 
+    {% endif %}
+    </section>
+    <section>
+      <p><a href="{{path('app_home')}}">Voir le site</a></p>
+    </section>
+  </nav>
+</aside>

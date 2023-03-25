@@ -15,7 +15,7 @@ class SendEmail {
   }
 
   /**
-   * Service permettant d'envoyer des emails
+   * Permet d'envoyer des emails
    *
    * @param string $from
    * @param string $to

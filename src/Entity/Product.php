@@ -44,13 +44,13 @@ class Product
     #[ORM\ManyToMany(targetEntity: Image::class, inversedBy: 'products')]
     private Collection $images;
 
-    #[ORM\ManyToMany(targetEntity: File::class, inversedBy: 'products')]
-    private Collection $files;
+    #[ORM\ManyToMany(targetEntity: Document::class, inversedBy: 'products')]
+    private Collection $documents;
 
     public function __construct()
     {
         $this->images = new ArrayCollection();
-        $this->files = new ArrayCollection();
+        $this->documents = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -179,25 +179,25 @@ class Product
     }
 
     /**
-     * @return Collection<int, File>
+     * @return Collection<int, Document>
      */
-    public function getFiles(): Collection
+    public function getDocuments(): Collection
     {
-        return $this->files;
+        return $this->documents;
     }
 
-    public function addFile(File $file): self
+    public function addDocument(Document $document): self
     {
-        if (!$this->files->contains($file)) {
-            $this->files->add($file);
+        if (!$this->documents->contains($document)) {
+            $this->documents->add($document);
         }
 
         return $this;
     }
 
-    public function removeFile(File $file): self
+    public function removeDocument(Document $document): self
     {
-        $this->files->removeElement($file);
+        $this->files->removeElement($document);
 
         return $this;
     }

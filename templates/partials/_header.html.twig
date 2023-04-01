@@ -6,7 +6,6 @@
       <a href="#">A propos</a>
       <a href="#">Services</a>
       <a href="#">Actualités</a>
-      <a href="#">Ressources</a>
       <a href="#">Contact</a>
     </section>
     <section>
@@ -14,7 +13,10 @@
           {# Affichage des liens en fonction du statut d'authentification de l'utilisateur #}
           {% if app.user %}
               <li><a href="{{path('app_logout')}}">Deconnection</a></li>
+          {% else %}
+            <li><a href="{{path('app_login')}}">Connection</a></li>
           {% endif %}
+            
           {# Accès aux pages d'administration si l'utilisateur a le rôle Admin #}
           {% if is_granted('ROLE_ADMIN')%} 
               <li><a href="{{path('app_admin_home')}}">Accéder au back-office</a></li>

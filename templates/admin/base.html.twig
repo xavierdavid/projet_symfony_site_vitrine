@@ -23,11 +23,16 @@
         
         {# Affichage du body #}
         {% block body %}{% endblock %}
+
+        {# Inclusion de la modale de suppression #} 
+        {% include "admin/partials/_modal.html.twig" %}
         
         {# Inclusion du footer #}
         {% include "admin/partials/_footer.html.twig" %}
         
         {# Lien vers les scripts javascript #}
-        {% block javascripts %}{% endblock %}
+        {% block javascripts %}
+            <script src="{{asset('js/modal.js')}}"></script>
+        {% endblock %}
     </body>
 </html>

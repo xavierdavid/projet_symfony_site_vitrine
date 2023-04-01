@@ -1,0 +1,35 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}Interface d'administration{% endblock %}
+
+{% block body %}
+<main>
+    <header>
+        <h1>Interface d'administration</h1>
+    </header>
+    <article>
+        <header>
+            <h3>Documents</h3>
+        </header>
+        {# Inclusion du aside #}
+        {% include "admin/partials/_aside.html.twig" %}
+        <section>
+            <header>
+                <h2>Modification d'un document</h2>
+            </header>
+            <br>
+            <section>
+                {# Formulaire de modification d'un objet Document #}
+                {{form_start(formView)}}
+                {{form_row(formView.name)}}
+                {{form_row(formView.documentFile)}}
+                {{form_row(formView.caption)}}
+            </section>
+            <section>
+                <button type="submit">Modifier le document</button>
+                {{form_end(formView)}}
+            </section>
+        </section>
+    </article>
+</main>
+{% endblock %}

@@ -1,0 +1,15 @@
+{# Modale de confirmation de suppression d'objets #}
+<section class="modal-container">
+  <div class="overlay modal-trigger"></div>
+    <div class="modal">
+      <button class="close-modal modal-trigger"><i class="fas fa-times"></i></button>
+      <h2 class="modal-title">Suppression d'un enregistrement</h2>
+      <p>Merci de bien vouloir confirmer la suppression.</p>
+      {# Formulaire de suppression #}
+      <form action="" class="modal-delete-form" method="post">
+        {# Champ caché permettant d'envoyer le token et sa valeur #}
+        <input type="hidden" class="modal-input" name="_token" value="">
+        <button type="submit">Confirmer</button>
+      </form>
+  </div>
+</section> 

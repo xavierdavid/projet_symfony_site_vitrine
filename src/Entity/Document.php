@@ -2,13 +2,13 @@
 
 namespace App\Entity;
 
-use App\Repository\FileRepository;
+use App\Repository\DocumentRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity(repositoryClass: FileRepository::class)]
-class File
+#[ORM\Entity(repositoryClass: DocumentRepository::class)]
+class Document
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -21,10 +21,10 @@ class File
     #[ORM\Column(length: 255)]
     private ?string $slug = null;
 
-    #[ORM\ManyToMany(targetEntity: Article::class, mappedBy: 'files')]
+    #[ORM\ManyToMany(targetEntity: Article::class, mappedBy: 'documents')]
     private Collection $articles;
 
-    #[ORM\ManyToMany(targetEntity: Product::class, mappedBy: 'files')]
+    #[ORM\ManyToMany(targetEntity: Product::class, mappedBy: 'documents')]
     private Collection $products;
 
     #[ORM\Column(length: 255)]
@@ -37,6 +37,16 @@ class File
     {
         $this->articles = new ArrayCollection();
         $this->products = new ArrayCollection();
+    }
+
+     /**
+     * Retourne le nom du document sous forme d'une chaîne de caractères
+     *
+     * @return string
+     */
+    public function __toString()
+    {
+        return $this->name;
     }
 
     public function getId(): ?int
@@ -80,7 +90,7 @@ class File
     {
         if (!$this->articles->contains($article)) {
             $this->articles->add($article);
-            $article->addFile($this);
+            $article->addDocument($this);
         }
 
         return $this;
@@ -89,7 +99,7 @@ class File
     public function removeArticle(Article $article): self
     {
         if ($this->articles->removeElement($article)) {
-            $article->removeFile($this);
+            $article->removeDocument($this);
         }
 
         return $this;
@@ -107,7 +117,7 @@ class File
     {
         if (!$this->products->contains($product)) {
             $this->products->add($product);
-            $product->addFile($this);
+            $product->addDocument($this);
         }
 
         return $this;
@@ -116,7 +126,7 @@ class File
     public function removeProduct(Product $product): self
     {
         if ($this->products->removeElement($product)) {
-            $product->removeFile($this);
+            $product->removeDocument($this);
         }
 
         return $this;

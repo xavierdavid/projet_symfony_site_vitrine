@@ -7,47 +7,51 @@
     <header>
         <h1>Interface d'administration</h1>
     </header>
-    <article>
-        <header>
-            <h3>Documents</h3>
-        </header>
-        {# Inclusion du aside #}
-        {% include "admin/partials/_aside.html.twig" %}
+    <article class="container">
+        <section>
+            <header>
+                <h3>Documents</h3>
+            </header>
+            {# Inclusion du aside #}
+            {% include "admin/partials/_aside.html.twig" %}
+        </section>
         <section>
             <header>
                 <h2>Liste des documents</h2>
             </header>
             <br>
             <section>
-                    {# Tableau des objets Document #}
-                    <table>
-                        <thead>
+                {# Tableau des objets Document #}
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Nom</th>
+                            <th>Document</th>
+                            <th>Description</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for document in documents %}
                             <tr>
-                                <th>Nom</th>
-                                <th>Document</th>
-                                <th>Description</th>
-                                <th>Actions</th>
+                                <td>{{document.name}}</td>
+                                <td><a href="{{asset('uploads/'~document.documentFile)}}" target="_blank"><i class="fas fa-eye"></i> Afficher</a></td>
+                                <td>{{document.caption}}</td>
+                                {# Actions #}
+                                <td>
+                                    <a type="button" href="{{path('app_admin_document_edit', {'slug':document.slug})}}"><i class="fas fa-pen"></i> Modifier</a>
+                                    <a type="button" href="{{path('app_admin_document_delete', {'slug':document.slug})}}" class="modal-trigger"  data-token="{{csrf_token('delete' ~ document.slug)}}" data-message="Confirmez-vous la suppression de l'enregistrement '{{document.name}}' ?" ><i class="fas fa-trash-alt"></i> Supprimer</a>
+                                </td>
                             </tr>
-                        </thead>
-                        <tbody>
-                            {% for document in documents %}
-                                <tr>
-                                    <td>{{document.name}}</td>
-                                    <td><a href="{{asset('uploads/'~document.documentFile)}}" target="_blank"><i class="fas fa-eye"></i> Afficher</a></td>
-                                    <td>{{document.caption}}</td>
-                                    {# Actions #}
-                                    <td>
-                                        <a type="button" href="{{path('app_admin_document_edit', {'slug':document.slug})}}"><i class="fas fa-pen"></i> Modifier</a>
-                                        <a type="button" href="{{path('app_admin_document_delete', {'slug':document.slug})}}" class="modal-trigger"  data-token="{{csrf_token('delete' ~ document.slug)}}" data-message="Confirmez-vous la suppression de l'enregistrement '{{document.name}}' ?" ><i class="fas fa-trash-alt"></i> Supprimer</a>
-                                    </td>
-                                </tr>
-                            {% endfor %}
-                        </tbody>
-                    </table>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                <br>
+                <section>
+                    <a href="{{path('app_admin_document_new')}}"><i class="fas fa-plus"></i> Ajouter</a>
                     <br>
-                    <section>
-                        <a href="{{path('app_admin_document_new')}}"><i class="fas fa-plus"></i> Ajouter</a>
-                    </section>
+                    <p><a href="{{path('app_admin_home')}}"><i class="fas fa-backward"></i> Retour</a></p>
+                </section>
             </section>
         </section>
         <br>

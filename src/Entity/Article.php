@@ -38,11 +38,7 @@ class Article
     private ?\DateTimeInterface $updatedAt = null;
 
     #[ORM\Column]
-    private ?bool $frontPage = null;
-
-    #[ORM\ManyToOne(inversedBy: 'articles')]
-    #[ORM\JoinColumn(nullable: false)]
-    private ?User $user = null;
+    private ?bool $isFrontPage = null;
 
     #[ORM\ManyToMany(targetEntity: Category::class, inversedBy: 'articles')]
     private Collection $categories;
@@ -149,26 +145,14 @@ class Article
         return $this;
     }
 
-    public function isFrontPage(): ?bool
+    public function getIsFrontPage(): ?bool
     {
-        return $this->frontPage;
+        return $this->isFrontPage;
     }
 
-    public function setFrontPage(bool $frontPage): self
+    public function setIsFrontPage(bool $isFrontPage): self
     {
-        $this->frontPage = $frontPage;
-
-        return $this;
-    }
-
-    public function getUser(): ?User
-    {
-        return $this->user;
-    }
-
-    public function setUser(?User $user): self
-    {
-        $this->user = $user;
+        $this->isFrontPage = $isFrontPage;
 
         return $this;
     }

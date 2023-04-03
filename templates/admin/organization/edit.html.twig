@@ -1,0 +1,56 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}Interface d'administration{% endblock %}
+
+{% block body %}
+<main>
+    <header>
+        <h1>Interface d'administration</h1>
+    </header>
+    <article class="container">
+        <section>
+            <header>
+                <h3>Organisation</h3>
+            </header>
+            {# Inclusion du aside #}
+            {% include "admin/partials/_aside.html.twig" %}
+        </section>
+        <section>
+            <header>
+                <h2>Modification de l'organization</h2>
+            </header>
+            <br>
+            <section>
+                {# Formulaire de modification d'un objet Organization #}
+                {{form_start(formView)}}
+                {{form_row(formView.organizationName)}}
+                {{form_row(formView.siteTitle)}}
+                {{form_row(formView.address)}}
+                {{form_row(formView.postal)}}
+                {{form_row(formView.city)}}
+                {{form_row(formView.country)}}
+                {{form_row(formView.phone)}}
+                {{form_row(formView.facebook)}}
+                {{form_row(formView.instagram)}}
+                {{form_row(formView.twitter)}}
+            </section>
+            <section>
+                {{form_row(formView.logo)}}
+                {{form_row(formView.shortDescription)}}
+                {{form_row(formView.description)}}
+                {{form_row(formView.administratorFirstname)}}
+                {{form_row(formView.administratorLastname)}}
+            </section>
+            <section>
+                <br>
+                <button type="submit">Modifier l'organisation</button>
+                {{form_end(formView)}}
+            </section>
+             <br>
+            <section>
+                <p><a href="{{path('app_admin_organization_index')}}"><i class="fas fa-backward"></i> Retour</a></p>
+            </section>
+        </section>
+    </article>
+</main>
+{% endblock %}

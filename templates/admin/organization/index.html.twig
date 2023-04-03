@@ -1,0 +1,56 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}Interface d'administration{% endblock %}
+
+{% block body %}
+<main>
+    <header>
+        <h1>Interface d'administration</h1>
+    </header>
+    <article class="container">
+        <section>
+            <header>
+                <h3>Organisation</h3>
+            </header>
+            {# Inclusion du aside #}
+            {% include "admin/partials/_aside.html.twig" %}
+        </section>
+        <section>
+            <header>
+                <h2>Mon organisation</h2>
+                <p>Bienvenue dans l'espace dédié à votre organisation</p>
+            </header>
+            <br>
+            <section class="container">
+                {# Affichage des objets Organization #}
+                {% for organization in organizations %}
+                    <section>
+                        <header>
+                            <h3>{{organization.organizationName}}</h3>
+                        </header>
+                        <p>{{organization.address}} - {{organization.postal}} {{organization.city}}</p>
+                        <p>{{organization.country|upper}}</p>
+                        <p>{{organization.phone}}</p>
+                        <p>{{organization.facebook}}</p>
+                        <p>{{organization.instagram}}</p>
+                        <p>{{organization.twitter}}</p>
+                        <p>{{organization.administratorFirstname}} {{organization.administratorLastname}}</p>
+                    </section>
+                    <section>
+                        <figure>
+                            <img src="{{asset('uploads/'~ organization.logo)}}" alt="logo de {{organization.organizationName}}" class="mediumSizeImage">
+                        </figure>
+                        <p><strong>{{organization.siteTitle}}</strong></p>
+                        <p>{{organization.shortDescription}}</p>
+                        <p>{{organization.description|raw}}</p>
+                    </section>
+            </section>
+            <section>
+                <p><a href="{{path('app_admin_organization_edit', {'id':organization.id})}}"><i class="fas fa-pen"></i> Modifier mon organisation</a></p>
+                <p><a href="{{path('app_admin_home')}}"><i class="fas fa-backward"></i> Retour</a></p>
+            </section>
+                {% endfor %}       
+        </section>
+    </article>
+</main>
+{% endblock %}

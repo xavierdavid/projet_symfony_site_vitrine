@@ -7,12 +7,14 @@
     <header>
         <h1>Interface d'administration</h1>
     </header>
-    <article>
-        <header>
-            <h3>Documents</h3>
-        </header>
-        {# Inclusion du aside #}
-        {% include "admin/partials/_aside.html.twig" %}
+    <article class="container">
+        <section>
+            <header>
+                <h3>Documents</h3>
+            </header>
+            {# Inclusion du aside #}
+            {% include "admin/partials/_aside.html.twig" %}
+        </section>
         <section>
             <header>
                 <h2>Création d'un nouveau document</h2>
@@ -28,6 +30,10 @@
             <section>
                 <button type="submit">Créer le document</button>
                 {{form_end(formView)}}
+            </section>
+            <br>
+            <section>
+                <p><a href="{{path('app_admin_document_index')}}"><i class="fas fa-backward"></i> Retour</a></p>
             </section>
         </section>
     </article>

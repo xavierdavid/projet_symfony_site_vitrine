@@ -162,10 +162,10 @@ class AdminDocumentController extends AbstractController
      * @param DocumentRepository $documentRepository
      * @return Void
      */
-    public function delete($slug, Request $request)
+    public function delete($slug, Request $request, DocumentRepository $documentRepository)
     {
         // Récupération de l'objet Document à supprimer
-        $document = $this->documentRepository->findOneBy([
+        $document = $documentRepository->findOneBy([
             'slug' => $slug
         ]);
         // Vérification de l'existence de l'objet Document à supprimer

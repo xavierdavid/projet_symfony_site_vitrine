@@ -2,12 +2,12 @@
 
 namespace App\Entity;
 
-use App\Repository\CollaboratorRepository;
+use App\Repository\AdministratorRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity(repositoryClass: CollaboratorRepository::class)]
-class Collaborator
+#[ORM\Entity(repositoryClass: AdministratorRepository::class)]
+class Administrator
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -19,7 +19,7 @@ class Collaborator
 
     #[ORM\Column(length: 255)]
     private ?string $lastname = null;
-    
+
     #[ORM\Column(length: 255)]
     private ?string $slug = null;
 
@@ -38,20 +38,31 @@ class Collaborator
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private ?\DateTimeInterface $updatedAt = null;
 
-
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getFirstName(): ?string
+    public function getFirstname(): ?string
     {
         return $this->firstname;
     }
 
-    public function setFirstName(string $firstname): self
+    public function setFirstname(string $firstname): self
     {
         $this->firstname = $firstname;
+
+        return $this;
+    }
+
+    public function getLastname(): ?string
+    {
+        return $this->lastname;
+    }
+
+    public function setLastname(string $lastname): self
+    {
+        $this->lastname = $lastname;
 
         return $this;
     }
@@ -124,18 +135,6 @@ class Collaborator
     public function setUpdatedAt(\DateTimeInterface $updatedAt): self
     {
         $this->updatedAt = $updatedAt;
-
-        return $this;
-    }
-
-    public function getLastname(): ?string
-    {
-        return $this->lastname;
-    }
-
-    public function setLastname(string $lastname): self
-    {
-        $this->lastname = $lastname;
 
         return $this;
     }

@@ -1,0 +1,30 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Mot de passe oublié{% endblock %}
+
+{% block body %}
+<main>
+  <article>
+    <header>
+      <h1>Demande de modification de votre adresse email</h1>
+    </header>
+    {# Formulaire de demande de modification de l'email #}
+    <section>
+      <p>Adresse email actuelle : <strong>{{user.email}}</strong></p>
+      <p>Saisissez la nouvelle adresse email que vous souhaitez associer à votre compte ci-dessous. Nous vous enverrons un lien de vérification à cette adresse pour l'activer.</p>
+      {{form_start(formView)}}
+      {{form_row(formView.new_email)}}
+      <br>
+    </section>
+    <section>
+      <button type="submit">Envoyer</button>
+      {{form_end(formView)}}
+    </section>
+    <br>
+    {# Lien vers la route de la page d'accueil du compte de l'utilisateur #}
+    <section>
+      <p><a href="{{path('app_account_home')}}"><i class="fas fa-backward"></i> Retour vers mon compte</a></p>
+    </section>
+  </article>
+</main>
+{% endblock %}

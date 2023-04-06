@@ -28,13 +28,12 @@
                         <header>
                             <h3>{{organization.organizationName}}</h3>
                         </header>
-                        <p>{{organization.address}} - {{organization.postal}} {{organization.city}}</p>
-                        <p>{{organization.country|upper}}</p>
-                        <p>{{organization.phone}}</p>
+                        <p><i class="fas fa-address-card"></i> Adresse : {{organization.address}} - {{organization.postal}} {{organization.city}} ({{organization.country|upper}})</p>
+                        <p><i class="fas fa-phone"></i> Téléphone : {{organization.phone}}</p>
                         <p>{{organization.facebook}}</p>
                         <p>{{organization.instagram}}</p>
                         <p>{{organization.twitter}}</p>
-                        <p>{{organization.administratorFirstname}} {{organization.administratorLastname}}</p>
+                        <p><i class="fas fa-user"></i> Responsable : {{organization.administratorFirstname}} {{organization.administratorLastname}}</p>
                     </section>
                     <section>
                         <figure>

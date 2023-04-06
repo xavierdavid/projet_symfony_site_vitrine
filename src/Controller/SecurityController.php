@@ -27,7 +27,7 @@ class SecurityController extends AbstractController
     
     #[Route('/login', name: 'app_login')]
     /**
-     * Gestion de la page de login
+     * Contrôle la procédure d'authentification de l'utilisateur
      *
      * @param AuthenticationUtils $authenticationUtils
      * @return Response
@@ -45,9 +45,9 @@ class SecurityController extends AbstractController
         ]);
     }
 
-    #[Route('/forgotten_password', name:'app_forgotten_password')]
+    #[Route('/forgotten/password', name:'app_forgotten_password')]
     /**
-     * Gestion de la récupération du mot de passe
+     * Contrôle la procédure de récupération du mot de passe de l'utilisateur
      *
      * @param Request $request
      * @param UserRepository $userRepository
@@ -87,7 +87,6 @@ class SecurityController extends AbstractController
                 // Redirection vers la page de login
                 return $this->redirectToRoute('app_login');
             }
-
             // Paramétrage de l'email de demande réinitialisation du mot de passe
             $from = "contact@xavier-david.com";
             $to = $user->getEmail();
@@ -101,7 +100,7 @@ class SecurityController extends AbstractController
             try {
                 $this->sendEmail->send($from, $to, $subject, $htmlTemplate, $context);
                 // Envoi d'un message flash
-                $this->addFlash("success", "Un email vient de vous être envoyé à l'adresse " . $user->getEmail(). " pour réinitialiser votre mot de passe.");
+                $this->addFlash("success", "Un lien vient de vous être envoyé à l'adresse " . $user->getEmail(). " pour réinitialiser votre mot de passe.");
                 // Rédirection vers la page de login
                 return $this->redirectToRoute('app_login');
             } catch (TransportExceptionInterface $e) {
@@ -111,15 +110,23 @@ class SecurityController extends AbstractController
                 return $this->redirectToRoute('app_home');
             }
         }
-
         $formView = $form->createView();
-    
         return $this->render('security/forgotten_password.html.twig', [
             'formView' => $formView
         ]);
     }       
     
-    #[Route('/reset_password/{resetToken}', name:'app_reset_password')]
+    #[Route('/reset/password/{resetToken}', name:'app_reset_password')]
+    /**
+     * Contrôle la procédure de réinitialisation du mot de passe de l'utilisateur
+     *
+     * @param [type] $resetToken
+     * @param Request $request
+     * @param UserRepository $userRepository
+     * @param EntityManagerInterface $entityManagerInterface
+     * @param UserPasswordHasherInterface $userPasswordHasherInterface
+     * @return void
+     */
     public function resetPassword($resetToken, Request $request, UserRepository $userRepository, EntityManagerInterface $entityManagerInterface, UserPasswordHasherInterface $userPasswordHasherInterface)
     {
         // Récupération de l'utilisateur correspondant au resetToken
@@ -153,7 +160,6 @@ class SecurityController extends AbstractController
             // Redirection vers la page de login
             return $this->redirectToRoute('app_login');
         }
-
         $formView = $form->createView();
         return $this->render('security/reset_password.html.twig', [
             'formView' => $formView,

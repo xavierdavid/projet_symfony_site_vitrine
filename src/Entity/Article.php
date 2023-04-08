@@ -49,6 +49,9 @@ class Article
     #[ORM\ManyToMany(targetEntity: Document::class, inversedBy: 'articles')]
     private Collection $documents;
 
+    #[ORM\Column(nullable: true)]
+    private ?int $priorityOrder = null;
+
     public function __construct()
     {
         $this->categories = new ArrayCollection();
@@ -225,6 +228,18 @@ class Article
     public function removeDocument(Document $document): self
     {
         $this->files->removeElement($document);
+
+        return $this;
+    }
+
+    public function getPriorityOrder(): ?int
+    {
+        return $this->priorityOrder;
+    }
+
+    public function setPriorityOrder(?int $priorityOrder): self
+    {
+        $this->priorityOrder = $priorityOrder;
 
         return $this;
     }

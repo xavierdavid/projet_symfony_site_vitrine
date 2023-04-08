@@ -38,6 +38,9 @@ class Collaborator
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private ?\DateTimeInterface $updatedAt = null;
 
+    #[ORM\Column(nullable: true)]
+    private ?int $priorityOrder = null;
+
 
     public function getId(): ?int
     {
@@ -136,6 +139,18 @@ class Collaborator
     public function setLastname(string $lastname): self
     {
         $this->lastname = $lastname;
+
+        return $this;
+    }
+
+    public function getPriorityOrder(): ?int
+    {
+        return $this->priorityOrder;
+    }
+
+    public function setPriorityOrder(?int $priorityOrder): self
+    {
+        $this->priorityOrder = $priorityOrder;
 
         return $this;
     }

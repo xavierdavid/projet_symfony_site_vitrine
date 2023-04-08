@@ -22,7 +22,7 @@ class AdminOrganizationController extends AbstractController
         $this->uploadFile = $uploadFile;
     }
     
-    #[Route('/admin/organization/index', name: 'app_admin_organization_index')]
+    #[Route('/admin/organization/index', name:'app_admin_organization_index')]
     /**
      * Contrôle l'affichage de la page d'index des objets Organization
      * @IsGranted("ROLE_ADMIN")
@@ -40,7 +40,7 @@ class AdminOrganizationController extends AbstractController
         ]);
     }
 
-     #[Route('/admin/organization/{id}/edit', name:'app_admin_organization_edit')]
+    #[Route('/admin/organization/{id}/edit', name:'app_admin_organization_edit')]
     /**
      * Contrôle l'affichage et le traitement du formulaire de modification d'un objet Organization
      * @IsGranted("ROLE_ADMIN")

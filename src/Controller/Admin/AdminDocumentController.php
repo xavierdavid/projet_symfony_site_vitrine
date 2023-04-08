@@ -39,7 +39,7 @@ class AdminDocumentController extends AbstractController
     {
         // Création d'une nouvelle instance de la classe Document
         $document = new Document;
-        // Construction du formulaire de création de document
+        // Construction du formulaire de création d'un objet Document
         $form = $this->createForm(DocumentType::class, $document);
         // Analyse de la requête
         $form->handleRequest($request);
@@ -87,7 +87,7 @@ class AdminDocumentController extends AbstractController
             // Récupération de la valeur de l'attribut 'page' (page en cours) transmis en 'GET' dans la requête
             $request->query->getInt('page',1),
             // Nombre d'objets Document à afficher par page
-            3
+            10
         );
         return $this->render('/admin/document/index.html.twig', [
             'documents' => $documents

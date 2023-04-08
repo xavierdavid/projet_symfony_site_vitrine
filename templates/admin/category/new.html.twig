@@ -1,0 +1,39 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}Interface d'administration{% endblock %}
+
+{% block body %}
+<main>
+    <header>
+        <h1>Interface d'administration</h1>
+    </header>
+    <article class="container">
+        <section>
+            <header>
+                <h3>Catégories des articles</h3>
+            </header>
+            {# Inclusion du aside #}
+            {% include "admin/partials/_aside.html.twig" %}
+        </section>
+        <section>
+            <header>
+                <h2>Création d'une nouvelle catégorie</h2>
+            </header>
+            <br>
+            <section>
+                {# Formulaire de création d'un objet Category #}
+                {{form_start(formView)}}
+                {{form_row(formView.name)}}
+            </section>
+            <section>
+                <button type="submit">Créer la catégorie</button>
+                {{form_end(formView)}}
+            </section>
+            <br>
+            <section>
+                <p><a href="{{path('app_admin_category_index')}}"><i class="fas fa-backward"></i> Retour</a></p>
+            </section>
+        </section>
+    </article>
+</main>
+{% endblock %}

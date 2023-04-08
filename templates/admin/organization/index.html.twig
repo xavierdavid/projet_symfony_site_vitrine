@@ -36,9 +36,11 @@
                         <p><i class="fas fa-user"></i> Responsable : {{organization.administratorFirstname}} {{organization.administratorLastname}}</p>
                     </section>
                     <section>
-                        <figure>
-                            <img src="{{asset('uploads/'~ organization.logo)}}" alt="logo de {{organization.organizationName}}" class="mediumSizeImage">
-                        </figure>
+                        {% if organization.logo %}
+                            <figure>
+                                <img src="{{asset('uploads/'~ organization.logo)}}" alt="logo de {{organization.organizationName}}" class="mediumSizeImage">
+                            </figure>
+                        {% endif %}
                         <p><strong>{{organization.siteTitle}}</strong></p>
                         <p>{{organization.shortDescription}}</p>
                         <p>{{organization.description|raw}}</p>

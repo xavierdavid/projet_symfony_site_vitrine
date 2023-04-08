@@ -2,17 +2,14 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        
+        <title>{% block title %}Site de l'organisation{% endblock %}</title>
+        <meta name="description" content="Description du site de l'organisation">
         {# Favison du site #}
         <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
-        
         {# Balise meta viewport #}
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        
         {# Fontawesome #}
         <script src="https://kit.fontawesome.com/44950cf195.js" crossorigin="anonymous"></script>
-        
         {# Lien vers la feuille de style CSS #}
         <link rel="stylesheet" href="{{asset('/css/style.css')}}">
         {% block stylesheets %}{% endblock %}

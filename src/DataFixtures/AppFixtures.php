@@ -3,6 +3,7 @@
 namespace App\DataFixtures;
 
 use App\Entity\User;
+use App\Entity\Metatags;
 use App\Entity\Organization;
 use Doctrine\Persistence\ObjectManager;
 use Doctrine\Bundle\FixturesBundle\Fixture;
@@ -28,7 +29,7 @@ class AppFixtures extends Fixture
                 ->setPassword($hashPassword)
                 ->setFirstname("Xavier")
                 ->setLastname("DAVID");
-                $manager->persist($admin);
+        $manager->persist($admin);
         // Création d'un objet Organization
         $organization = new Organization; 
         $organization 
@@ -43,7 +44,13 @@ class AppFixtures extends Fixture
             ->setDescription('Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.')
             ->setAdministratorFirstname('Xavier')
             ->setAdministratorLastname('DAVID'); 
-            $manager->persist($organization);
+        $manager->persist($organization);
+        // Création d'un objet Metatags
+        $metatags = new Metatags;
+        $metatags
+            ->setTitle("Titre de la page d'accueil du site de l'organisation")
+            ->setMetaDescription("Description de la balise meta de présentation du site pour le référencement SEO");
+        $manager->persist($metatags);
         $manager->flush();
     }
 }

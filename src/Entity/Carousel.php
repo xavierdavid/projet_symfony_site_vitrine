@@ -29,6 +29,9 @@ class Carousel
     #[ORM\Column(length: 255)]
     private ?string $coverImage = null;
 
+    #[ORM\Column(nullable: true)]
+    private ?int $priorityOrder = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -90,6 +93,18 @@ class Carousel
     public function setCoverImage(string $coverImage): self
     {
         $this->coverImage = $coverImage;
+
+        return $this;
+    }
+
+    public function getPriorityOrder(): ?int
+    {
+        return $this->priorityOrder;
+    }
+
+    public function setPriorityOrder(?int $priorityOrder): self
+    {
+        $this->priorityOrder = $priorityOrder;
 
         return $this;
     }

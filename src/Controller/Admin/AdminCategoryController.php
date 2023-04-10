@@ -42,6 +42,10 @@ class AdminCategoryController extends AbstractController
         $form->handleRequest($request);
         // Vérification de la soumission et de la validation du formulaire
         if($form->isSubmitted() && $form->isValid()) {
+            // Récupération du nom dee l'objet Category envoyé via le formulaire
+            /* $newCategoryName = $form->get('name')->getData();
+            dd($newCategoryName); */
+            // Vérification qu'un objet Category n'existe pas déjaà avec ce nom en base de données
             // Affectation des valeurs aux propriétés de l'objet Category
             $category->setSlug(strtolower($this->sluggerInterface->slug($category->getName())));
             // Sauvegarde et envoi en base de données
@@ -80,11 +84,12 @@ class AdminCategoryController extends AbstractController
             $categoriesData,
             // Récupération de la valeur de l'attribut 'page' (page en cours) transmis en 'GET' dans la requête
             $request->query->getInt('page', 1),
-            // Nombre d'objets category à afficher par page
+            // Nombre d'objets Category à afficher par page
             10
         );
         return $this->render('admin/category/index.html.twig', [
-            'categories' => $categories
+            'categories' => $categories,
+            'categoriesData' => $categoriesData
         ]);
     }
 
@@ -105,7 +110,7 @@ class AdminCategoryController extends AbstractController
         ]);
         // Vérification de l'existence de l'objet Category à modifier
         if(!$category){
-            throw $this->createNotFoundException("Le categorie demandé n'existe pas !");
+            throw $this->createNotFoundException("La categorie demandé n'existe pas !");
         }
         // Construction du formulaire de modification de l'objet Category
         $form = $this->createForm(CategoryType::class, $category);

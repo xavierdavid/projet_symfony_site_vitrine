@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{metatag.title}}{% endblock %}
+{% block metadescription %}
+    <meta name="description" content="{{metatag.metaDescription}}">
+{% endblock %}
+
+{% block body %}
+<main>
+    <header>
+        <h1>{{metatag.title}}</h1>
+    </header>
+    <article>
+        <header>
+            <h2>Formulaire de contact</h2>
+        </header>
+        {# Formulaire de contact #}
+        <section>
+            {{form_start(formView)}}
+            {{form_row(formView.firstname)}}
+            {{form_row(formView.lastname)}}
+            {{form_row(formView.organization)}}
+            {{form_row(formView.email)}}
+            {{form_row(formView.subject)}}
+            {{form_row(formView.message)}}
+            {{form_row(formView.isRgpd)}}
+            <br>
+        </section>
+        <section>
+            {# Bouton de soumission du formulaire #}
+            <button type="submit">Envoyer</button>
+            {# Fin du formulaire #}
+            {{form_end(formView)}}
+        </section>
+        <aside></aside>
+    </article>
+</main>
+{% endblock %}

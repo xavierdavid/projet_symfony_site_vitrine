@@ -1,0 +1,69 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}Interface d'administration{% endblock %}
+
+{% block body %}
+<main>
+    <header>
+        <h1>Interface d'administration</h1>
+    </header>
+    <article class="container">
+        <section>
+            <header>
+                <h3>Messages</h3>
+            </header>
+            {# Inclusion du aside #}
+            {% include "admin/partials/_aside.html.twig" %}
+        </section>
+        <section>
+            <header>
+                <h2>Liste des messages</h2>
+            </header>
+            <br>
+            <section>
+                <p>Nombre de messages : <strong>{{contactsData|length}}</strong></p>
+                {# Tableau des objets Contact #}
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Date d'envoi</th>
+                            <th>Nom</th>
+                            <th>Organisation</th>
+                            <th>Email</th>
+                            <th>Sujet</th>
+                            <th>Message</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for contact in contacts %}
+                            <tr>
+                                <td>{{contact.createdAt|format_datetime(locale='fr')}}</td>
+                                <td>{{contact.firstname}} {{contact.lastname|upper}}</td>
+                                <td>{{contact.organization}}</td>
+                                <td><a href="mailto:{{contact.email}}"></a>{{contact.email}}</td>
+                                <td>{{contact.subject}}</td>
+                                <td>{{contact.message}}</td>
+                                {# Actions #}
+                                <td>
+                                    <a type="button" href="{{path('app_admin_contact_delete', {'id':contact.id})}}" class="modal-trigger"  data-token="{{csrf_token('delete' ~ contact.id)}}" data-message="Confirmez-vous la suppression du message de '{{contact.firstname}} {{contact.lastname|upper}} envoyé le {{contact.createdAt|format_datetime(locale='fr')}} ?" ><i class="fas fa-trash-alt"></i> Supprimer</a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                <br>
+                {# Pagination des objets contact #}
+                <section>
+                    <nav class="pagination">
+                        {{knp_pagination_render(contacts)}}
+                    </nav>
+                </section>
+                <section>
+                    <p><a href="{{path('app_admin_home')}}"><i class="fas fa-backward"></i> Retour</a></p>
+                </section>
+            </section>
+        </section>
+    </article>
+</main>
+{% endblock %}

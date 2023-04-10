@@ -21,6 +21,7 @@
             </header>
             <br>
             <section>
+                <p>Nombre de documents : <strong>{{documents|length}}</strong></p>
                 {# Tableau des objets Document #}
                 <table>
                     <thead>
@@ -40,26 +41,26 @@
                                 {# Actions #}
                                 <td>
                                     <a type="button" href="{{path('app_admin_document_edit', {'slug':document.slug})}}"><i class="fas fa-pen"></i> Modifier</a>
-                                    <a type="button" href="{{path('app_admin_document_delete', {'slug':document.slug})}}" class="modal-trigger"  data-token="{{csrf_token('delete' ~ document.slug)}}" data-message="Confirmez-vous la suppression de l'enregistrement '{{document.name}}' ?" ><i class="fas fa-trash-alt"></i> Supprimer</a>
+                                    <a type="button" href="{{path('app_admin_document_delete', {'slug':document.slug})}}" class="modal-trigger"  data-token="{{csrf_token('delete' ~ document.slug)}}" data-message="Confirmez-vous la suppression du document '{{document.name}}' ?" ><i class="fas fa-trash-alt"></i> Supprimer</a>
                                 </td>
                             </tr>
                         {% endfor %}
                     </tbody>
                 </table>
                 <br>
+                {# Pagination des objets Document #}
                 <section>
-                    <a href="{{path('app_admin_document_new')}}"><i class="fas fa-plus"></i> Ajouter</a>
+                    <nav class="pagination">
+                        {{knp_pagination_render(documents)}}
+                    </nav>
+                </section>
+                <section>
+                    <br>
+                    <a href="{{path('app_admin_document_new')}}"><i class="fas fa-plus"></i> Ajouter un document</a>
                     <br>
                     <p><a href="{{path('app_admin_home')}}"><i class="fas fa-backward"></i> Retour</a></p>
                 </section>
             </section>
-        </section>
-        <br>
-        {# Pagination des objets Document #}
-        <section>
-            <nav class="pagination">
-                {{knp_pagination_render(documents)}}
-            </nav>
         </section>
     </article>
 </main>

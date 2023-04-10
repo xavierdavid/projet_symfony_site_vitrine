@@ -21,6 +21,7 @@
             </header>
             <br>
             <section>
+                <p>Nombre de catégories : <strong>{{categoriesData|length}}</strong></p>
                 {# Tableau des objets Category #}
                 <table>
                     <thead>
@@ -36,26 +37,26 @@
                                 {# Actions #}
                                 <td>
                                     <a type="button" href="{{path('app_admin_category_edit', {'slug':category.slug})}}"><i class="fas fa-pen"></i> Modifier</a>
-                                    <a type="button" href="{{path('app_admin_category_delete', {'slug':category.slug})}}" class="modal-trigger"  data-token="{{csrf_token('delete' ~ category.slug)}}" data-message="Confirmez-vous la suppression de l'enregistrement '{{category.name}}' ?" ><i class="fas fa-trash-alt"></i> Supprimer</a>
+                                    <a type="button" href="{{path('app_admin_category_delete', {'slug':category.slug})}}" class="modal-trigger"  data-token="{{csrf_token('delete' ~ category.slug)}}" data-message="Confirmez-vous la suppression de la catégorie '{{category.name}}' ?" ><i class="fas fa-trash-alt"></i> Supprimer</a>
                                 </td>
                             </tr>
                         {% endfor %}
                     </tbody>
                 </table>
                 <br>
+                {# Pagination des objets category #}
                 <section>
-                    <a href="{{path('app_admin_category_new')}}"><i class="fas fa-plus"></i> Ajouter</a>
+                    <nav class="pagination">
+                        {{knp_pagination_render(categories)}}
+                    </nav>
+                </section>
+                <section>
+                    <br>
+                    <a href="{{path('app_admin_category_new')}}"><i class="fas fa-plus"></i> Ajouter une catégorie</a>
                     <br>
                     <p><a href="{{path('app_admin_home')}}"><i class="fas fa-backward"></i> Retour</a></p>
                 </section>
             </section>
-        </section>
-        <br>
-        {# Pagination des objets category #}
-        <section>
-            <nav class="pagination">
-                {{knp_pagination_render(categories)}}
-            </nav>
         </section>
     </article>
 </main>

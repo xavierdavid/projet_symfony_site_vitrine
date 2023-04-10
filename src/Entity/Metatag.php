@@ -2,12 +2,12 @@
 
 namespace App\Entity;
 
-use App\Repository\MetatagsRepository;
+use App\Repository\MetatagRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity(repositoryClass: MetatagsRepository::class)]
-class Metatags
+#[ORM\Entity(repositoryClass: MetatagRepository::class)]
+class Metatag
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -19,6 +19,9 @@ class Metatags
 
     #[ORM\Column(type: Types::TEXT)]
     private ?string $metaDescription = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $pageName = null;
 
     public function getId(): ?int
     {
@@ -45,6 +48,18 @@ class Metatags
     public function setMetaDescription(string $metaDescription): self
     {
         $this->metaDescription = $metaDescription;
+
+        return $this;
+    }
+
+    public function getPageName(): ?string
+    {
+        return $this->pageName;
+    }
+
+    public function setPageName(string $pageName): self
+    {
+        $this->pageName = $pageName;
 
         return $this;
     }

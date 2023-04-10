@@ -1,11 +1,14 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Accueil du site vitrine{% endblock %}
+{% block title %}{{metatag.title}}{% endblock %}
+{% block metadescription %}
+    <meta name="description" content="{{metatag.metaDescription}}">
+{% endblock %}
 
 {% block body %}
 <main>
     <header>
-        <h1>Page d'accueil du site vitrine</h1>
+        <h1>{{metatag.title}}</h1>
     </header>
     <article>
         <header></header>

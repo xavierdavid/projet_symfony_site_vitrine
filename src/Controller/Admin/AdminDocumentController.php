@@ -27,7 +27,7 @@ class AdminDocumentController extends AbstractController
         $this->uploadFile = $uploadFile;
     }
 
-    #[Route('/admin/document/new', name: 'app_admin_document_new')]
+    #[Route('/admin/document/new', name:'app_admin_document_new')]
     /**
      * Contrôle l'affichage et le traitement du formulaire de création d'un objet Document
      * @IsGranted("ROLE_ADMIN")

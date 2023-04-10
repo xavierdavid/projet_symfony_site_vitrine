@@ -9,7 +9,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class AdminHomeController extends AbstractController
 {
-    #[Route('/admin', name: 'app_admin_home')]
+    #[Route('/admin', name:'app_admin_home')]
     /**
      * Contrôle l'affichage de la page d'accueil de l'interface d'administration
      * @IsGranted("ROLE_ADMIN")

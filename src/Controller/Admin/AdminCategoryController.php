@@ -24,7 +24,7 @@ class AdminCategoryController extends AbstractController
         $this->entityManagerInterface = $entityManagerInterface;
     }
 
-    #[Route('/admin/category/new', name: 'app_admin_category_new')]
+    #[Route('/admin/category/new', name:'app_admin_category_new')]
     /**
      * Contrôle l'affichage et le traitement du formulaire de création d'un objet category
      * @IsGranted("ROLE_ADMIN")
@@ -57,7 +57,7 @@ class AdminCategoryController extends AbstractController
         ]);
     }
 
-    #[Route('/admin/category/index', name: 'app_admin_category_index')]
+    #[Route('/admin/category/index', name:'app_admin_category_index')]
     /**
      * Contrôle l'affichage de la page d'index des objets Category
      * @IsGranted("ROLE_ADMIN")

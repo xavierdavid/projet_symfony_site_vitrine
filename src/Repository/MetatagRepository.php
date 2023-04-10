@@ -2,26 +2,26 @@
 
 namespace App\Repository;
 
-use App\Entity\Metatags;
+use App\Entity\Metatag;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @extends ServiceEntityRepository<Metatags>
+ * @extends ServiceEntityRepository<Metatag>
  *
- * @method Metatags|null find($id, $lockMode = null, $lockVersion = null)
- * @method Metatags|null findOneBy(array $criteria, array $orderBy = null)
- * @method Metatags[]    findAll()
- * @method Metatags[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method Metatag|null find($id, $lockMode = null, $lockVersion = null)
+ * @method Metatag|null findOneBy(array $criteria, array $orderBy = null)
+ * @method Metatag[]    findAll()
+ * @method Metatag[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class MetatagsRepository extends ServiceEntityRepository
+class MetatagRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, Metatags::class);
+        parent::__construct($registry, Metatag::class);
     }
 
-    public function save(Metatags $entity, bool $flush = false): void
+    public function save(Metatag $entity, bool $flush = false): void
     {
         $this->getEntityManager()->persist($entity);
 
@@ -30,7 +30,7 @@ class MetatagsRepository extends ServiceEntityRepository
         }
     }
 
-    public function remove(Metatags $entity, bool $flush = false): void
+    public function remove(Metatag $entity, bool $flush = false): void
     {
         $this->getEntityManager()->remove($entity);
 
@@ -40,7 +40,7 @@ class MetatagsRepository extends ServiceEntityRepository
     }
 
 //    /**
-//     * @return Metatags[] Returns an array of Metatags objects
+//     * @return Metatag[] Returns an array of Metatags objects
 //     */
 //    public function findByExampleField($value): array
 //    {
@@ -54,7 +54,7 @@ class MetatagsRepository extends ServiceEntityRepository
 //        ;
 //    }
 
-//    public function findOneBySomeField($value): ?Metatags
+//    public function findOneBySomeField($value): ?Metatag
 //    {
 //        return $this->createQueryBuilder('m')
 //            ->andWhere('m.exampleField = :val')

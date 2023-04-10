@@ -17,7 +17,7 @@
         </section>
         <section>
             <header>
-                <h2>Informations de référencement SEO du site</h2>
+                <h2>Informations de référencement SEO des pages du site</h2>
             </header>
             <br>
             <section>
@@ -25,19 +25,21 @@
                 <table>
                     <thead>
                         <tr>
-                            <th>Balise de titre de la page d'accueil du site</th>
-                            <th>Balise metadescription du site</th>
+                            <th>Nom de la page</th>
+                            <th>Titre de la page</th>
+                            <th>Contenu de la balise metadescription de la page</th>
                             <th>Actions</th>
                         </tr>
                     </thead>
                     <tbody>
                         {% for metatag in metatags %}
                             <tr>
+                                <td>{{metatag.pageName}}</td>
                                 <td>{{metatag.title}}</td>
                                 <td>{{metatag.metaDescription}}</td>
                                 {# Actions #}
                                 <td>
-                                  <a type="button" href="{{path('app_admin_metatags_edit', {'id':metatag.id})}}"><i class="fas fa-pen"></i> Modifier</a>
+                                  <a type="button" href="{{path('app_admin_metatag_edit', {'id':metatag.id})}}"><i class="fas fa-pen"></i> Modifier</a>
                                 </td>
                             </tr>
                         {% endfor %}

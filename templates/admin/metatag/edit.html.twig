@@ -17,12 +17,13 @@
         </section>
         <section>
             <header>
-                <h2>Modification des informations de référencement SEO du site</h2>
+                <h2>Modification des informations de référencement de la page</h2>
             </header>
             <br>
             <section>
-                {# Formulaire de modification d'un objet Metatags #}
+                {# Formulaire de modification d'un objet Metatag #}
                 {{form_start(formView)}}
+                {{form_row(formView.pageName)}}
                 {{form_row(formView.title)}}
                 {{form_row(formView.metaDescription)}}
             </section>
@@ -32,7 +33,7 @@
             </section>
             <br>
             <section>
-                <p><a href="{{path('app_admin_metatags_index')}}"><i class="fas fa-backward"></i> Retour</a></p>
+                <p><a href="{{path('app_admin_metatag_index')}}"><i class="fas fa-backward"></i> Retour</a></p>
             </section>
         </section>
     </article>

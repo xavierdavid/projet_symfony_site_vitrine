@@ -3,7 +3,7 @@
 namespace App\DataFixtures;
 
 use App\Entity\User;
-use App\Entity\Metatags;
+use App\Entity\Metatag;
 use App\Entity\Organization;
 use Doctrine\Persistence\ObjectManager;
 use Doctrine\Bundle\FixturesBundle\Fixture;
@@ -45,12 +45,42 @@ class AppFixtures extends Fixture
             ->setAdministratorFirstname('Xavier')
             ->setAdministratorLastname('DAVID'); 
         $manager->persist($organization);
-        // Création d'un objet Metatags
-        $metatags = new Metatags;
-        $metatags
-            ->setTitle("Titre de la page d'accueil du site de l'organisation")
-            ->setMetaDescription("Description de la balise meta de présentation du site pour le référencement SEO");
-        $manager->persist($metatags);
+        // Création d'un objet Metatag pour la page 'Accueil' du site
+        $homeMetatag = new Metatag;
+        $homeMetatag
+            ->setPageName('Accueil')
+            ->setTitle("Titre de la page 'Accueil'")
+            ->setMetaDescription("Description de la page d'accueil");
+        $manager->persist($homeMetatag);
+        // Création d'un objet Metatag pour la page 'A propos' du site
+        $aProposMetatag = new Metatag;
+        $aProposMetatag
+            ->setPageName('A propos')
+            ->setTitle("Titre de la page 'A propos'")
+            ->setMetaDescription("Description de la page 'A propos'");
+        $manager->persist($aProposMetatag);
+        // Création d'un objet Metatag pour la page 'Services' du site
+        $servicesMetatag = new Metatag;
+        $servicesMetatag
+            ->setPageName('Services')
+            ->setTitle("Titre de la page 'Services'")
+            ->setMetaDescription("Description de la page 'Services'");
+        $manager->persist($servicesMetatag);
+        // Création d'un objet Metatag pour la page 'Articles' du site
+        $articlesMetatag = new Metatag;
+        $articlesMetatag
+            ->setPageName('Articles')
+            ->setTitle("Titre de la page 'Articles'")
+            ->setMetaDescription("Description de la page 'Articles'");
+        $manager->persist($articlesMetatag);
+        // Création d'un objet Metatag pour la page 'Contact' du site
+        $contactMetatag = new Metatag;
+        $contactMetatag
+            ->setPageName('Contact')
+            ->setTitle("Titre de la page 'Contact'")
+            ->setMetaDescription("Description de la page 'Contact'");
+        $manager->persist($contactMetatag);
+        // Envoi en base de données
         $manager->flush();
     }
 }

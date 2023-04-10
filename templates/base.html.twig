@@ -3,7 +3,9 @@
     <head>
         <meta charset="UTF-8">
         <title>{% block title %}Site de l'organisation{% endblock %}</title>
-        <meta name="description" content="Description du site de l'organisation">
+        {% block metadescription %}
+            <meta name="description" content="Description du site de l'organisation">
+        {% endblock %}
         {# Favison du site #}
         <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
         {# Balise meta viewport #}
@@ -14,6 +16,7 @@
         <link rel="stylesheet" href="{{asset('/css/style.css')}}">
         {% block stylesheets %}{% endblock %}
     </head>
+    
     <body>
         {# Inclusion du header #}
         {% include "partials/_header.html.twig" %}

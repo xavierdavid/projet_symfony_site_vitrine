@@ -39,6 +39,16 @@ class Image
         $this->products = new ArrayCollection();
     }
 
+    /**
+     * Retourne le nom de l'objet Image sous forme d'une chaîne de caractères
+     *
+     * @return string
+    */
+    public function __toString()
+    {
+        return $this->name;
+    }
+
     public function getId(): ?int
     {
         return $this->id;

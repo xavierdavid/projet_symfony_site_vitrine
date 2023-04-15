@@ -38,15 +38,16 @@
                     <tbody>
                         {% for contact in contacts %}
                             <tr>
-                                <td>{{contact.createdAt|format_datetime(locale='fr')}}</td>
+                                <td>{{contact.createdAt|format_datetime(locale='fr', timezone='Europe/Paris')}}</td>
                                 <td>{{contact.firstname}} {{contact.lastname|upper}}</td>
                                 <td>{{contact.organization}}</td>
-                                <td><a href="mailto:{{contact.email}}"></a>{{contact.email}}</td>
+                                <td><a href="mailto:{{contact.email}}" target="_blank">{{contact.email}}</a></td>
                                 <td>{{contact.subject}}</td>
                                 <td>{{contact.message}}</td>
                                 {# Actions #}
                                 <td>
-                                    <a type="button" href="{{path('app_admin_contact_delete', {'id':contact.id})}}" class="modal-trigger"  data-token="{{csrf_token('delete' ~ contact.id)}}" data-message="Confirmez-vous la suppression du message de '{{contact.firstname}} {{contact.lastname|upper}} envoyé le {{contact.createdAt|format_datetime(locale='fr')}} ?" ><i class="fas fa-trash-alt"></i> Supprimer</a>
+                                    <a type="button" href="{{path('app_admin_contact_delete', {'id':contact.id})}}" class="modal-trigger"  data-token="{{csrf_token('delete' ~ contact.id)}}" data-message="Confirmez-vous la suppression du message de '{{contact.firstname}} {{contact.lastname|upper}} envoyé le {{contact.createdAt|format_datetime(locale='fr', timezone='Europe/Paris')}} ?" ><i class="fas fa-trash-alt"></i> Supprimer</a>
+                                    <a href="mailto:{{contact.email}}" target="_blank"><i class="fas fa-envelope"></i> Répondre</a>
                                 </td>
                             </tr>
                         {% endfor %}

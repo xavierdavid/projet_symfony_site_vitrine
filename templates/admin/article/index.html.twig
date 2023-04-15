@@ -1,0 +1,74 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}Interface d'administration{% endblock %}
+
+{% block body %}
+<main>
+    <header>
+        <h1>Interface d'administration</h1>
+    </header>
+    <article class="container">
+        <section>
+            <header>
+                <h3>Articles</h3>
+            </header>
+            {# Inclusion du aside #}
+            {% include "admin/partials/_aside.html.twig" %}
+        </section>
+        <section>
+            <header>
+                <h2>Liste des articles</h2>
+            </header>
+            <br>
+            <section>
+                <p>Nombre d'articles : <strong>{{articlesData|length}}</strong></p>
+                {# Tableau des objets Article #}
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Titre</th>
+                            <th>Date de mise à jour</th>
+                            <th>Texte d'introduction</th>
+                            <th>Image de couverture</th>
+                            <th>A la une</th>
+                            <th>Priorité de publication</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for article in articles %}
+                            <tr>
+                                <td>{{article.title}}</td>
+                                <td>{{article.updatedAt|format_datetime(locale='fr', timezone='Europe/Paris')}}</td>
+                                <td>{{article.shortIntroduction}}</td>
+                                <td><a href="{{asset('uploads/'~article.coverImage)}}" target="_blank"><img src="{{asset('uploads/'~article.coverImage)}}" alt="{{article.title}}" class="smallSizeImage"></a></td>
+                                <td>{{article.isFrontPage}}</td>
+                                <td>{{article.priorityOrder}}</td>
+                                {# Actions #}
+                                <td>
+                                    <a type="button" href="{{path('app_admin_article_detail', {'slug':article.slug})}}"><i class="fas fa-eye"></i> Voir</a>
+                                    <a type="button" href="{{path('app_admin_article_edit', {'slug':article.slug})}}"><i class="fas fa-pen"></i> Modifier</a>
+                                    <a type="button" href="{{path('app_admin_article_delete', {'slug':article.slug})}}" class="modal-trigger"  data-token="{{csrf_token('delete' ~ article.slug)}}" data-message="Confirmez-vous la suppression de l'article '{{article.title}}' ?" ><i class="fas fa-trash-alt"></i> Supprimer</a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                <br>
+                {# Pagination des objets article #}
+                <section>
+                    <nav class="pagination">
+                        {{knp_pagination_render(articles)}}
+                    </nav>
+                </section>
+                <section>
+                    <br>
+                    <a href="{{path('app_admin_article_new')}}"><i class="fas fa-plus"></i> Ajouter un article</a>
+                    <br>
+                    <p><a href="{{path('app_admin_home')}}"><i class="fas fa-backward"></i> Retour</a></p>
+                </section>
+            </section>
+        </section>
+    </article>
+</main>
+{% endblock %}

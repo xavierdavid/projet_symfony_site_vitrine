@@ -1,0 +1,68 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}Interface d'administration{% endblock %}
+
+{% block body %}
+<main>
+    <header>
+        <h1>Interface d'administration</h1>
+    </header>
+    <article class="container">
+        <section>
+            <header>
+                <h3>Articles</h3>
+            </header>
+            {# Inclusion du aside #}
+            {% include "admin/partials/_aside.html.twig" %}
+        </section>
+        <section>
+            <header>
+                <h2>Modification d'un article</h2>
+            </header>
+            <br>
+            <section>
+                {# Formulaire de modification d'un objet Article #}
+                {{form_start(formView)}}
+                {{form_row(formView.title)}}
+                {{form_row(formView.shortIntroduction)}}
+                <br>
+                {{form_row(formView.content)}}
+                <br>
+                {{form_row(formView.coverImage)}}
+                {# Affichage de l'image de couverture de l'objet Article#}
+                <figure>
+                    <img src="{{asset('uploads/'~article.coverImage)}}" alt="{{article.title}}" class="mediumSizeImage">
+                </figure>
+                {{form_row(formView.isFrontPage)}}
+                {{form_row(formView.priorityOrder)}}
+            </section>
+            <section>
+              <header>
+                <h4>Objets associés</h4>
+              </header>
+                {{form_row(formView.categories)}}
+                <br>
+                {{form_row(formView.documents)}}
+                <br>
+                {{form_row(formView.images)}}
+                {# Affichage des objets Image associés à l'objet Article #}
+                {% for image in images %}
+                  <figure>
+                    <img src="{{asset('uploads/'~image.imageFile)}}" alt="{{image.caption}}" class="smallSizeImage">
+                    <figcaption><small>{{image.name}}</small></figcaption>
+                  </figure>
+                {% endfor %}
+            </section>
+            <section>
+                <br>
+                <button type="submit">Modifier l'article</button>
+                {{form_end(formView)}}
+            </section>
+            <br>
+            <section>
+                <p><a href="{{path('app_admin_article_index')}}"><i class="fas fa-backward"></i> Retour</a></p>
+            </section>
+        </section>
+    </article>
+</main>
+{% endblock %}

@@ -1,0 +1,57 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}Interface d'administration{% endblock %}
+
+{% block body %}
+<main>
+    <header>
+        <h1>Interface d'administration</h1>
+    </header>
+    <article class="container">
+        <section>
+            <header>
+                <h3>Articles</h3>
+            </header>
+            {# Inclusion du aside #}
+            {% include "admin/partials/_aside.html.twig" %}
+        </section>
+        <section>
+            <header>
+                <h2>Création d'un nouvel article</h2>
+            </header>
+            <br>
+            <section>
+                {# Formulaire de création d'un objet Article #}
+                {{form_start(formView)}}
+                {{form_row(formView.title)}}
+                {{form_row(formView.shortIntroduction)}}
+                <br>
+                {{form_row(formView.content)}}
+                <br>
+                {{form_row(formView.coverImage)}}
+                {{form_row(formView.isFrontPage)}}
+                {{form_row(formView.priorityOrder)}}
+            </section>
+            <section>
+              <header>
+                <h4>Objets associés</h4>
+              </header>
+                {{form_row(formView.categories)}}
+                <br>
+                {{form_row(formView.documents)}}
+                <br>
+                {{form_row(formView.images)}}
+            </section>
+            <section>
+                <br>
+                <button type="submit">Créer l'article</button>
+                {{form_end(formView)}}
+            </section>
+            <br>
+            <section>
+                <p><a href="{{path('app_admin_article_index')}}"><i class="fas fa-backward"></i> Retour</a></p>
+            </section>
+        </section>
+    </article>
+</main>
+{% endblock %}

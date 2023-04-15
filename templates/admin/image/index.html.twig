@@ -10,49 +10,53 @@
     <article class="container">
         <section>
             <header>
-                <h3>Catégories</h3>
+                <h3>Images</h3>
             </header>
             {# Inclusion du aside #}
             {% include "admin/partials/_aside.html.twig" %}
         </section>
         <section>
             <header>
-                <h2>Liste des catégories des articles</h2>
+                <h2>Liste des images</h2>
             </header>
             <br>
             <section>
-                <p>Nombre de catégories : <strong>{{categoriesData|length}}</strong></p>
-                {# Tableau des objets Category #}
+                <p>Nombre d'images : <strong>{{imagesData|length}}</strong></p>
+                {# Tableau des objets Image #}
                 <table>
                     <thead>
                         <tr>
-                            <th>Nom de la catégorie d'article</th>
+                            <th>Nom</th>
+                            <th>Image</th>
+                            <th>Description</th>
                             <th>Actions</th>
                         </tr>
                     </thead>
                     <tbody>
-                        {% for category in categories %}
+                        {% for image in images %}
                             <tr>
-                                <td>{{category.name|capitalize}}</td>
+                                <td>{{image.name}}</td>
+                                <td><a href="{{asset('uploads/'~image.imageFile)}}" target="_blank"><img src="{{asset('uploads/'~image.imageFile)}}" alt="{{image.caption}}" class="smallSizeImage"></a></td>
+                                <td>{{image.caption}}</td>
                                 {# Actions #}
                                 <td>
-                                    <a type="button" href="{{path('app_admin_category_edit', {'slug':category.slug})}}"><i class="fas fa-pen"></i> Modifier</a>
-                                    <a type="button" href="{{path('app_admin_category_delete', {'slug':category.slug})}}" class="modal-trigger"  data-token="{{csrf_token('delete' ~ category.slug)}}" data-message="Confirmez-vous la suppression de la catégorie '{{category.name}}' ?" ><i class="fas fa-trash-alt"></i> Supprimer</a>
+                                    <a type="button" href="{{path('app_admin_image_edit', {'slug':image.slug})}}"><i class="fas fa-pen"></i> Modifier</a>
+                                    <a type="button" href="{{path('app_admin_image_delete', {'slug':image.slug})}}" class="modal-trigger"  data-token="{{csrf_token('delete' ~ image.slug)}}" data-message="Confirmez-vous la suppression de l'image '{{image.name}}' ?" ><i class="fas fa-trash-alt"></i> Supprimer</a>
                                 </td>
                             </tr>
                         {% endfor %}
                     </tbody>
                 </table>
                 <br>
-                {# Pagination des objets category #}
+                {# Pagination des objets image #}
                 <section>
                     <nav class="pagination">
-                        {{knp_pagination_render(categories)}}
+                        {{knp_pagination_render(images)}}
                     </nav>
                 </section>
                 <section>
                     <br>
-                    <a href="{{path('app_admin_category_new')}}"><i class="fas fa-plus"></i> Ajouter une catégorie</a>
+                    <a href="{{path('app_admin_image_new')}}"><i class="fas fa-plus"></i> Ajouter une image</a>
                     <br>
                     <p><a href="{{path('app_admin_home')}}"><i class="fas fa-backward"></i> Retour</a></p>
                 </section>

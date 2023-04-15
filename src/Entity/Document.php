@@ -39,11 +39,11 @@ class Document
         $this->products = new ArrayCollection();
     }
 
-     /**
-     * Retourne le nom du document sous forme d'une chaîne de caractères
+    /**
+     * Retourne le nom de l'objet Document sous forme d'une chaîne de caractères
      *
      * @return string
-     */
+    */
     public function __toString()
     {
         return $this->name;

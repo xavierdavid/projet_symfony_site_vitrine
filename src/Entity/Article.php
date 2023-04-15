@@ -57,6 +57,8 @@ class Article
         $this->categories = new ArrayCollection();
         $this->images = new ArrayCollection();
         $this->documents = new ArrayCollection();
+        $this->createdAt = new \DateTimeImmutable();
+        $this->updatedAt = new \DateTime();
     }
 
     public function getId(): ?int

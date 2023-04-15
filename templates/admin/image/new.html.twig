@@ -1,0 +1,41 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}Interface d'administration{% endblock %}
+
+{% block body %}
+<main>
+    <header>
+        <h1>Interface d'administration</h1>
+    </header>
+    <article class="container">
+        <section>
+            <header>
+                <h3>Images</h3>
+            </header>
+            {# Inclusion du aside #}
+            {% include "admin/partials/_aside.html.twig" %}
+        </section>
+        <section>
+            <header>
+                <h2>Création d'une nouvelle image</h2>
+            </header>
+            <br>
+            <section>
+                {# Formulaire de création d'un objet Image #}
+                {{form_start(formView)}}
+                {{form_row(formView.name)}}
+                {{form_row(formView.imageFile)}}
+                {{form_row(formView.caption)}}
+            </section>
+            <section>
+                <button type="submit">Créer l'image</button>
+                {{form_end(formView)}}
+            </section>
+            <br>
+            <section>
+                <p><a href="{{path('app_admin_image_index')}}"><i class="fas fa-backward"></i> Retour</a></p>
+            </section>
+        </section>
+    </article>
+</main>
+{% endblock %}

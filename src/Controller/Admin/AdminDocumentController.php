@@ -19,6 +19,7 @@ class AdminDocumentController extends AbstractController
 {
     private $entityManagerInterface;
     private $sluggerInterface;
+    private $uploadFile;
 
     public function __construct(EntityManagerInterface $entityManagerInterface, SluggerInterface $sluggerInterface, UploadFile $uploadFile)
     {
@@ -90,7 +91,8 @@ class AdminDocumentController extends AbstractController
             10
         );
         return $this->render('/admin/document/index.html.twig', [
-            'documents' => $documents
+            'documents' => $documents,
+            'documentsData' => $documentsData
         ]);
     }
 
@@ -172,17 +174,27 @@ class AdminDocumentController extends AbstractController
         if(!$document){
             throw $this->createNotFoundException("Le document demandé n'existe pas !");
         }
-        // Test du token autorisant la suppression de l'objet Document
-        if($this->isCsrfTokenValid('delete'.$document->getSlug(), $request->get('_token'))){
-            // Suppression de l'objet Document
-            $this->entityManagerInterface->remove($document);
-            // Suppression du fichier de l'objet Document dans le répertoire cible
-            unlink($this->getParameter('uploads_directory').'/'.$document->getDocumentFile());
-            // Enregistrement en base de données
-            $this->entityManagerInterface->flush($document);
-            // Message flash et redirection
-            $this->addFlash("success","Le document a été supprimé avec succès !");
-            return $this->redirectToRoute('app_admin_document_index');
+        // Récupération des objets Article associés à l'objet Document
+        $articles = $document->getArticles();
+        // Récupération des objets Product associés à l'objet Document
+        $products = $document->getProducts();
+        // Vérification de l'existence d'objets Article ou Product associés à l'objet Image
+        if($articles->isEmpty() && $products->isEmpty()) {
+            // Test du token autorisant la suppression de l'objet Document
+            if($this->isCsrfTokenValid('delete'.$document->getSlug(), $request->get('_token'))){
+                // Suppression de l'objet Document
+                $this->entityManagerInterface->remove($document);
+                // Suppression du fichier de l'objet Document dans le répertoire cible
+                unlink($this->getParameter('uploads_directory').'/'.$document->getDocumentFile());
+                // Enregistrement en base de données
+                $this->entityManagerInterface->flush($document);
+                // Message flash et redirection
+                $this->addFlash("success","Le document a été supprimé avec succès !");
+                return $this->redirectToRoute('app_admin_document_index');
+            }
         }
+        // Message flash et redirection
+        $this->addFlash("warning", "Impossible de supprimer le document car ce dernier est associé à un ou plusieurs services ou articles");
+        return $this->redirectToRoute('app_admin_document_index');
     }
 }

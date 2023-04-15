@@ -31,6 +31,16 @@ class Category
         $this->articles = new ArrayCollection();
     }
 
+    /**
+     * Retourne le nom de l'objet Category sous forme d'une chaîne de caractères
+     *
+     * @return string
+    */
+    public function __toString()
+    {
+        return $this->name;
+    }
+
     public function getId(): ?int
     {
         return $this->id;

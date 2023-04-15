@@ -67,7 +67,7 @@ class AdminOrganizationController extends AbstractController
         $form->handleRequest($request);
         // Vérification de la soumission et de la validation du formulaire
         if($form->isSubmitted() && $form->isValid()) {
-            // Récupération d'un éventuel nouveau fichier logo de l'objet Organiztion envoyé par le formulaire
+            // Récupération d'un éventuel nouveau fichier logo de l'objet Organization envoyé par le formulaire
             $logoFile = $form->get('logo')->getData();
             // Vérification de l'existence d'un nouveau fichier lgo de l'objet Organization transmis par le formulaire
             if($logoFile) {

@@ -42,10 +42,6 @@ class AdminCategoryController extends AbstractController
         $form->handleRequest($request);
         // Vérification de la soumission et de la validation du formulaire
         if($form->isSubmitted() && $form->isValid()) {
-            // Récupération du nom dee l'objet Category envoyé via le formulaire
-            /* $newCategoryName = $form->get('name')->getData();
-            dd($newCategoryName); */
-            // Vérification qu'un objet Category n'existe pas déjaà avec ce nom en base de données
             // Affectation des valeurs aux propriétés de l'objet Category
             $category->setSlug(strtolower($this->sluggerInterface->slug($category->getName())));
             // Sauvegarde et envoi en base de données

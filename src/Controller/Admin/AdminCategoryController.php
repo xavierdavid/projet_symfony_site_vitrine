@@ -148,15 +148,23 @@ class AdminCategoryController extends AbstractController
         if(!$category){
             throw $this->createNotFoundException("Le categorie demandé n'existe pas !");
         }
-        // Test du token autorisant la suppression de l'objet Category
-        if($this->isCsrfTokenValid('delete'.$category->getSlug(), $request->get('_token'))){
-            // Suppression de l'objet Category
-            $this->entityManagerInterface->remove($category);
-            // Enregistrement en base de données
-            $this->entityManagerInterface->flush($category);
-            // Message flash et redirection
-            $this->addFlash("success","La categorie a été supprimée avec succès !");
-            return $this->redirectToRoute('app_admin_category_index');
+        // Récupération des objets Article associés à l'objet Category
+        $articles = $category->getArticles();
+        // Vérification de l'existence d'objets Article associés à l'objet Image
+        if($articles->isEmpty()) {
+            // Test du token autorisant la suppression de l'objet Category
+            if($this->isCsrfTokenValid('delete'.$category->getSlug(), $request->get('_token'))){
+                // Suppression de l'objet Category
+                $this->entityManagerInterface->remove($category);
+                // Enregistrement en base de données
+                $this->entityManagerInterface->flush($category);
+                // Message flash et redirection
+                $this->addFlash("success","La categorie a été supprimée avec succès !");
+                return $this->redirectToRoute('app_admin_category_index');
+            }
         }
+        // Message flash et redirection
+        $this->addFlash("warning", "Impossible de supprimer la catégorie car cette dernière est associée à un ou plusieurs articles");
+        return $this->redirectToRoute('app_admin_category_index');    
     }
 }

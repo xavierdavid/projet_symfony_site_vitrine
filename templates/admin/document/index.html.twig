@@ -36,7 +36,11 @@
                         {% for document in documents %}
                             <tr>
                                 <td>{{document.name}}</td>
-                                <td><a href="{{asset('uploads/'~document.documentFile)}}" target="_blank"><i class="fas fa-eye"></i> Afficher</a></td>
+                                <td>
+                                    {% if document.documentFile %}
+                                        <a href="{{asset('uploads/'~document.documentFile)}}" target="_blank"><i class="fas fa-eye"></i> Afficher</a>
+                                    {% endif %}
+                                </td>
                                 <td>{{document.caption}}</td>
                                 {# Actions #}
                                 <td>

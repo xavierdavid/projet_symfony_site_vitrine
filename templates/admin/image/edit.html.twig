@@ -20,6 +20,13 @@
                 <h2>Modification d'une image</h2>
             </header>
             <br>
+                {# Affichage du fichier image de l'objet Image à modifier #}
+                {% if image.imageFile %}
+                    <figure>
+                        <img src="{{asset('uploads/'~image.imageFile)}}" alt="{{image.caption}}">
+                        <figcaption><small>{{image.name}}</small></figcaption>
+                    </figure>
+                {% endif %}
             <section>
                 {# Formulaire de modification d'un objet Image #}
                 {{form_start(formView)}}

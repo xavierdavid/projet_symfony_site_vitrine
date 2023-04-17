@@ -29,10 +29,12 @@
                 {{form_row(formView.content)}}
                 <br>
                 {{form_row(formView.coverImage)}}
-                {# Affichage de l'image de couverture de l'objet Article#}
-                <figure>
-                    <img src="{{asset('uploads/'~article.coverImage)}}" alt="{{article.title}}" class="mediumSizeImage">
-                </figure>
+                {# Affichage de l'image de couverture de l'objet Article à modifier #}
+                {% if article.coverImage %}
+                    <figure>
+                        <img src="{{asset('uploads/'~article.coverImage)}}" alt="{{article.title}}" class="mediumSizeImage">
+                    </figure>
+                {% endif %}
                 {{form_row(formView.isFrontPage)}}
                 {{form_row(formView.priorityOrder)}}
             </section>
@@ -45,7 +47,7 @@
                 {{form_row(formView.documents)}}
                 <br>
                 {{form_row(formView.images)}}
-                {# Affichage des objets Image associés à l'objet Article #}
+                {# Affichage des objets Image associés à l'objet Article à modifier #}
                 {% for image in images %}
                   <figure>
                     <img src="{{asset('uploads/'~image.imageFile)}}" alt="{{image.caption}}" class="smallSizeImage">

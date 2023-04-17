@@ -36,7 +36,11 @@
                         {% for image in images %}
                             <tr>
                                 <td>{{image.name}}</td>
-                                <td><a href="{{asset('uploads/'~image.imageFile)}}" target="_blank"><img src="{{asset('uploads/'~image.imageFile)}}" alt="{{image.caption}}" class="smallSizeImage"></a></td>
+                                <td>
+                                    {% if image.imageFile %}
+                                        <a href="{{asset('uploads/'~image.imageFile)}}" target="_blank"><img src="{{asset('uploads/'~image.imageFile)}}" alt="{{image.caption}}" class="smallSizeImage"></a>
+                                    {% endif %} 
+                                </td>
                                 <td>{{image.caption}}</td>
                                 {# Actions #}
                                 <td>

@@ -3,8 +3,9 @@
 namespace App\Repository;
 
 use App\Entity\Article;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use App\Services\SearchArticle;
 use Doctrine\Persistence\ManagerRegistry;
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 
 /**
  * @extends ServiceEntityRepository<Article>
@@ -37,6 +38,39 @@ class ArticleRepository extends ServiceEntityRepository
         if ($flush) {
             $this->getEntityManager()->flush();
         }
+    }
+
+    /**
+     * Permet de configurer une requête personnalisée pour récupérer en base de données les objets Article en fonction des propriétés de filtre de l'objet SearchArticle
+     *
+     * @param SearchArticle $searchArticle
+     * @return Article[]
+     */
+    public function findWithSearchArticle(SearchArticle $searchArticle)
+    {
+        // Configuration de la requête qui récupère les objets Article et les objets Category associés
+        $query = $this
+            ->createQueryBuilder('a')
+            // Sélection des objets Category et Article  
+            ->select('c', 'a')
+            // Jointure entre les objets Article et Category associées dans une relation "ManyToMany" - Récupère par défaut tous les objets Article même ceux non associés à un objet Category (leftJoin) 
+            ->leftJoin('a.categories', 'c')
+            // Tri des objets Article par date de mise à jour et par ordre décroissant
+            ->orderBy('a.updatedAt', 'DESC');
+        // Affinement de la requête si un filtre de catégorie $category est présent dans l'objet SearchArticle
+        if(!empty($searchArticle->category)) {
+            $query = $query
+                ->andWhere('c.id IN (:category)')
+                ->setParameter('category', $searchArticle->category);
+        }
+        // Affinement de la requête si un filtre de mot clé $string est présent dans l'objet SearchArticle
+        if(!empty($searchArticle->string)) {
+            $query = $query
+                ->andWhere('a.title LIKE :string')
+                ->setParameter('string', "%$searchArticle->string%");
+        }
+        // Retour des résultats de la requête
+        return $query->getQuery()->getResult();
     }
 
 //    /**

@@ -19,6 +19,19 @@
             <header>
                 <h2>Liste des articles</h2>
             </header>
+            <aside>
+                <h4>Filter les articles</h4>
+                {# Formulaire de recherche d'objets Article #}
+                <section>
+                    {{form_start(formView)}}
+                    {{form_row(formView.string)}}
+                    <br>
+                    {{form_row(formView.category)}}
+                    <br>
+                    <button type="submit">Filtrer</button>
+                    {{form_end(formView)}}
+                </section>
+            </aside>
             <br>
             <section>
                 <p>Nombre d'articles : <strong>{{articlesData|length}}</strong></p>
@@ -41,7 +54,11 @@
                                 <td>{{article.title}}</td>
                                 <td>{{article.updatedAt|format_datetime(locale='fr', timezone='Europe/Paris')}}</td>
                                 <td>{{article.shortIntroduction}}</td>
-                                <td><a href="{{asset('uploads/'~article.coverImage)}}" target="_blank"><img src="{{asset('uploads/'~article.coverImage)}}" alt="{{article.title}}" class="smallSizeImage"></a></td>
+                                <td>
+                                    {% if article.coverImage %}
+                                        <a href="{{asset('uploads/'~article.coverImage)}}" target="_blank"><img src="{{asset('uploads/'~article.coverImage)}}" alt="{{article.title}}" class="smallSizeImage"></a>
+                                    {% endif %}
+                                </td>
                                 <td>{{article.isFrontPage}}</td>
                                 <td>{{article.priorityOrder}}</td>
                                 {# Actions #}

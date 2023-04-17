@@ -5,6 +5,8 @@ namespace App\Controller\Admin;
 use App\Entity\Article;
 use App\Form\ArticleType;
 use App\Services\UploadFile;
+use App\Form\SearchArticleType;
+use App\Services\SearchArticle;
 use App\Repository\ArticleRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
@@ -82,10 +84,14 @@ class AdminArticleController extends AbstractController
      */
     public function index(Request $request, ArticleRepository $articleRepository, PaginatorInterface $paginatorInterface): Response
     {
-        // Récupération des objets Article en base de données
-        $articlesData = $articleRepository->findBy([], [
-            'updatedAt' => 'DESC'
-        ]);
+        // Instanciation d'un nouvel objet de recherche d'objets Article
+        $searchArticle = new SearchArticle;
+        // Création du formulaire de recherche d'objets Article
+        $form = $this->createForm(SearchArticleType::class, $searchArticle);
+        // Analyse de la requête et traitement du formulaire de recherche
+        $form->handleRequest($request);
+        // Récupération en base de données des objets Article sélectionnés à l'aide des propriétés de l'objet SearchArticle
+        $articlesData = $articleRepository->findWithSearchArticle($searchArticle);
         // Pagination des objets Article
         $articles = $paginatorInterface->paginate(
             // Objets Article récupérés
@@ -95,9 +101,11 @@ class AdminArticleController extends AbstractController
             // Nombre d'objets Article à afficher par page
             10
         );
+        $formView = $form->createView();
         return $this->render('admin/article/index.html.twig', [
             'articles' => $articles,
-            'articlesData' => $articlesData
+            'articlesData' => $articlesData,
+            'formView' => $formView
         ]);
     }
 
@@ -208,6 +216,8 @@ class AdminArticleController extends AbstractController
         $article = $articleRepository->findOneBy([
             'slug' =>$slug
         ]);
+        // Récupération du fichier d'image de couverture de l'objet Article à supprimer
+        $coverImage = $article->getCoverImage();
         // Vérification de l'existence de l'objet Article à supprimer
         if(!$article){
             throw $this->createNotFoundException("L'article demandé n'existe pas !");
@@ -216,8 +226,11 @@ class AdminArticleController extends AbstractController
         if($this->isCsrfTokenValid('delete'.$article->getSlug(), $request->get('_token'))){
             // Suppression de l'objet Article
             $this->entityManagerInterface->remove($article);
-            // Suppression du fichier d'image de couverture de l'objet Article dans le répertoire cible
-            unlink($this->getParameter('uploads_directory').'/'.$article->getCoverImage());
+            // Si l'objet Article à supprimer possède un fichier d'image de couverture
+            if($coverImage) {
+                // Suppression du fichier d'image de couverture de l'objet Article dans le répertoire cible
+                unlink($this->getParameter('uploads_directory').'/'.$coverImage);
+            }
             // Enregistrement en base de données
             $this->entityManagerInterface->flush($article);
             // Message flash et redirection

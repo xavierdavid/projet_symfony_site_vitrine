@@ -150,7 +150,7 @@ class AdminCategoryController extends AbstractController
         }
         // Récupération des objets Article associés à l'objet Category
         $articles = $category->getArticles();
-        // Vérification de l'existence d'objets Article associés à l'objet Image
+        // Vérification de l'existence d'objets Article associés à l'objet Category
         if($articles->isEmpty()) {
             // Test du token autorisant la suppression de l'objet Category
             if($this->isCsrfTokenValid('delete'.$category->getSlug(), $request->get('_token'))){

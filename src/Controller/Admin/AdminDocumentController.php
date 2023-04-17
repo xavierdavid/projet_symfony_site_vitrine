@@ -178,7 +178,7 @@ class AdminDocumentController extends AbstractController
         $articles = $document->getArticles();
         // Récupération des objets Product associés à l'objet Document
         $products = $document->getProducts();
-        // Vérification de l'existence d'objets Article ou Product associés à l'objet Image
+        // Vérification de l'existence d'objets Article ou Product associés à l'objet Document
         if($articles->isEmpty() && $products->isEmpty()) {
             // Test du token autorisant la suppression de l'objet Document
             if($this->isCsrfTokenValid('delete'.$document->getSlug(), $request->get('_token'))){

@@ -41,7 +41,7 @@ class ContactController extends AbstractController
             $entityManagerInterface->flush();
             // Paramétrage de l'email de contact
             $from = $contact->getEmail();
-            $to = "xav.david28@gmail.com";
+            $to = "contact@xavier-david.com";
             $subject = $contact->getSubject();
             $htmlTemplate = "email/contact.html.twig";
             $context = ['contact' => $contact];
@@ -50,12 +50,12 @@ class ContactController extends AbstractController
                 $sendEmail->send($from, $to, $subject, $htmlTemplate, $context);
                 // Message flash et redirection
                 $this->addFlash('success', 'Votre message a bien été envoyé !');
-                $this->redirectToRoute('app_contact');
+                return $this->redirectToRoute('app_home');
             } catch (TransportExceptionInterface $e) {
                 // Message d'erreur
                 $this->addFlash('warning', 'Un problème est survenu, veuillez contacter l\'administrateur du site');
                 // Redirection
-                return $this->redirectToRoute('app_contact');
+                return $this->redirectToRoute('app_home');
             }
         }
         $formView = $form->createView();

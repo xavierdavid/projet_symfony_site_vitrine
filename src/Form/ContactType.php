@@ -62,16 +62,13 @@ class ContactType extends AbstractType
             ]) 
             ->add('isRgpd', CheckboxType::class, [
                 'label' => 'Consentement RGPD',
-                'attr'=> [
-                    'placeholder' => "J'autorise ce site à conserver mes données personnelles transmises via ce formulaire. Aucune exploitation commerciale ne sera faite des données conservées."
-                ],
+                'help'=> "J'autorise ce site à conserver mes données personnelles transmises via ce formulaire. Aucune exploitation commerciale ne sera faite des données conservées.",
                 'required' => true
             ]) 
             ->add('captcha', Recaptcha3Type::class, [
                 'constraints' => new Recaptcha3(),
                 'action_name' => 'contact',
             ]) 
- 
         ;
     }
 

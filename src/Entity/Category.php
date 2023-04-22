@@ -38,7 +38,8 @@ class Category
     */
     public function __toString()
     {
-        return $this->name;
+        // Retourne le nom avec la première lettre en majuscule
+        return ucfirst($this->name);
     }
 
     public function getId(): ?int

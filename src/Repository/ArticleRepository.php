@@ -53,7 +53,7 @@ class ArticleRepository extends ServiceEntityRepository
             ->createQueryBuilder('a')
             // Sélection des objets Category et Article  
             ->select('c', 'a')
-            // Jointure entre les objets Article et Category associées dans une relation "ManyToMany" - Récupère par défaut tous les objets Article même ceux non associés à un objet Category (leftJoin) 
+            // Jointure entre les objets Article et les objets Category - Récupère par défaut tous les objets Article même ceux non associés à un objet Category (leftJoin) 
             ->leftJoin('a.categories', 'c')
             // Tri des objets Article par date de mise à jour et par ordre décroissant
             ->orderBy('a.updatedAt', 'DESC');

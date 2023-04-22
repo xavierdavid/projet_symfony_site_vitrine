@@ -13,17 +13,52 @@
     <article>
         <header>
             <h2>Formulaire de contact</h2>
+            <hr>
         </header>
         {# Formulaire de contact #}
         <section>
             {{form_start(formView)}}
-            {{form_row(formView.firstname)}}
-            {{form_row(formView.lastname)}}
-            {{form_row(formView.organization)}}
-            {{form_row(formView.email)}}
-            {{form_row(formView.subject)}}
-            {{form_row(formView.message)}}
-            {{form_row(formView.isRgpd)}}
+            {# Champ Firstname #}
+            {{form_label(formView.firstname)}}
+            {{form_errors(formView.firstname)}}
+            <br>
+            {{form_widget(formView.firstname)}}
+            <br>
+            {# Champ Lastname #}
+            {{form_label(formView.lastname)}}
+            {{form_errors(formView.lastname)}}
+            <br>
+            {{form_widget(formView.lastname)}}
+            <br>
+            {# Champ Organization #}
+            {{form_label(formView.organization)}}
+            {{form_errors(formView.organization)}}
+            <br>
+            {{form_widget(formView.organization)}}
+            <br>
+            {# Champ Email #}
+            {{form_label(formView.email)}}
+            {{form_errors(formView.email)}}
+            <br>
+            {{form_widget(formView.email)}}
+            <br>
+            {# Champ Subject #}
+            {{form_label(formView.subject)}}
+            {{form_errors(formView.subject)}}
+            <br>
+            {{form_widget(formView.subject)}}
+            <br>
+            {# Champ Message #}
+            {{form_label(formView.message)}}
+            {{form_errors(formView.message)}}
+            <br>
+            {{form_widget(formView.message)}}
+            <br>
+            {# Champ RGPD #}
+            {{form_errors(formView.isRgpd)}}
+            {{form_widget(formView.isRgpd)}}
+            {{form_label(formView.isRgpd)}}
+            <small>{{form_help(formView.isRgpd)}}</small>
             <br>
         </section>
         <section>

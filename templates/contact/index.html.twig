@@ -1,5 +1,8 @@
 {% extends 'base.html.twig' %}
 
+{# Appel du thème de formulaire personnalisé #}
+{% form_theme formView _self %}
+
 {% block title %}{{metatag.title}}{% endblock %}
 {% block metadescription %}
     <meta name="description" content="{{metatag.metaDescription}}">
@@ -19,47 +22,25 @@
         <section>
             {{form_start(formView)}}
             {# Champ Firstname #}
-            {{form_label(formView.firstname)}}
-            {{form_errors(formView.firstname)}}
-            <br>
-            {{form_widget(formView.firstname)}}
-            <br>
+            {{form_row(formView.firstname)}}
             {# Champ Lastname #}
-            {{form_label(formView.lastname)}}
-            {{form_errors(formView.lastname)}}
-            <br>
-            {{form_widget(formView.lastname)}}
-            <br>
+            {{form_row(formView.lastname)}}
             {# Champ Organization #}
-            {{form_label(formView.organization)}}
-            {{form_errors(formView.organization)}}
-            <br>
-            {{form_widget(formView.organization)}}
-            <br>
+            {{form_row(formView.organization)}}
             {# Champ Email #}
-            {{form_label(formView.email)}}
-            {{form_errors(formView.email)}}
-            <br>
-            {{form_widget(formView.email)}}
-            <br>
+            {{form_row(formView.email)}}
             {# Champ Subject #}
-            {{form_label(formView.subject)}}
-            {{form_errors(formView.subject)}}
-            <br>
-            {{form_widget(formView.subject)}}
-            <br>
+            {{form_row(formView.subject)}}
             {# Champ Message #}
-            {{form_label(formView.message)}}
-            {{form_errors(formView.message)}}
-            <br>
-            {{form_widget(formView.message)}}
-            <br>
+            {{form_row(formView.message)}}
             {# Champ RGPD #}
-            {{form_errors(formView.isRgpd)}}
-            {{form_widget(formView.isRgpd)}}
-            {{form_label(formView.isRgpd)}}
-            <small>{{form_help(formView.isRgpd)}}</small>
-            <br>
+            <div>
+                {{form_errors(formView.isRgpd)}}
+                {{form_widget(formView.isRgpd)}}
+                {{form_label(formView.isRgpd)}}
+                <small>{{form_help(formView.isRgpd)}}</small>
+                <br>
+            </div>
         </section>
         <section>
             {# Bouton de soumission du formulaire #}
@@ -70,4 +51,16 @@
         <aside></aside>
     </article>
 </main>
+{% endblock %}
+
+{# Thème de formulaire personnalisé pour le champ form_row #}
+{% block form_row %}
+    <div>
+        {{form_label(form)}}
+        {{form_errors(form)}}
+        <br>
+        {{form_widget(form)}}
+        <br>
+        <small>{{form_help(form)}}</small>
+    </div>
 {% endblock %}

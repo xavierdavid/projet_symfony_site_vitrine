@@ -1,5 +1,5 @@
 {# Header #}
-<header>
+<header class="main-header">
   <nav>
     <section>
       <a href="{{path('app_home')}}">Accueil</a>
@@ -9,20 +9,18 @@
       <a href="{{path('app_contact')}}">Contact</a>
     </section>
     <section>
-      <ul>
-          {# Affichage des liens en fonction du statut d'authentification de l'utilisateur #}
-          {% if app.user %}
-              <li><a href="{{path('app_logout')}}"><i class="fas fa-sign-out-alt"></i> Deconnection</a></li>
-              <li><a href="{{path('app_account_home')}}"><i class="fas fa-user"></i> Mon compte</a></li>
-          {% else %}
-            <li><a href="{{path('app_login')}}"><i class="fas fa-sign-in-alt"></i> Connection</a></li>
-          {% endif %}
-            
-          {# Accès aux pages d'administration si l'utilisateur a le rôle Admin #}
-          {% if is_granted('ROLE_ADMIN')%} 
-              <li><a href="{{path('app_admin_home')}}"><i class="fas fa-unlock"></i> Accéder au back-office</a></li>
-          {% endif %}
-      </ul>
+      {# Affichage des liens en fonction du statut d'authentification de l'utilisateur #}
+      {% if app.user %}
+        <a href="{{path('app_logout')}}"><i class="fas fa-sign-out-alt"></i> Deconnection</a>
+        <a href="{{path('app_account_home')}}"><i class="fas fa-user"></i> Mon compte</a>
+      {% else %}
+        <a href="{{path('app_login')}}"><i class="fas fa-sign-in-alt"></i> Connection</a>
+      {% endif %}
+        
+      {# Accès aux pages d'administration si l'utilisateur a le rôle Admin #}
+      {% if is_granted('ROLE_ADMIN')%} 
+          <a href="{{path('app_admin_home')}}"><i class="fas fa-unlock"></i> Accéder au back-office</a>
+      {% endif %}
     </section>
   </nav>
 </header>

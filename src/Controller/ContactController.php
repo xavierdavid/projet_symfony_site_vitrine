@@ -50,12 +50,12 @@ class ContactController extends AbstractController
                 $sendEmail->send($from, $to, $subject, $htmlTemplate, $context);
                 // Message flash et redirection
                 $this->addFlash('success', 'Votre message a bien été envoyé !');
-                return $this->redirectToRoute('app_home');
+                return $this->redirectToRoute('app_contact');
             } catch (TransportExceptionInterface $e) {
                 // Message d'erreur
                 $this->addFlash('warning', 'Un problème est survenu, veuillez contacter l\'administrateur du site');
                 // Redirection
-                return $this->redirectToRoute('app_home');
+                return $this->redirectToRoute('app_contact');
             }
         }
         $formView = $form->createView();

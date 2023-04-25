@@ -1,16 +1,166 @@
 
 /*****************************************************/
-/***             Container Back-Office             ***/
+/***                    Polices                    ***/
 /*****************************************************/
+/* Raleway */
+@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@100;400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@600&display=swap');
+/* Open Sans */
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans&family=Raleway:wght@100;400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@600&family=Raleway:wght@600&display=swap');
+
+
+/*****************************************************/
+/***                    Couleurs                   ***/
+/*****************************************************/
+:root {
+  --color-main: #ff7675;
+  --color-main-lighter: #fab1a0;
+  --color-main-darker: #964747;
+  --color-accent: #00b894;
+  --color-accent-lighter:#55efc4; 
+  --color-accent-darker: #014a3b;
+  --color-grey: #636e72;
+  --color-grey-lighter: #b2bec3;
+  --color-grey-darker:#2d3436;
+  --color-white: #f1f1f1;
+  --color-danger: #DC3644;
+  --color-warning: #FFC107;
+  --color-success: #198754;
+  --color-info:#0DCAF0;
+}
+
+/*****************************************************/
+/***               Paramètres généraux             ***/
+/*****************************************************/
+*, ::before, ::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Raleway', sans-serif;
+  color: var(--color-grey-darker);
+}
+
+/** Container de pages - Front **/
 .container {
+  width: 95%;
+  margin: 0 auto;
+}
+
+/** Container de pages - Interface d'administration **/
+.admin-container {
   display: flex;
+}
+
+/*****************************************************/
+/***                     Header                    ***/
+/*****************************************************/
+
+.main-header {
+  padding: 20px;
+}
+
+.admin-header {
+  padding: 20px;
+}
+
+/*****************************************************/
+/***                     Footer                    ***/
+/*****************************************************/
+.main-footer {
+  width: 100%;
+  margin-top: 50px;
+  padding: 20px;
+  background-color: var(--color-main-lighter);
+}
+
+.main-footer p {
+  text-align: center;
+  color: var(--color-grey-darker);
+  font-weight: bold;
+}
+
+.main-footer a {
+  display: block;
+  text-align: center;
+}
+.admin-footer {
+  width: 100%;
+  margin-top: 50px;
+  padding: 20px;
+  background-color: var(--color-main-lighter);
+}
+
+.admin-footer p {
+  text-align: center;
+  color: var(--color-grey-darker);
+  font-weight: bold;
+}
+
+.admin-footer a {
+  display: block;
+  text-align: center;
 }
 
 /*****************************************************/
 /***                     Titres                    ***/
 /*****************************************************/
 h1 {
-  color: crimson;
+  text-align: center;
+  padding: 20px;
+  color: var(--color-main-darker);
+  font-size: 35px;
+}
+
+h2 {
+  text-align: center;
+  padding: 20px;
+  color: var(--color-grey-darker);
+  font-size: 25px;
+}
+
+h3 {
+  padding: 20px;
+  color: var(--color-grey-darker);
+  font-size: 20px; 
+}
+
+h4 {
+  padding: 20px;
+  color: var(--color-grey-darker);
+  font-size: 18px; 
+}
+
+/*****************************************************/
+/***                  Paragraphes                  ***/
+/*****************************************************/
+p {
+  font-size: 15px;
+  color: var(--color-grey);
+}
+
+/*****************************************************/
+/***                     Liens                     ***/
+/*****************************************************/
+a:link, a:visited {
+  font-family: 'Raleway', sans-serif; 
+  font-size: 15px;
+  color: var(--color-grey-darker);
+  text-decoration: none;
+}
+
+a:hover {
+  font-size: 15px;
+  color: var(--color-main);
+  font-weight: bold;
+  text-decoration: none;
+}
+
+a:active {
+  font-style: italic;
 }
 
 /*****************************************************/
@@ -18,35 +168,52 @@ h1 {
 /*****************************************************/
 .largeSizeImage {
   width: 200px;
+  height: auto;
 }
 
 .mediumSizeImage {
   max-width: 100px;
+  height: auto;
 }
 
 .smallSizeImage {
   max-width: 60px;
+  height: auto;
 }
 
 .verySmallSizeImage {
   max-width: 40px;
+  height: auto;
 }
+
+.fullSizeImage {
+  max-width: 100%;
+  height: auto;
+}
+
+/*****************************************************/
+/***                     Boutons                   ***/
+/*****************************************************/
+
 
 /*****************************************************/
 /***                 Messages Flash                ***/
 /*****************************************************/
 .alert-success p {
-  color: green;
+  color:var(--color-success);
 }
 
 .alert-warning p {
-  color: orange;
+  color: var(--color-warning);
 }
 
 .alert-danger p {
-  color: red;
+  color: var(--color-danger);;
 }
 
+.alert-info p {
+  color: var(--color-info);;
+}
 /*****************************************************/
 /***                    Tableaux                   ***/
 /*****************************************************/
@@ -62,7 +229,6 @@ td, th {
 /***                 Fenêtre modale                ***/
 /*****************************************************/
 .modal-container {
-  /* display: none; */
   visibility: hidden;
   position: fixed;
   top: 0;
@@ -72,7 +238,6 @@ td, th {
 }
 
 .modal-container.active {
-  /* display: block; */
   visibility: visible;
 }
 
@@ -96,7 +261,8 @@ td, th {
   max-width: 500px;
   min-width: 300px;
   padding: 30px;
-  background: var(--color-white);
+  background: var(--color-grey-darker);
+  color: var(--color-white);
   border-radius: 5px;
   position: absolute;
   top: 40%;
@@ -128,14 +294,48 @@ td, th {
   text-align: center;
   margin-bottom: 5px;
   font-weight: 500;
+  color: var(--color-grey-lighter)
 }
 
 .modal p {
   line-height: 1.4;
   margin-bottom: 16px;
   text-align: center;
+  color: var(--color-accent-lighter)
 }
 
 .modal a {
   margin: auto;
 }
+
+/*****************************************************/
+/*****                 Formulaires               *****/
+/*****************************************************/
+
+/** Conteneur de formulaire **/
+.form-container {
+  font-family: inherit;
+}
+
+/** Mise en page du formulaire **/
+.form-container form {
+  font-family: inherit;
+}
+
+/** Label du champ de formulaire **/
+.form-row label {
+  font-family: inherit;
+}
+
+/** Champs input et textarea de formulaire **/ 
+.form-row input, .form-row textarea {
+  font-family: inherit;
+}
+
+/** Placeholder de champ de formulaire **/
+.form-row input::placeholder, .form-row textarea::placeholder {
+  
+}
+
+
+

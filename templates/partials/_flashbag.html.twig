@@ -1,5 +1,5 @@
 {# Affichage des messages flash #}
-<section>
+<section class="flash-container">
     {% for item, messages in app.flashes %}
         <div class="alert-{{item}}">
             {% for message in messages %}

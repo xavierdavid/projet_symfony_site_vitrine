@@ -9,17 +9,16 @@
 {% endblock %}
 
 {% block body %}
-<main>
+<main class="container">
     <header>
         <h1>{{metatag.title}}</h1>
     </header>
     <article>
         <header>
             <h2>Formulaire de contact</h2>
-            <hr>
         </header>
         {# Formulaire de contact #}
-        <section>
+        <section class="form-container">
             {{form_start(formView)}}
             {# Champ Firstname #}
             {{form_row(formView.firstname)}}
@@ -34,15 +33,13 @@
             {# Champ Message #}
             {{form_row(formView.message)}}
             {# Champ RGPD #}
-            <div>
-                {{form_errors(formView.isRgpd)}}
+            <div class="form-row">
                 {{form_widget(formView.isRgpd)}}
                 {{form_label(formView.isRgpd)}}
+                {{form_errors(formView.isRgpd)}}
                 <small>{{form_help(formView.isRgpd)}}</small>
-                <br>
+                <br> 
             </div>
-        </section>
-        <section>
             {# Bouton de soumission du formulaire #}
             <button type="submit">Envoyer</button>
             {# Fin du formulaire #}
@@ -55,12 +52,12 @@
 
 {# Thème de formulaire personnalisé pour le champ form_row #}
 {% block form_row %}
-    <div>
+    <div class="form-row">
         {{form_label(form)}}
         {{form_errors(form)}}
         <br>
         {{form_widget(form)}}
-        <br>
         <small>{{form_help(form)}}</small>
+        <br>
     </div>
 {% endblock %}

@@ -51,13 +51,13 @@ class AdminImageController extends AbstractController
             // Upload du fichier de l'objet Image
             $newImageFile = $this->uploadFile->upload($ImageFile);
             // Affectation des valeurs aux propriétés de l'objet Image
-            $image->setSlug(strtolower($this->sluggerInterface->slug($image->getName())));
+            $image->setSlug(strtolower($this->sluggerInterface->slug($image->getMediaTitle())));
             $image->setImageFile($newImageFile);
             // Sauvegarde et envoi en base de données
             $this->entityManagerInterface->persist($image);
             $this->entityManagerInterface->flush();
             // Message flash et redirection
-            $this->addFlash("success", "L'image a été créée avec succès !");
+            $this->addFlash("success", "Le média a été créé avec succès !");
             return $this->redirectToRoute('app_admin_image_index');
         }
         $formView = $form->createView();
@@ -79,7 +79,7 @@ class AdminImageController extends AbstractController
     {
         // Récupération des objets Image en base de données
         $imagesData = $ImageRepository->findBy([],[
-            'name' => 'ASC',
+            'mediaTitle' => 'ASC',
         ]);
         // Pagination des objets Image
         $images = $paginatorInterface->paginate(
@@ -113,7 +113,7 @@ class AdminImageController extends AbstractController
         ]);
         // Vérification de l'existence de l'objet Image à modifier
         if(!$image){
-            throw $this->createNotFoundException("L'image demandée n'existe pas !");
+            throw $this->createNotFoundException("Le média demandé n'existe pas !");
         }
         // Construction du formulaire de modification de l'objet Image
         $form = $this->createForm(ImageType::class, $image);
@@ -141,11 +141,11 @@ class AdminImageController extends AbstractController
                 $image->setImageFile($oldImageFile);
             }
             // Affectation du slug à l'objet Image
-            $image->setSlug(strtolower($this->sluggerInterface->slug($image->getName())));
+            $image->setSlug(strtolower($this->sluggerInterface->slug($image->getMediaTitle())));
             // Sauvegarde et envoi en base de données
             $this->entityManagerInterface->flush($image);
             // Message flash et redirection
-            $this->addFlash("success", "L'image' a été modifiée avec succès !");
+            $this->addFlash("success", "Le média a été modifié avec succès !");
             return $this->redirectToRoute('app_admin_image_index');
         }
         $formView = $form->createView();
@@ -172,7 +172,7 @@ class AdminImageController extends AbstractController
         ]);
         // Vérification de l'existence de l'objet Image à supprimer
         if(!$image){
-            throw $this->createNotFoundException("L'image demandée n'existe pas !");
+            throw $this->createNotFoundException("le média demandé n'existe pas !");
         }
         // Récupération des objets Article associés à l'objet Image
         $articles = $image->getArticles();
@@ -189,12 +189,12 @@ class AdminImageController extends AbstractController
                 // Enregistrement en base de données
                 $this->entityManagerInterface->flush($image);
                 // Message flash et redirection
-                $this->addFlash("success","L'image a été supprimée avec succès !");
+                $this->addFlash("success","Le média a été supprimé avec succès !");
                 return $this->redirectToRoute('app_admin_image_index');
             }
         }
         // Message flash et redirection
-        $this->addFlash("warning", "Impossible de supprimer l'image car cette dernière est associée à un ou plusieurs services ou articles");
+        $this->addFlash("warning", "Impossible de supprimer le média car ce dernier est associé à un ou plusieurs services ou articles");
         return $this->redirectToRoute('app_admin_image_index');
     }
 }

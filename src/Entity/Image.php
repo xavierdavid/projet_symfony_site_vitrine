@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\ImageRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: ImageRepository::class)]
@@ -14,9 +15,9 @@ class Image
     #[ORM\GeneratedValue]
     #[ORM\Column]
     private ?int $id = null;
-
+    
     #[ORM\Column(length: 255)]
-    private ?string $name = null;
+    private ?string $mediaTitle = null;
 
     #[ORM\Column(length: 255)]
     private ?string $slug = null;
@@ -33,6 +34,18 @@ class Image
     #[ORM\Column(length: 255)]
     private ?string $caption = null;
 
+    #[ORM\Column(type: Types::TEXT)]
+    private ?string $mediaContent = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $urlLink = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $urlTitle = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?int $priorityOrder = null;
+
     public function __construct()
     {
         $this->articles = new ArrayCollection();
@@ -46,24 +59,12 @@ class Image
     */
     public function __toString()
     {
-        return $this->name;
+        return $this->mediaTitle;
     }
 
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getName(): ?string
-    {
-        return $this->name;
-    }
-
-    public function setName(string $name): self
-    {
-        $this->name = $name;
-
-        return $this;
     }
 
     public function getSlug(): ?string
@@ -152,6 +153,66 @@ class Image
     public function setCaption(string $caption): self
     {
         $this->caption = $caption;
+
+        return $this;
+    }
+
+    public function getMediaTitle(): ?string
+    {
+        return $this->mediaTitle;
+    }
+
+    public function setMediaTitle(string $mediaTitle): self
+    {
+        $this->mediaTitle = $mediaTitle;
+
+        return $this;
+    }
+
+    public function getMediaContent(): ?string
+    {
+        return $this->mediaContent;
+    }
+
+    public function setMediaContent(string $mediaContent): self
+    {
+        $this->mediaContent = $mediaContent;
+
+        return $this;
+    }
+
+    public function getUrlLink(): ?string
+    {
+        return $this->urlLink;
+    }
+
+    public function setUrlLink(?string $urlLink): self
+    {
+        $this->urlLink = $urlLink;
+
+        return $this;
+    }
+
+    public function getUrlTitle(): ?string
+    {
+        return $this->urlTitle;
+    }
+
+    public function setUrlTitle(?string $urlTitle): self
+    {
+        $this->urlTitle = $urlTitle;
+
+        return $this;
+    }
+
+    public function getPriorityOrder(): ?int
+    {
+        return $this->priorityOrder;
+    }
+
+    public function setPriorityOrder(?int $priorityOrder): self
+    {
+        $this->priorityOrder = $priorityOrder;
 
         return $this;
     }

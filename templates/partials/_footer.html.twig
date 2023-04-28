@@ -2,14 +2,14 @@
 <footer class="main-footer">
 {# Affichage du titre du site avec l'extension twig OrganizationExtension #}
       <p></strong>
-        {% for organization in organization.getOrganization %}
-           Bienvenue sur le site de {{organization.organizationName}} ! &copy;<script type "text/javascript">document.write(new Date().getFullYear());</script></p>
+        {% for organization_data in organization_datas.getOrganization %}
+           Bienvenue sur le site de {{organization_data.organizationName}} ! &copy;<script type "text/javascript">document.write(new Date().getFullYear());</script></p>
         {% endfor %}
       <strong></p>
       {# Affichage du logo de l'organisation avec l'extension twig OrganizationExtension #}
       <a href="{{path('app_home')}}">
-        {% for organization in organization.getOrganization %}
-          <img src="{{asset('uploads/'~ organization.logo)}}" alt="logo de l'organisation {{organization.organizationName}}" class="verySmallSizeImage">
+        {% for organization_data in organization_datas.getOrganization %}
+          <img src="{{asset('uploads/'~ organization_data.logo)}}" alt="logo de l'organisation {{organization_data.organizationName}}" class="verySmallSizeImage">
         {% endfor %}
       </a>
   <a href="{{path('app_home')}}">Accueil</a>

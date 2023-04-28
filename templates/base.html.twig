@@ -9,8 +9,8 @@
         
         {# Affichage du favicon du site avec l'extension twig OrganizationExtension #}
         <link rel="icon" type="image/png" href="
-            {% for organization in organization.getOrganization %}
-                {{asset('uploads/'~ organization.logo)}}
+            {% for organization_data in organization_datas.getOrganization %}
+                {{asset('uploads/'~ organization_data.logo)}}
             {% endfor %}">
 
         {# Balise meta viewport #}

@@ -3,7 +3,7 @@ twig:
     
     # Variables globales Twig
     globals:
-        organization: '@App\Twig\OrganizationExtension'
+        organization_datas: '@App\Twig\OrganizationExtension'
       
 when@test:
     twig:

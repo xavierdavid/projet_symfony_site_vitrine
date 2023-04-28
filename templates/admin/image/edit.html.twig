@@ -10,32 +10,36 @@
     <article class="admin-container">
         <section>
             <header>
-                <h3>Images</h3>
+                <h3>Médias</h3>
             </header>
             {# Inclusion du aside #}
             {% include "admin/partials/_aside.html.twig" %}
         </section>
         <section>
             <header>
-                <h2>Modification d'une image</h2>
+                <h2>Modification d'un média'</h2>
             </header>
             <br>
                 {# Affichage du fichier image de l'objet Image à modifier #}
                 {% if image.imageFile %}
                     <figure>
-                        <img src="{{asset('uploads/'~image.imageFile)}}" alt="{{image.caption}}">
-                        <figcaption><small>{{image.name}}</small></figcaption>
+                        <img src="{{asset('uploads/'~image.imageFile)}}" alt="{{image.caption}}" class="mediumSizeImage">
+                        <figcaption><small>{{image.caption}}</small></figcaption>
                     </figure>
                 {% endif %}
             <section>
                 {# Formulaire de modification d'un objet Image #}
                 {{form_start(formView)}}
-                {{form_row(formView.name)}}
+                {{form_row(formView.mediaTitle)}}
+                {{form_row(formView.mediaContent)}}
                 {{form_row(formView.imageFile)}}
                 {{form_row(formView.caption)}}
+                {{form_row(formView.urlLink)}}
+                {{form_row(formView.urlTitle)}}
+                {{form_row(formView.priorityOrder)}}
             </section>
             <section>
-                <button type="submit">Modifier l'image</button>
+                <button type="submit">Modifier le média</button>
                 {{form_end(formView)}}
             </section>
             <br>

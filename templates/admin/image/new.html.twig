@@ -23,12 +23,16 @@
             <section>
                 {# Formulaire de création d'un objet Image #}
                 {{form_start(formView)}}
-                {{form_row(formView.name)}}
+                {{form_row(formView.mediaTitle)}}
+                {{form_row(formView.mediaContent)}}
                 {{form_row(formView.imageFile)}}
                 {{form_row(formView.caption)}}
+                {{form_row(formView.urlLink)}}
+                {{form_row(formView.urlTitle)}}
+                {{form_row(formView.priorityOrder)}}
             </section>
             <section>
-                <button type="submit">Créer l'image</button>
+                <button type="submit">Créer le média</button>
                 {{form_end(formView)}}
             </section>
             <br>

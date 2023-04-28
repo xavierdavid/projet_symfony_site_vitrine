@@ -70,7 +70,7 @@ class ArticleType extends AbstractType
                 'expanded' => true
             ])
             ->add('images', EntityType::class, [
-                'label' => "Image(s) associée(s) à l'article",
+                'label' => "Média(s) associé(s) à l'article",
                 'class' => Image::class,
                 'multiple' => true,
                 'expanded' => true

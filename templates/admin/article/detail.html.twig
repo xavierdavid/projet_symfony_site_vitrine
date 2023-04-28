@@ -58,11 +58,11 @@
                 {% endif %}
                 {# Affichage des objets Image associés à l'objet Article #}
                 {% if images|length != 0 %}
-                  <h4>Images associées à l'article</h4>
+                  <h4>Médias associés à l'article</h4>
                   {% for image in images %}
                     <figure>
                       <img src="{{asset('uploads/'~image.imageFile)}}" alt="{{image.caption}}" class="smallSizeImage">
-                      <figcaption><small>{{image.name}}</small></figcaption>
+                      <figcaption><small>{{image.caption}}</small></figcaption>
                     </figure>
                   {% endfor %}
                 {% endif %}

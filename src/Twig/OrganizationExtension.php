@@ -28,7 +28,7 @@ class OrganizationExtension extends AbstractExtension
   public function getFunctions(): array
   {
     return [
-      new TwigFunction('organization', [$this, 'getOrganization'])
+      new TwigFunction('organization_datas', [$this, 'getOrganization'])
     ];
   }
 

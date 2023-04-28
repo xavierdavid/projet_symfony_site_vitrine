@@ -4,14 +4,14 @@
     <section>
       {# Affichage du logo de l'organisation avec l'extension twig OrganizationExtension #}
       <a href="{{path('app_home')}}">
-        {% for organization in organization.getOrganization %}
-            <img src="{{asset('uploads/'~ organization.logo)}}" alt="logo de l'organisation {{organization.organizationName}}" class="smallSizeImage">
+        {% for organization_data in organization_datas.getOrganization %}
+            <img src="{{asset('uploads/'~ organization_data.logo)}}" alt="logo de l'organisation {{organization_data.organizationName}}" class="smallSizeImage">
         {% endfor %}
       </a>
       {# Affichage du titre du site avec l'extension twig OrganizationExtension #}
       <strong class="site_title">
-        {% for organization in organization.getOrganization %}
-           {{organization.organizationName}} 
+        {% for organization_data in organization_datas.getOrganization %}
+           {{organization_data.organizationName}} 
         {% endfor %}
       </strong>
       <a href="{{path('app_home')}}">Accueil</a>

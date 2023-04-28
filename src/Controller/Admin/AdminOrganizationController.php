@@ -32,11 +32,14 @@ class AdminOrganizationController extends AbstractController
      */
     public function index(OrganizationRepository $organizationRepository): Response
     {
-        // Récupération des objets Organization en base de données
-        $organizations = $organizationRepository->findAll();
-
+        // Récupération du dernier objet Organization inséré en base de données
+        $organization = $organizationRepository->findBy([], [
+            'id' => 'DESC'], // Tri par identifiant et par ordre décroissant
+            1, // Limite de 1 enregistrement
+            0 // Offset
+        );
         return $this->render('admin/organization/index.html.twig', [
-            'organizations' => $organizations
+            'organization' => $organization
         ]);
     }
 

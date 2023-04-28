@@ -22,8 +22,8 @@
             </header>
             <br>
             <section class="container">
-                {# Affichage des objets Organization #}
-                {% for organization in organizations %}
+                {# Affichage du dernier objet Organization enregistré en base de données #}
+                {% for organization in organization %}
                     <section>
                         <header>
                             <h3>{{organization.organizationName}}</h3>

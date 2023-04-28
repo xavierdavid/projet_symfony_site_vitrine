@@ -1,6 +1,10 @@
 twig:
     default_path: '%kernel.project_dir%/templates'
     
+    # Variables globales Twig
+    globals:
+        organization: '@App\Twig\OrganizationExtension'
+      
 when@test:
     twig:
         strict_variables: true

@@ -1,10 +1,22 @@
 {# Header #}
 <header class="admin-header">
   <nav>
+    {# Affichage du logo de l'organisation avec l'extension twig OrganizationExtension #}
+    <a href="{{path('app_home')}}">
+      {% for organization in organization.getOrganization %}
+          <img src="{{asset('uploads/'~ organization.logo)}}" alt="logo de l'organisation {{organization.organizationName}}" class="smallSizeImage">
+      {% endfor %}
+    </a>
+    {# Affichage du titre du site avec l'extension twig OrganizationExtension #}
+    <strong class="site_title">
+      {% for organization in organization.getOrganization %}
+          {{organization.organizationName}} 
+      {% endfor %}
+    </strong>
     {# Affichage des liens en fonction du statut d'authentification de l'utilisateur #}
     {% if app.user %}
-      <a href="{{path('app_account_home')}}"><i class="fas fa-user"></i> Mon compte</a>
       <a href="{{path('app_home')}}"><i class="fas fa-eye"></i> Voir le site</a>
+      <a href="{{path('app_account_home')}}"><i class="fas fa-user"></i> Mon compte</a>
       <a href="{{path('app_logout')}}"><i class="fas fa-sign-out-alt"></i> Deconnection</a>
     {% else %}
       <a href="{{path('app_login')}}"><i class="fas fa-sign-in-alt"></i> Connection</a>

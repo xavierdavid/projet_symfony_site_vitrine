@@ -28,10 +28,7 @@
                         <tr>
                             <th>Titre du média</th>
                             <th>Image</th>
-                            <th>Description de l'image</th>
-                            <th>Contenu du média</th>
-                            <th>Lien URL</th>
-                            <th>Texte du lien</th>
+                            <th>Contenu</th>
                             <th>Priorité</th>
                             <th>Actions</th>
                         </tr>
@@ -45,13 +42,11 @@
                                         <a href="{{asset('uploads/'~image.imageFile)}}" target="_blank"><img src="{{asset('uploads/'~image.imageFile)}}" alt="{{image.caption}}" class="smallSizeImage"></a>
                                     {% endif %} 
                                 </td>
-                                <td>{{image.caption}}</td>
                                 <td>{{image.mediaContent|raw}}</td>
-                                <td><a href="{{image.urlLink}}" target="_blank">{{image.urlLink}}</a></td>
-                                <td>{{image.urlTitle}}</td>
                                 <td>{{image.priorityOrder}}</td>
                                 {# Actions #}
                                 <td>
+                                    <a type="button" href="{{path('app_admin_image_detail', {'slug':image.slug})}}"><i class="fas fa-eye"></i> Voir</a>
                                     <a type="button" href="{{path('app_admin_image_edit', {'slug':image.slug})}}"><i class="fas fa-pen"></i> Modifier</a>
                                     <a type="button" href="{{path('app_admin_image_delete', {'slug':image.slug})}}" class="modal-trigger"  data-token="{{csrf_token('delete' ~ image.slug)}}" data-message="Confirmez-vous la suppression du média '{{image.mediaTitle}}' ?" ><i class="fas fa-trash-alt"></i> Supprimer</a>
                                 </td>

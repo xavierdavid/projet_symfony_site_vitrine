@@ -7,47 +7,44 @@
     <header>
         <h1>Interface d'administration</h1>
     </header>
-    <article class="admin-container">
+    <product class="admin-container">
         <section>
             <header>
-                <h3>Articles</h3>
+                <h3>Services</h3>
             </header>
             {# Inclusion du aside #}
             {% include "admin/partials/_aside.html.twig" %}
         </section>
         <section>
             <header>
-                <h2>Modification d'un article</h2>
+                <h2>Modification d'un service</h2>
             </header>
             <br>
             <section>
-                {# Formulaire de modification d'un objet Article #}
+                {# Formulaire de modification d'un objet Product #}
                 {{form_start(formView)}}
-                {{form_row(formView.title)}}
-                {{form_row(formView.shortIntroduction)}}
+                {{form_row(formView.name)}}
+                {{form_row(formView.shortDescription)}}
                 <br>
-                {{form_row(formView.content)}}
+                {{form_row(formView.description)}}
                 <br>
                 {{form_row(formView.coverImage)}}
-                {# Affichage de l'image de couverture de l'objet Article à modifier #}
-                {% if article.coverImage %}
+                {# Affichage de l'image de couverture de l'objet Product à modifier #}
+                {% if product.coverImage %}
                     <figure>
-                        <img src="{{asset('uploads/'~article.coverImage)}}" alt="{{article.title}}" class="mediumSizeImage">
+                        <img src="{{asset('uploads/'~product.coverImage)}}" alt="{{product.name}}" class="mediumSizeImage">
                     </figure>
                 {% endif %}
-                {{form_row(formView.isFrontPage)}}
                 {{form_row(formView.priorityOrder)}}
             </section>
             <section>
               <header>
                 <h4>Objets associés</h4>
               </header>
-                {{form_row(formView.categories)}}
-                <br>
                 {{form_row(formView.documents)}}
                 <br>
                 {{form_row(formView.images)}}
-                {# Affichage des objets Image associés à l'objet Article à modifier #}
+                {# Affichage des objets Image associés à l'objet Product à modifier #}
                 {% for image in images %}
                   <figure>
                     <img src="{{asset('uploads/'~image.imageFile)}}" alt="{{image.caption}}" class="smallSizeImage">
@@ -57,14 +54,14 @@
             </section>
             <section>
                 <br>
-                <button type="submit">Modifier l'article</button>
+                <button type="submit">Modifier le service</button>
                 {{form_end(formView)}}
             </section>
             <br>
             <section>
-                <p><a href="{{path('app_admin_article_index')}}"><i class="fas fa-backward"></i> Retour</a></p>
+                <p><a href="{{path('app_admin_product_index')}}"><i class="fas fa-backward"></i> Retour</a></p>
             </section>
         </section>
-    </article>
+    </product>
 </main>
 {% endblock %}

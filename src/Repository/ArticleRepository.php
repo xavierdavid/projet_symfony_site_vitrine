@@ -63,6 +63,11 @@ class ArticleRepository extends ServiceEntityRepository
                 ->andWhere('c.id IN (:category)')
                 ->setParameter('category', $searchArticle->category);
         }
+        // Affinement de la requête si un filtre d'ordre de priorité est présent dans l'objet SearchArticle
+        if(!empty($searchArticle->priorityOrder)) {
+            $query = $query
+                ->orderBy('a.priorityOrder', 'ASC');
+        }
         // Affinement de la requête si un filtre de mot clé $string est présent dans l'objet SearchArticle
         if(!empty($searchArticle->string)) {
             $query = $query

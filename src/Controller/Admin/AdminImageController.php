@@ -47,7 +47,13 @@ class AdminImageController extends AbstractController
         // Vérification de la soumission et de la validation du formulaire
         if($form->isSubmitted() && $form->isValid()) {
             // Récupération du fichier de l'objet Image envoyé par le formulaire
-            $ImageFile = $form->get('imageFile')->getData();
+            $imageFile = $form->get('imageFile')->getData();
+            // Si aucun fichier n'a été envoyé
+            if(!$imageFile) {
+                // Message flash et redirection
+                $this->addFlash("warning", "Vous devez joindre un fichier image !");
+                return $this->redirectToRoute('app_admin_image_new');
+            }
             // Upload du fichier de l'objet Image
             $newImageFile = $this->uploadFile->upload($ImageFile);
             // Affectation des valeurs aux propriétés de l'objet Image
@@ -153,6 +159,33 @@ class AdminImageController extends AbstractController
             'formView' => $formView,
             'image' => $image
         ]);  
+    }
+
+    #[Route('/admin/image/{slug}/detail', name:'app_admin_image_detail')]
+    /**
+     * Contrôle l'affichage de la page d'un objet Image
+     * @IsGranted("ROLE_ADMIN")
+     *
+     * @param [type] $slug
+     * @param Request $request
+     * @param ArticleRepository $articleRepository
+     * @return Response
+     */
+    public function detail($slug, ImageRepository $imageRepository): Response
+    {
+        // Récupération de l'objet Image à afficher
+        $image = $imageRepository->findOneBy([
+            'slug' => $slug
+        ]);
+        // Récupération des objets Article associés à l'objet Image
+        $articles = $image->getArticles();
+        // Récupération des objets Product associés à l'objet Image
+        $products = $image->getProducts();
+        return $this->render('/admin/image/detail.html.twig', [
+            'image' => $image,
+            'articles' => $articles,
+            'products' => $products
+        ]);
     }
 
     #[Route('/admin/image/{slug}/delete', name:'app_admin_image_delete')]

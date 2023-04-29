@@ -2,8 +2,7 @@
 
 namespace App\Form;
 
-use App\Entity\Category;
-use App\Services\SearchArticle;
+use App\Services\SearchProduct;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -11,10 +10,10 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 
-class SearchArticleType extends AbstractType
+class SearchProductType extends AbstractType
 {
   /**
-   * Configure les champs du formulaire de recherche d'objets Article
+   * Configure les champs du formulaire de recherche d'objets Product
    *
    * @param FormBuilderInterface $builder
    * @param array $options
@@ -27,26 +26,17 @@ class SearchArticleType extends AbstractType
         'label' => false,
         'required' => false,
         'attr' => [
-          'placeholder' => "Rechercher un article ..."
+          'placeholder' => "Rechercher un service ..."
         ]
-      ])
-      ->add('category', EntityType::class, [
-        'label' => false,
-        'required' => false,
-        'class' => Category::class,
-        'choice_label' => 'name',
-        'multiple' => true,
-        'expanded' => true
       ])
       ->add('priorityOrder', CheckboxType::class, [
         'label' => "Trier par ordre de priorité de publication",
         'required' => false,
       ]);
-    ;
   }
 
   /**
-   * Configure les options du formulaire de recherche d'objets Article
+   * Configure les options du formulaire de recherche d'objets Product
    *
    * @param OptionsResolver $resolver
    * @return void
@@ -54,7 +44,7 @@ class SearchArticleType extends AbstractType
   public function configurationOptions(OptionsResolver $resolver): void
   {
     $resolver->setDefaults([
-      'data_class' => SearchArticle::class,
+      'data_class' => SearchProduct::class,
       'method' => 'GET',
       'csrf_protection' => false,
       'allow_extra_fields' => true
@@ -62,7 +52,7 @@ class SearchArticleType extends AbstractType
   }
 
   /**
-   * Supprime dans l'url l'affichage du tableau des résultats préfixé du nom de la classe Article
+   * Supprime dans l'url l'affichage du tableau des résultats préfixé du nom de la classe Product
    *
    * @return Response
    */

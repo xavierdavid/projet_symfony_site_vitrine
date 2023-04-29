@@ -1,20 +1,87 @@
-{% extends 'base.html.twig' %}
+{% extends 'admin/base.html.twig' %}
 
-{% block title %}Hello AdminProductController!{% endblock %}
+{% block title %}Interface d'administration{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
-
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
-
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ '/Users/xavierdavid/Projets web/projet_symfony_site_vitrine/src/Controller/AdminProductController.php'|file_link(0) }}">src/Controller/AdminProductController.php</a></code></li>
-        <li>Your template at <code><a href="{{ '/Users/xavierdavid/Projets web/projet_symfony_site_vitrine/templates/admin_product/index.html.twig'|file_link(0) }}">templates/admin_product/index.html.twig</a></code></li>
-    </ul>
-</div>
+<main class="container">
+    <header>
+        <h1>Interface d'administration</h1>
+    </header>
+    <product class="admin-container">
+        <section>
+            <header>
+                <h3>Services</h3>
+            </header>
+            {# Inclusion du aside #}
+            {% include "admin/partials/_aside.html.twig" %}
+        </section>
+        <section>
+            <header>
+                <h2>Liste des services</h2>
+            </header>
+            <aside>
+                <h4>Filter les services</h4>
+                {# Formulaire de recherche d'objets Product #}
+                <section>
+                    {{form_start(formView)}}
+                    {{form_row(formView.string)}}
+                    <br>
+                    {{form_row(formView.priorityOrder)}}
+                    <br>
+                    <button type="submit">Filtrer</button>
+                    {{form_end(formView)}}
+                </section>
+            </aside>
+            <br>
+            <section>
+                <p>Nombre de services : <strong>{{productsData|length}}</strong></p>
+                {# Tableau des objets Product #}
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Nom</th>
+                            <th>Date de mise à jour</th>
+                            <th>Image de couverture</th>
+                            <th>Priorité de publication</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for product in products %}
+                            <tr>
+                                <td>{{product.name}}</td>
+                                <td>{{product.updatedAt|format_datetime(locale='fr', timezone='Europe/Paris')}}</td>
+                                <td>
+                                    {% if product.coverImage %}
+                                        <a href="{{asset('uploads/'~product.coverImage)}}" target="_blank"><img src="{{asset('uploads/'~product.coverImage)}}" alt="{{product.name}}" class="smallSizeImage"></a>
+                                    {% endif %}
+                                </td>
+                                <td>{{product.priorityOrder}}</td>
+                                {# Actions #}
+                                <td>
+                                    <a type="button" href="{{path('app_admin_product_detail', {'slug':product.slug})}}"><i class="fas fa-eye"></i> Voir</a>
+                                    <a type="button" href="{{path('app_admin_product_edit', {'slug':product.slug})}}"><i class="fas fa-pen"></i> Modifier</a>
+                                    <a type="button" href="{{path('app_admin_product_delete', {'slug':product.slug})}}" class="modal-trigger"  data-token="{{csrf_token('delete' ~ product.slug)}}" data-message="Confirmez-vous la suppression du service '{{product.name}}' ?" ><i class="fas fa-trash-alt"></i> Supprimer</a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                <br>
+                {# Pagination des objets product #}
+                <section>
+                    <nav class="pagination">
+                        {{knp_pagination_render(products)}}
+                    </nav>
+                </section>
+                <section>
+                    <br>
+                    <a href="{{path('app_admin_product_new')}}"><i class="fas fa-plus"></i> Ajouter un service</a>
+                    <br>
+                    <p><a href="{{path('app_admin_home')}}"><i class="fas fa-backward"></i> Retour</a></p>
+                </section>
+            </section>
+        </section>
+    </product>
+</main>
 {% endblock %}

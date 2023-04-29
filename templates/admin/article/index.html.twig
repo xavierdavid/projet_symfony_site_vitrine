@@ -28,6 +28,8 @@
                     <br>
                     {{form_row(formView.category)}}
                     <br>
+                    {{form_row(formView.priorityOrder)}}
+                    <br>
                     <button type="submit">Filtrer</button>
                     {{form_end(formView)}}
                 </section>
@@ -41,7 +43,6 @@
                         <tr>
                             <th>Titre</th>
                             <th>Date de mise à jour</th>
-                            <th>Texte d'introduction</th>
                             <th>Image de couverture</th>
                             <th>A la une</th>
                             <th>Priorité de publication</th>
@@ -53,7 +54,6 @@
                             <tr>
                                 <td>{{article.title}}</td>
                                 <td>{{article.updatedAt|format_datetime(locale='fr', timezone='Europe/Paris')}}</td>
-                                <td>{{article.shortIntroduction}}</td>
                                 <td>
                                     {% if article.coverImage %}
                                         <a href="{{asset('uploads/'~article.coverImage)}}" target="_blank"><img src="{{asset('uploads/'~article.coverImage)}}" alt="{{article.title}}" class="smallSizeImage"></a>

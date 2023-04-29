@@ -48,6 +48,12 @@ class AdminDocumentController extends AbstractController
         if($form->isSubmitted() && $form->isValid()) {
             // Récupération du fichier de l'objet Document envoyé par le formulaire
             $documentFile = $form->get('documentFile')->getData();
+            // Si aucun fichier n'a été envoyé
+            if(!$documentFile) {
+                // Message flash et redirection
+                $this->addFlash("warning", "Vous devez joindre un fichier PDF !");
+                return $this->redirectToRoute('app_admin_document_new');
+            }
             // Upload du fichier de l'objet Document
             $newDocumentFile = $this->uploadFile->upload($documentFile);
             // Affectation des valeurs aux propriétés de l'objet Document

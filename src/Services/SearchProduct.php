@@ -3,9 +3,9 @@
 namespace App\Services;
 
 /**
- * Représente les filtres de recherche des objets Article
+ * Représente les filtres de recherche des objets Product
  */
-class SearchArticle
+class SearchProduct
 {
   /**
    * Propriété de filtre par mot clé
@@ -13,13 +13,6 @@ class SearchArticle
    * @var string
    */
   public $string="";
-
-  /**
-   * Propriété de filtre par catégorie
-   *
-   * @var array
-   */
-  public $category = [];
 
   /**
    * Propriété de filtre par ordre de priorité

@@ -58,7 +58,7 @@ class AdminProductController extends AbstractController
                 $product->setCoverImage($newCoverImage);
             }
             // Mise à jour de la propriété slug de l'objet Product
-            $product->setSlug(strtolower($this->sluggerInterface->slug($product->getTitle())));
+            $product->setSlug(strtolower($this->sluggerInterface->slug($product->getName())));
             // Sauvegarde et envoi en base de données
             $this->entityManagerInterface->persist($product);
             $this->entityManagerInterface->flush();
@@ -157,7 +157,9 @@ class AdminProductController extends AbstractController
                 $product->setCoverImage($oldCoverImage);
             }
             // Affectation du slug à l'objet Product
-            $product->setSlug(strtolower($this->sluggerInterface->slug($product->getTitle())));
+            $product->setSlug(strtolower($this->sluggerInterface->slug($product->getName())));
+            // Affectation de la date de mise à jour de l'objet Product
+            $product->setUpdatedAt(new \Datetime);
             // Sauvegarde et envoi en base de données
             $this->entityManagerInterface->flush($product);
             // Message flash et redirection

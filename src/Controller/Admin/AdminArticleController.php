@@ -158,6 +158,8 @@ class AdminArticleController extends AbstractController
             }
             // Affectation du slug à l'objet Article
             $article->setSlug(strtolower($this->sluggerInterface->slug($article->getTitle())));
+            // Affectation de la date de mise à jour de l'objet Article
+            $article->setUpdatedAt(new \Datetime);
             // Sauvegarde et envoi en base de données
             $this->entityManagerInterface->flush($article);
             // Message flash et redirection

@@ -3,8 +3,9 @@
 namespace App\Repository;
 
 use App\Entity\Product;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use App\Services\SearchProduct;
 use Doctrine\Persistence\ManagerRegistry;
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 
 /**
  * @extends ServiceEntityRepository<Product>
@@ -37,6 +38,36 @@ class ProductRepository extends ServiceEntityRepository
         if ($flush) {
             $this->getEntityManager()->flush();
         }
+    }
+
+    /**
+     * Permet de configurer une requête personnalisée pour récupérer en base de données les objets Product en fonction des propriétés de filtre de l'objet SearchProduct
+     *
+     * @param SearchProduct $searchProduct
+     * @return Product[]
+     */
+    public function findWithSearchProduct(SearchProduct $searchProduct)
+    {
+        // Configuration de la requête qui récupère les objets Product
+        $query = $this
+            ->createQueryBuilder('p')
+            // Sélection des objets Product  
+            ->select('p')
+            // Tri des objets Product par date de mise à jour et par ordre décroissant
+            ->orderBy('p.updatedAt', 'DESC');
+        // Affinement de la requête si un filtre d'ordre de priorité est présent dans l'objet SearchProduct
+        if(!empty($searchProduct->priorityOrder)) {
+            $query = $query
+                ->orderBy('p.priorityOrder', 'ASC');
+        }
+        // Affinement de la requête si un filtre de mot clé $string est présent dans l'objet SearchProduct
+        if(!empty($searchProduct->string)) {
+            $query = $query
+                ->andWhere('p.name LIKE :string')
+                ->setParameter('string', "%$searchProduct->string%");
+        }
+        // Retour des résultats de la requête
+        return $query->getQuery()->getResult();
     }
 
 //    /**

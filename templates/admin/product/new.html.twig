@@ -1,0 +1,54 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}Interface d'administration{% endblock %}
+
+{% block body %}
+<main class="container">
+    <header>
+        <h1>Interface d'administration</h1>
+    </header>
+    <article class="admin-container">
+        <section>
+            <header>
+                <h3>Services</h3>
+            </header>
+            {# Inclusion du aside #}
+            {% include "admin/partials/_aside.html.twig" %}
+        </section>
+        <section>
+            <header>
+                <h2>Création d'un nouveau service</h2>
+            </header>
+            <br>
+            <section>
+                {# Formulaire de création d'un objet Product #}
+                {{form_start(formView)}}
+                {{form_row(formView.name)}}
+                {{form_row(formView.shortDescription)}}
+                <br>
+                {{form_row(formView.description)}}
+                <br>
+                {{form_row(formView.coverImage)}}
+                {{form_row(formView.priorityOrder)}}
+            </section>
+            <section>
+              <header>
+                <h4>Objets associés</h4>
+              </header>
+                {{form_row(formView.documents)}}
+                <br>
+                {{form_row(formView.images)}}
+            </section>
+            <section>
+                <br>
+                <button type="submit">Créer le service</button>
+                {{form_end(formView)}}
+            </section>
+            <br>
+            <section>
+                <p><a href="{{path('app_admin_product_index')}}"><i class="fas fa-backward"></i> Retour</a></p>
+            </section>
+        </section>
+    </article>
+</main>
+{% endblock %}

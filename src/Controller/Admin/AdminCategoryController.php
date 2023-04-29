@@ -42,8 +42,10 @@ class AdminCategoryController extends AbstractController
         $form->handleRequest($request);
         // Vérification de la soumission et de la validation du formulaire
         if($form->isSubmitted() && $form->isValid()) {
-            // Affectation des valeurs aux propriétés de l'objet Category
+            // Affectation du slug à l'objet Category
             $category->setSlug(strtolower($this->sluggerInterface->slug($category->getName())));
+            // Affectation du nom à l'objet Category avec la première lettre en majuscule
+            $category->setName(ucfirst($category->getName()));
             // Sauvegarde et envoi en base de données
             $this->entityManagerInterface->persist($category);
             $this->entityManagerInterface->flush();
@@ -116,6 +118,8 @@ class AdminCategoryController extends AbstractController
         if($form->isSubmitted() && $form->isValid()) {
             // Affectation du slug à l'objet Category
             $category->setSlug(strtolower($this->sluggerInterface->slug($category->getName())));
+            // Affectation du nom à l'objet Category avec la première lettre en majuscule
+            $category->setName(ucfirst($category->getName()));
             // Sauvegarde et envoi en base de données
             $this->entityManagerInterface->flush($category);
             // Message flash et redirection

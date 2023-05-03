@@ -1,0 +1,48 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}Interface d'administration{% endblock %}
+
+{% block body %}
+<main class="container">
+    <header>
+        <h1>Interface d'administration</h1>
+    </header>
+    <article class="admin-container">
+        <section>
+            <header>
+                <h3>Messages</h3>
+            </header>
+            {# Inclusion du aside #}
+            {% include "admin/partials/_aside.html.twig" %}
+        </section>
+        <section>
+            <header>
+                <h2>Détail d'un message</h2>
+            </header>
+            <br>
+            <section class="container">
+              {# Affichage de l'objet Contact #}
+              <section>
+                <h4>Date de réception du message</h4>
+                <p>{{contact.createdAt|format_datetime(locale='fr', timezone='Europe/Paris')}}</p>
+                <h4>Nom et prénom de l'expéditeur</h4>
+                <p>{{contact.lastname|upper}} {{contact.firstname}}</p>
+                <h4>Organisation</h4>
+                <p>{{contact.organization}}</p>
+                <h4>Email</h4>
+                <p><a href="mailto:{{contact.email}}" target="_blank">{{contact.email}}</a></p>
+                <h4>Sujet</h4>
+                <p>{{contact.subject}}</p>
+                <h4>Message</h4>
+                <p>{{contact.message}}</p>
+              </section>
+            </section>
+            <section>
+                <p><a href="mailto:{{contact.email}}" target="_blank"><i class="fas fa-envelope"></i> Répondre</a></p>
+                <p><a type="button" href="{{path('app_admin_contact_delete', {'id':contact.id})}}" class="modal-trigger"  data-token="{{csrf_token('delete' ~ contact.id)}}" data-message="Confirmez-vous la suppression du message de '{{contact.firstname}} {{contact.lastname|upper}} envoyé le {{contact.createdAt|format_datetime(locale='fr', timezone='Europe/Paris')}} ?" ><i class="fas fa-trash-alt"></i> Supprimer</a></p>
+                <p><a href="{{path('app_admin_contact_index')}}"><i class="fas fa-backward"></i> Retour</a></p>
+            </section>       
+        </section>
+    </article>
+</main>
+{% endblock %}

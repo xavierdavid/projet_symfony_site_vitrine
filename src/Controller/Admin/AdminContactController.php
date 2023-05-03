@@ -59,6 +59,27 @@ class AdminContactController extends AbstractController
         ]);
     }
 
+    #[Route('/admin/contact/{id}/detail', name:'app_admin_contact_detail')]
+    /**
+     * Contrôle l'affichage de la page d'un objet Contact
+     * @IsGranted("ROLE_ADMIN")
+     *
+     * @param [type] $id
+     * @param Request $request
+     * @param ContactRepository $contactRepository
+     * @return Response
+     */
+    public function detail($id, ContactRepository $contactRepository): Response
+    {
+        // Récupération de l'objet Contact à afficher
+        $contact = $contactRepository->findOneBy([
+            'id' => $id
+        ]);
+        return $this->render('/admin/contact/detail.html.twig', [
+            'contact' => $contact
+        ]);
+    }
+
     #[Route('/admin/contact/{id}/delete', name:'app_admin_contact_delete')]
     /**
      * Contrôle le traitement de la suppression d'un objet Contact

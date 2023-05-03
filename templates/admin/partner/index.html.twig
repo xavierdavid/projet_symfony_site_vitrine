@@ -7,21 +7,21 @@
     <header>
         <h1>Interface d'administration</h1>
     </header>
-    <article class="admin-container">
+    <partner class="admin-container">
         <section>
             <header>
-                <h3>Services</h3>
+                <h3>Partenaires</h3>
             </header>
             {# Inclusion du aside #}
             {% include "admin/partials/_aside.html.twig" %}
         </section>
         <section>
             <header>
-                <h2>Liste des services</h2>
+                <h2>Liste des partenaires</h2>
             </header>
             <aside>
-                <h4>Filter les services</h4>
-                {# Formulaire de recherche d'objets Product #}
+                <h4>Filter les partenaires</h4>
+                {# Formulaire de recherche d'objets Partner #}
                 <section>
                     {{form_start(formView)}}
                     {{form_row(formView.string)}}
@@ -34,8 +34,8 @@
             </aside>
             <br>
             <section>
-                <p>Nombre de services : <strong>{{productsData|length}}</strong></p>
-                {# Tableau des objets Product #}
+                <p>Nombre de partenaires : <strong>{{partnersData|length}}</strong></p>
+                {# Tableau des objets Partner #}
                 <table>
                     <thead>
                         <tr>
@@ -47,41 +47,41 @@
                         </tr>
                     </thead>
                     <tbody>
-                        {% for product in products %}
+                        {% for partner in partners %}
                             <tr>
-                                <td>{{product.name}}</td>
-                                <td>{{product.updatedAt|format_datetime(locale='fr', timezone='Europe/Paris')}}</td>
+                                <td>{{partner.name}}</td>
+                                <td>{{partner.updatedAt|format_datetime(locale='fr', timezone='Europe/Paris')}}</td>
                                 <td>
-                                    {% if product.coverImage %}
-                                        <a href="{{asset('uploads/'~product.coverImage)}}" target="_blank"><img src="{{asset('uploads/'~product.coverImage)}}" alt="{{product.name}}" class="smallSizeImage"></a>
+                                    {% if partner.coverImage %}
+                                        <a href="{{asset('uploads/'~partner.coverImage)}}" target="_blank"><img src="{{asset('uploads/'~partner.coverImage)}}" alt="{{partner.name}}" class="smallSizeImage"></a>
                                     {% endif %}
                                 </td>
-                                <td>{{product.priorityOrder}}</td>
+                                <td>{{partner.priorityOrder}}</td>
                                 {# Actions #}
                                 <td>
-                                    <a type="button" href="{{path('app_admin_product_detail', {'slug':product.slug})}}"><i class="fas fa-eye"></i> Voir</a>
-                                    <a type="button" href="{{path('app_admin_product_edit', {'slug':product.slug})}}"><i class="fas fa-pen"></i> Modifier</a>
-                                    <a type="button" href="{{path('app_admin_product_delete', {'slug':product.slug})}}" class="modal-trigger"  data-token="{{csrf_token('delete' ~ product.slug)}}" data-message="Confirmez-vous la suppression du service '{{product.name}}' ?" ><i class="fas fa-trash-alt"></i> Supprimer</article>
+                                    <a type="button" href="{{path('app_admin_partner_detail', {'slug':partner.slug})}}"><i class="fas fa-eye"></i> Voir</a>
+                                    <a type="button" href="{{path('app_admin_partner_edit', {'slug':partner.slug})}}"><i class="fas fa-pen"></i> Modifier</a>
+                                    <a type="button" href="{{path('app_admin_partner_delete', {'slug':partner.slug})}}" class="modal-trigger"  data-token="{{csrf_token('delete' ~ partner.slug)}}" data-message="Confirmez-vous la suppression du service '{{partner.name}}' ?" ><i class="fas fa-trash-alt"></i> Supprimer</a>
                                 </td>
                             </tr>
                         {% endfor %}
                     </tbody>
                 </table>
                 <br>
-                {# Pagination des objets product #}
+                {# Pagination des objets partner #}
                 <section>
                     <nav class="pagination">
-                        {{knp_pagination_render(products)}}
+                        {{knp_pagination_render(partners)}}
                     </nav>
                 </section>
                 <section>
                     <br>
-                    <a href="{{path('app_admin_product_new')}}"><i class="fas fa-plus"></i> Ajouter un service</a>
+                    <a href="{{path('app_admin_partner_new')}}"><i class="fas fa-plus"></i> Ajouter un partenaire</a>
                     <br>
                     <p><a href="{{path('app_admin_home')}}"><i class="fas fa-backward"></i> Retour</a></p>
                 </section>
             </section>
         </section>
-    </a>
+    </partner>
 </main>
 {% endblock %}

@@ -1,0 +1,48 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}Interface d'administration{% endblock %}
+
+{% block body %}
+<main class="container">
+    <header>
+        <h1>Interface d'administration</h1>
+    </header>
+    <article class="admin-container">
+        <section>
+            <header>
+                <h3>Partenaires</h3>
+            </header>
+            {# Inclusion du aside #}
+            {% include "admin/partials/_aside.html.twig" %}
+        </section>
+        <section>
+            <header>
+                <h2>Détail d'un partenaire</h2>
+            </header>
+            <br>
+            <section class="container">
+              {# Affichage de l'objet Partner #}
+              <section>
+                <h4>Nom du</h4>
+                <p>{{partner.name}}</p>
+                <h4>Texte d'introduction</h4>
+                <p>{{partner.shortDescription}}</p>
+                <h4>Description du partenaire</h4>
+                <p>{{partner.description|raw}}</p>
+                {# Affichage de l'image de couverture de l'objet partner #}
+                {% if partner.coverImage %}
+                  <h4>Image de couverture</h4>
+                    <figure>
+                        <a href="{{asset('uploads/'~partner.coverImage)}}" target="_blank"><img src="{{asset('uploads/'~ partner.coverImage)}}" alt="image de couverture du service '{{partner.name}}'" class="mediumSizeImage"></a>
+                    </figure>
+                {% endif %}
+              </section>
+            </section>
+            <section>
+                <p><a href="{{path('app_admin_partner_edit', {'slug':partner.slug})}}"><i class="fas fa-pen"></i> Modifier le partenaire</a></p>
+                <p><a href="{{path('app_admin_partner_index')}}"><i class="fas fa-backward"></i> Retour</a></p>
+            </section>       
+        </section>
+    </article>
+</main>
+{% endblock %}

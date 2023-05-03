@@ -5,6 +5,8 @@ namespace App\Controller\Admin;
 use App\Entity\Image;
 use App\Form\ImageType;
 use App\Services\UploadFile;
+use App\Form\SearchImageType;
+use App\Services\SearchImage;
 use App\Repository\ImageRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
@@ -81,12 +83,16 @@ class AdminImageController extends AbstractController
      * @param ImageRepository $ImageRepository
      * @return Response
      */
-    public function index(Request $request, PaginatorInterface $paginatorInterface, ImageRepository $ImageRepository): Response
+    public function index(Request $request, PaginatorInterface $paginatorInterface, ImageRepository $imageRepository): Response
     {
-        // Récupération des objets Image en base de données
-        $imagesData = $ImageRepository->findBy([],[
-            'mediaTitle' => 'ASC',
-        ]);
+        // Instanciation d'un nouvel objet de recherche d'objets Image
+        $searchImage = new SearchImage;
+        // Création du formulaire de recherche d'objets Image
+        $form = $this->createForm(SearchImageType::class, $searchImage);
+        // Analyse de la requête et traitement du formulaire de recherche
+        $form->handleRequest($request);
+        // Récupération en base de données des objets Image sélectionnés à l'aide des propriétés de l'objet SearchImage
+        $imagesData = $imageRepository->findWithSearchImage($searchImage);
         // Pagination des objets Image
         $images = $paginatorInterface->paginate(
             // Objets Image récupérés
@@ -96,9 +102,11 @@ class AdminImageController extends AbstractController
             // Nombre d'objets Image à afficher par page
             10
         );
+        $formView = $form->createView();
         return $this->render('/admin/image/index.html.twig', [
             'images' => $images,
-            'imagesData' => $imagesData
+            'imagesData' => $imagesData,
+            'formView' => $formView
         ]);
     }
 

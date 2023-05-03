@@ -1,0 +1,52 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}Interface d'administration{% endblock %}
+
+{% block body %}
+<main class="container">
+    <header>
+        <h1>Interface d'administration</h1>
+    </header>
+    <article class="admin-container">
+        <section>
+            <header>
+                <h3>Partenaires</h3>
+            </header>
+            {# Inclusion du aside #}
+            {% include "admin/partials/_aside.html.twig" %}
+        </section>
+        <section>
+            <header>
+                <h2>Modification d'un partenaire</h2>
+            </header>
+            <br>
+            <section>
+                {# Formulaire de modification d'un objet Partner #}
+                {{form_start(formView)}}
+                {{form_row(formView.name)}}
+                {{form_row(formView.shortDescription)}}
+                <br>
+                {{form_row(formView.description)}}
+                <br>
+                {{form_row(formView.coverImage)}}
+                {# Affichage de l'image de couverture de l'objet Partner à modifier #}
+                {% if partner.coverImage %}
+                    <figure>
+                        <img src="{{asset('uploads/'~partner.coverImage)}}" alt="{{partner.name}}" class="mediumSizeImage">
+                    </figure>
+                {% endif %}
+                {{form_row(formView.priorityOrder)}}
+            </section>
+            <section>
+                <br>
+                <button type="submit">Modifier le partenaire</button>
+                {{form_end(formView)}}
+            </section>
+            <br>
+            <section>
+                <p><a href="{{path('app_admin_partner_index')}}"><i class="fas fa-backward"></i> Retour</a></p>
+            </section>
+        </section>
+    </article>
+</main>
+{% endblock %}

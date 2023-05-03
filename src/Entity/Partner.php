@@ -38,6 +38,12 @@ class Partner
     #[ORM\Column(nullable: true)]
     private ?int $priorityOrder = null;
 
+    public function __construct()
+    {
+        $this->createdAt = new \DateTimeImmutable();
+        $this->updatedAt = new \DateTime();
+    }
+
     public function getId(): ?int
     {
         return $this->id;

@@ -3,8 +3,9 @@
 namespace App\Repository;
 
 use App\Entity\Partner;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use App\Services\SearchPartner;
 use Doctrine\Persistence\ManagerRegistry;
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 
 /**
  * @extends ServiceEntityRepository<Partner>
@@ -37,6 +38,36 @@ class PartnerRepository extends ServiceEntityRepository
         if ($flush) {
             $this->getEntityManager()->flush();
         }
+    }
+
+    /**
+     * Permet de configurer une requête personnalisée pour récupérer en base de données les objets Partner en fonction des propriétés de filtre de l'objet SearchPartner
+     *
+     * @param SearchPartner $searchPartner
+     * @return Partner[]
+     */
+    public function findWithSearchPartner(SearchPartner $searchPartner)
+    {
+        // Configuration de la requête qui récupère les objets Partner
+        $query = $this
+            ->createQueryBuilder('p')
+            // Sélection des objets Partner  
+            ->select('p')
+            // Tri des objets PArtner par date de mise à jour et par ordre décroissant
+            ->orderBy('p.updatedAt', 'DESC');
+        // Affinement de la requête si un filtre d'ordre de priorité est présent dans l'objet SearchPartner
+        if(!empty($searchPartner->priorityOrder)) {
+            $query = $query
+                ->orderBy('p.priorityOrder', 'ASC');
+        }
+        // Affinement de la requête si un filtre de mot clé $string est présent dans l'objet SearchPartner
+        if(!empty($searchPartner->string)) {
+            $query = $query
+                ->andWhere('p.name LIKE :string')
+                ->setParameter('string', "%$searchPartner->string%");
+        }
+        // Retour des résultats de la requête
+        return $query->getQuery()->getResult();
     }
 
 //    /**

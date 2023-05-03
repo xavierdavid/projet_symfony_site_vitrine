@@ -3,8 +3,9 @@
 namespace App\Repository;
 
 use App\Entity\Image;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use App\Services\SearchImage;
 use Doctrine\Persistence\ManagerRegistry;
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 
 /**
  * @extends ServiceEntityRepository<Image>
@@ -37,6 +38,36 @@ class ImageRepository extends ServiceEntityRepository
         if ($flush) {
             $this->getEntityManager()->flush();
         }
+    }
+
+    /**
+     * Permet de configurer une requête personnalisée pour récupérer en base de données les objets Image en fonction des propriétés de filtre de l'objet SearchImage
+     *
+     * @param SearchImage $searchImage
+     * @return Image[]
+     */
+    public function findWithSearchImage(SearchImage $searchImage)
+    {
+        // Configuration de la requête qui récupère les objets Image
+        $query = $this
+            ->createQueryBuilder('i')
+            // Sélection des objets Image  
+            ->select('i')
+            // Tri des objets Image par nom et par ordre croissant
+            ->orderBy('i.mediaTitle', 'ASC');
+        // Affinement de la requête si un filtre d'ordre de priorité est présent dans l'objet SearchImage
+        if(!empty($searchImage->priorityOrder)) {
+            $query = $query
+                ->orderBy('i.priorityOrder', 'ASC');
+        }
+        // Affinement de la requête si un filtre de mot clé $string est présent dans l'objet SearchImage
+        if(!empty($searchImage->string)) {
+            $query = $query
+                ->andWhere('i.mediaTitle LIKE :string')
+                ->setParameter('string', "%$searchImage->string%");
+        }
+        // Retour des résultats de la requête
+        return $query->getQuery()->getResult();
     }
 
 //    /**

@@ -158,7 +158,7 @@ class AdminProductController extends AbstractController
             }
             // Affectation du slug à l'objet Product
             $product->setSlug(strtolower($this->sluggerInterface->slug($product->getName())));
-            // Affectation de la date de mise à jour de l'objet Product
+            // Affectation de la date de mise à jour à l'objet Product
             $product->setUpdatedAt(new \Datetime);
             // Sauvegarde et envoi en base de données
             $this->entityManagerInterface->flush($product);

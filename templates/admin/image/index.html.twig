@@ -19,6 +19,19 @@
             <header>
                 <h2>Liste des médias associés aux services et aux articles</h2>
             </header>
+            <aside>
+                <h4>Filter les services</h4>
+                {# Formulaire de recherche d'objets Image #}
+                <section>
+                    {{form_start(formView)}}
+                    {{form_row(formView.string)}}
+                    <br>
+                    {{form_row(formView.priorityOrder)}}
+                    <br>
+                    <button type="submit">Filtrer</button>
+                    {{form_end(formView)}}
+                </section>
+            </aside>
             <br>
             <section>
                 <p>Nombre de médias : <strong>{{imagesData|length}}</strong></p>

@@ -2,6 +2,8 @@
 
 namespace App\Controller\Admin;
 
+use App\Form\SearchContactType;
+use App\Services\SearchContact;
 use Knp\Component\Pager\Paginator;
 use App\Repository\ContactRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -32,10 +34,14 @@ class AdminContactController extends AbstractController
      */
     public function index(Request $request, PaginatorInterface $paginatorInterface, ContactRepository $contactRepository): Response
     {
-        // Récupération des objets Contact en base de données
-        $contactsData = $contactRepository->findBy([], [
-            'createdAt' => 'DESC'
-        ]);
+        // Instanciation d'un nouvel objet de recherche d'objets Contact
+        $searchContact = new SearchContact;
+        // Création du formulaire de recherche d'objets Contact
+        $form = $this->createForm(SearchContactType::class, $searchContact);
+        // Analyse de la requête et traitement du formulaire de recherche
+        $form->handleRequest($request);
+        // Récupération en base de données des objets Contact sélectionnés à l'aide des propriétés de l'objet SearchContact
+        $contactsData = $contactRepository->findWithSearchContact($searchContact);
         // Pagination des objets Contact
         $contacts = $paginatorInterface->paginate(
             // Objets Contact récupérés
@@ -45,10 +51,11 @@ class AdminContactController extends AbstractController
             // Nombre d'objets Contact à afficher par page
             10
         );
-
+        $formView = $form->createView();
         return $this->render('admin/contact/index.html.twig', [
             'contacts' => $contacts,
-            'contactsData' => $contactsData
+            'contactsData' => $contactsData,
+            'formView' => $formView
         ]);
     }
 

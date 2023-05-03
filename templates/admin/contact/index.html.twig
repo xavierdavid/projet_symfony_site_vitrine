@@ -19,6 +19,19 @@
             <header>
                 <h2>Liste des messages</h2>
             </header>
+            <aside>
+                <h4>Filter les messages</h4>
+                {# Formulaire de recherche d'objets Contact #}
+                <section>
+                    {{form_start(formView)}}
+                    {{form_row(formView.string)}}
+                    <br>
+                    {{form_row(formView.email)}}
+                    <br>
+                    <button type="submit">Filtrer</button>
+                    {{form_end(formView)}}
+                </section>
+            </aside>
             <br>
             <section>
                 <p>Nombre de messages : <strong>{{contactsData|length}}</strong></p>

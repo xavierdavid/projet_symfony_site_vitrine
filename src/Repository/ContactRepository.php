@@ -3,8 +3,9 @@
 namespace App\Repository;
 
 use App\Entity\Contact;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use App\Services\SearchContact;
 use Doctrine\Persistence\ManagerRegistry;
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 
 /**
  * @extends ServiceEntityRepository<Contact>
@@ -37,6 +38,36 @@ class ContactRepository extends ServiceEntityRepository
         if ($flush) {
             $this->getEntityManager()->flush();
         }
+    }
+
+    /**
+     * Permet de configurer une requête personnalisée pour récupérer en base de données les objets Contact en fonction des propriétés de filtre de l'objet SearchContact
+     *
+     * @param SearchContact $searchContact
+     * @return Contact[]
+     */
+    public function findWithSearchContact(SearchContact $searchContact)
+    {
+        // Configuration de la requête qui récupère les objets Contact
+        $query = $this
+            ->createQueryBuilder('c')
+            // Sélection des objets Contact  
+            ->select('c')
+            // Tri des objets Contact par date de création et par ordre décroissant
+            ->orderBy('c.createdAt', 'DESC');
+        // Affinement de la requête si un filtre 'email' est présent dans l'objet SearchContact
+        if(!empty($searchContact->email)) {
+            $query = $query
+                ->orderBy('c.email', 'ASC');
+        }
+        // Affinement de la requête si un filtre de mot clé $string est présent dans l'objet SearchContact
+        if(!empty($searchContact->string)) {
+            $query = $query
+                ->andWhere('c.email LIKE :string OR c.organization LIKE :string OR c.subject LIKE :string OR c.message LIKE :string')
+                ->setParameter('string', "%$searchContact->string%");
+        }
+        // Retour des résultats de la requête
+        return $query->getQuery()->getResult();
     }
 
 //    /**

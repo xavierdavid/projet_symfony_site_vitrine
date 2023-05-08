@@ -3,8 +3,9 @@
 namespace App\Repository;
 
 use App\Entity\Category;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use App\Services\SearchCategory;
 use Doctrine\Persistence\ManagerRegistry;
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 
 /**
  * @extends ServiceEntityRepository<Category>
@@ -37,6 +38,31 @@ class CategoryRepository extends ServiceEntityRepository
         if ($flush) {
             $this->getEntityManager()->flush();
         }
+    }
+
+    /**
+     * Permet de configurer une requête personnalisée pour récupérer en base de données les objets Category en fonction des propriétés de filtre de l'objet SearchCategory
+     *
+     * @param SearchCategory $searchCategory
+     * @return Category[]
+     */
+    public function findWithSearchCategory(SearchCategory $searchCategory)
+    {
+        // Configuration de la requête qui récupère les objets Category
+        $query = $this
+            ->createQueryBuilder('c')
+            // Sélection des objets Category  
+            ->select('c')
+            // Tri des objets Category par nom et par ordre croissant
+            ->orderBy('c.name', 'ASC');
+        // Affinement de la requête si un filtre de mot clé $string est présent dans l'objet SearchCategory
+        if(!empty($searchCategory->string)) {
+            $query = $query
+                ->andWhere('c.name LIKE :string')
+                ->setParameter('string', "%$searchCategory->string%");
+        }
+        // Retour des résultats de la requête
+        return $query->getQuery()->getResult();
     }
 
 //    /**

@@ -3,8 +3,9 @@
 namespace App\Repository;
 
 use App\Entity\Administrator;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use App\Services\SearchAdministrator;
 use Doctrine\Persistence\ManagerRegistry;
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 
 /**
  * @extends ServiceEntityRepository<Administrator>
@@ -37,6 +38,36 @@ class AdministratorRepository extends ServiceEntityRepository
         if ($flush) {
             $this->getEntityManager()->flush();
         }
+    }
+
+    /**
+     * Permet de configurer une requête personnalisée pour récupérer en base de données les objets Administrator en fonction des propriétés de filtre de l'objet SearchAdministrator
+     *
+     * @param SearchAdministrator $searchAdministrator
+     * @return Administrator[]
+     */
+    public function findWithSearchAdministrator(SearchAdministrator $searchAdministrator)
+    {
+        // Configuration de la requête qui récupère les objets Administrator
+        $query = $this
+            ->createQueryBuilder('a')
+            // Sélection des objets Administrator  
+            ->select('a')
+            // Tri des objets Administrator par date de mise à jour et par ordre décroissant
+            ->orderBy('a.updatedAt', 'DESC');
+        // Affinement de la requête si un filtre d'ordre de priorité est présent dans l'objet SearchAdministrator
+        if(!empty($searchAdministrator->priorityOrder)) {
+            $query = $query
+                ->orderBy('a.priorityOrder', 'ASC');
+        }
+        // Affinement de la requête si un filtre de mot clé $string est présent dans l'objet SearchAdministrator
+        if(!empty($searchAdministrator->string)) {
+            $query = $query
+                ->andWhere('a.firstname LIKE :string OR a.lastname LIKE :string')
+                ->setParameter('string', "%$searchAdministrator->string%");
+        }
+        // Retour des résultats de la requête
+        return $query->getQuery()->getResult();
     }
 
 //    /**

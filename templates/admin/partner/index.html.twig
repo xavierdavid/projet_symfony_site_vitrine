@@ -53,7 +53,7 @@
                                 <td>{{partner.updatedAt|format_datetime(locale='fr', timezone='Europe/Paris')}}</td>
                                 <td>
                                     {% if partner.coverImage %}
-                                        <a href="{{asset('uploads/'~partner.coverImage)}}" target="_blank"><img src="{{asset('uploads/'~partner.coverImage)}}" alt="{{partner.name}}" class="smallSizeImage"></a>
+                                        <a href="{{asset('uploads/'~partner.coverImage)}}" target="_blank"><img src="{{asset('uploads/'~partner.coverImage)}}" alt="Logo du partenaire {{partner.name}}" class="smallSizeImage"></a>
                                     {% endif %}
                                 </td>
                                 <td>{{partner.priorityOrder}}</td>
@@ -61,7 +61,7 @@
                                 <td>
                                     <a type="button" href="{{path('app_admin_partner_detail', {'slug':partner.slug})}}"><i class="fas fa-eye"></i> Voir</a>
                                     <a type="button" href="{{path('app_admin_partner_edit', {'slug':partner.slug})}}"><i class="fas fa-pen"></i> Modifier</a>
-                                    <a type="button" href="{{path('app_admin_partner_delete', {'slug':partner.slug})}}" class="modal-trigger"  data-token="{{csrf_token('delete' ~ partner.slug)}}" data-message="Confirmez-vous la suppression du service '{{partner.name}}' ?" ><i class="fas fa-trash-alt"></i> Supprimer</a>
+                                    <a type="button" href="{{path('app_admin_partner_delete', {'slug':partner.slug})}}" class="modal-trigger"  data-token="{{csrf_token('delete' ~ partner.slug)}}" data-message="Confirmez-vous la suppression du partenaire '{{partner.name}}' ?" ><i class="fas fa-trash-alt"></i> Supprimer</a>
                                 </td>
                             </tr>
                         {% endfor %}

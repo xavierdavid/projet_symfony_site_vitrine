@@ -17,34 +17,29 @@
         </section>
         <section>
             <header>
-                <h2>Modification d'un partenaire</h2>
+                <h2>Création d'un nouveau dirigeant</h2>
             </header>
             <br>
             <section>
-                {# Formulaire de modification d'un objet Partner #}
+                {# Formulaire de création d'un objet Administrator #}
                 {{form_start(formView)}}
-                {{form_row(formView.name)}}
+                {{form_row(formView.firstName)}}
+                {{form_row(formView.lastName)}}
                 {{form_row(formView.shortDescription)}}
                 <br>
                 {{form_row(formView.description)}}
                 <br>
                 {{form_row(formView.coverImage)}}
-                {# Affichage de l'image de couverture de l'objet Partner à modifier #}
-                {% if partner.coverImage %}
-                    <figure>
-                        <img src="{{asset('uploads/'~partner.coverImage)}}" alt="Logo du partenaire {{partner.name}}" class="mediumSizeImage">
-                    </figure>
-                {% endif %}
                 {{form_row(formView.priorityOrder)}}
             </section>
             <section>
                 <br>
-                <button type="submit">Modifier le partenaire</button>
+                <button type="submit">Créer le dirigeant</button>
                 {{form_end(formView)}}
             </section>
             <br>
             <section>
-                <p><a href="{{path('app_admin_partner_index')}}"><i class="fas fa-backward"></i> Retour</a></p>
+                <p><a href="{{path('app_admin_administrator_index')}}"><i class="fas fa-backward"></i> Retour</a></p>
             </section>
         </section>
     </article>

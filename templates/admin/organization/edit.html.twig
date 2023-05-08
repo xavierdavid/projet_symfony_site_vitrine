@@ -17,7 +17,7 @@
         </section>
         <section>
             <header>
-                <h2>Modification de l'organization</h2>
+                <h2>Modification de l'organisation</h2>
             </header>
             <br>
             <section>
@@ -35,6 +35,11 @@
                 {{form_row(formView.twitter)}}
             </section>
             <section>
+                {% if organization.logo %}
+                    <figure>
+                        <img src="{{asset('uploads/'~ organization.logo)}}" alt="logo de {{organization.organizationName}}" class="mediumSizeImage">
+                    </figure>
+                {% endif %}
                 {{form_row(formView.logo)}}
                 {{form_row(formView.shortDescription)}}
                 {{form_row(formView.description)}}

@@ -5,6 +5,8 @@ namespace App\Controller\Admin;
 use App\Entity\Document;
 use App\Form\DocumentType;
 use App\Services\UploadFile;
+use App\Form\SearchDocumentType;
+use App\Services\SearchDocument;
 use App\Repository\DocumentRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
@@ -83,10 +85,14 @@ class AdminDocumentController extends AbstractController
      */
     public function index(Request $request, PaginatorInterface $paginatorInterface, DocumentRepository $documentRepository): Response
     {
-        // Récupération des objets Document en base de données
-        $documentsData = $documentRepository->findBy([],[
-            'name' => 'ASC',
-        ]);
+        // Instanciation d'un nouvel objet de recherche d'objets Document
+        $searchDocument = new SearchDocument;
+        // Création du formulaire de recherche d'objets Document
+        $form = $this->createForm(SearchDocumentType::class, $searchDocument);
+        // Analyse de la requête et traitement du formulaire de recherche
+        $form->handleRequest($request);
+        // Récupération en base de données des objets Document sélectionnés à l'aide des propriétés de l'objet SearchDocument
+        $documentsData = $documentRepository->findWithSearchDocument($searchDocument);
         // Pagination des objets Document
         $documents = $paginatorInterface->paginate(
             // Objets Document récupérés
@@ -96,9 +102,11 @@ class AdminDocumentController extends AbstractController
             // Nombre d'objets Document à afficher par page
             10
         );
+        $formView = $form->createView();
         return $this->render('/admin/document/index.html.twig', [
             'documents' => $documents,
-            'documentsData' => $documentsData
+            'documentsData' => $documentsData,
+            'formView' => $formView
         ]);
     }
 

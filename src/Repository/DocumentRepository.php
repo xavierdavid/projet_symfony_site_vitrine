@@ -3,8 +3,9 @@
 namespace App\Repository;
 
 use App\Entity\Document;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use App\Services\SearchDocument;
 use Doctrine\Persistence\ManagerRegistry;
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 
 /**
  * @extends ServiceEntityRepository<File>
@@ -37,6 +38,31 @@ class DocumentRepository extends ServiceEntityRepository
         if ($flush) {
             $this->getEntityManager()->flush();
         }
+    }
+
+    /**
+     * Permet de configurer une requête personnalisée pour récupérer en base de données les objets Document en fonction des propriétés de filtre de l'objet SearchDocument
+     *
+     * @param SearchDocument $searchDocument
+     * @return Document[]
+     */
+    public function findWithSearchDocument(SearchDocument $searchDocument)
+    {
+        // Configuration de la requête qui récupère les objets Document
+        $query = $this
+            ->createQueryBuilder('d')
+            // Sélection des objets Document  
+            ->select('d')
+            // Tri des objets Document par nom et par ordre croissant
+            ->orderBy('d.name', 'ASC');
+        // Affinement de la requête si un filtre de mot clé $string est présent dans l'objet SearchDocument
+        if(!empty($searchDocument->string)) {
+            $query = $query
+                ->andWhere('d.name LIKE :string')
+                ->setParameter('string', "%$searchDocument->string%");
+        }
+        // Retour des résultats de la requête
+        return $query->getQuery()->getResult();
     }
 
 //    /**

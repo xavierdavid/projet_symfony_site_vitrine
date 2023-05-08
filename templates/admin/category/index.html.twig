@@ -19,6 +19,17 @@
             <header>
                 <h2>Liste des catégories des articles</h2>
             </header>
+            <aside>
+                <h4>Filter les catégories</h4>
+                {# Formulaire de recherche d'objets Document #}
+                <section>
+                    {{form_start(formView)}}
+                    {{form_row(formView.string)}}
+                    <br>
+                    <button type="submit">Filtrer</button>
+                    {{form_end(formView)}}
+                </section>
+            </aside>
             <br>
             <section>
                 <p>Nombre de catégories : <strong>{{categoriesData|length}}</strong></p>

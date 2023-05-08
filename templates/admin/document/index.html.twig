@@ -19,6 +19,17 @@
             <header>
                 <h2>Liste des documents</h2>
             </header>
+            <aside>
+                <h4>Filter les documents</h4>
+                {# Formulaire de recherche d'objets Document #}
+                <section>
+                    {{form_start(formView)}}
+                    {{form_row(formView.string)}}
+                    <br>
+                    <button type="submit">Filtrer</button>
+                    {{form_end(formView)}}
+                </section>
+            </aside>
             <br>
             <section>
                 <p>Nombre de documents : <strong>{{documentsData|length}}</strong></p>

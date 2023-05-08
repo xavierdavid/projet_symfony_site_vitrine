@@ -1,0 +1,91 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}Interface d'administration{% endblock %}
+
+{% block body %}
+<main class="container">
+    <header>
+        <h1>Interface d'administration</h1>
+    </header>
+    <administrator class="admin-container">
+        <section>
+            <header>
+                <h3>Dirigeants</h3>
+            </header>
+            {# Inclusion du aside #}
+            {% include "admin/partials/_aside.html.twig" %}
+        </section>
+        <section>
+            <header>
+                <h2>Liste des dirigeants</h2>
+            </header>
+            <aside>
+                <h4>Filter les dirigeants</h4>
+                {# Formulaire de recherche d'objets administrator #}
+                <section>
+                    {{form_start(formView)}}
+                    {{form_row(formView.string)}}
+                    <br>
+                    {{form_row(formView.priorityOrder)}}
+                    <br>
+                    <button type="submit">Filtrer</button>
+                    {{form_end(formView)}}
+                </section>
+            </aside>
+            <br>
+            <section>
+                <p>Nombre de dirigeants : <strong>{{administratorsData|length}}</strong></p>
+                {# Tableau des objets administrator #}
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Nom</th>
+                            <th>Prénom</th>
+                            <th>Fonction</th>
+                            <th>Date de mise à jour</th>
+                            <th>Photo de profil</th>
+                            <th>Priorité de publication</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for administrator in administrators %}
+                            <tr>
+                                <td>{{administrator.lastName|upper}}</td>
+                                <td>{{administrator.firstName|capitalize}}</td>
+                                <td>{{administrator.shortDescription|capitalize}}</td>
+                                <td>{{administrator.updatedAt|format_datetime(locale='fr', timezone='Europe/Paris')}}</td>
+                                <td>
+                                    {% if administrator.coverImage %}
+                                        <a href="{{asset('uploads/'~administrator.coverImage)}}" target="_blank"><img src="{{asset('uploads/'~administrator.coverImage)}}" alt="Photo de profil de {{administrator.firstName}} {{administrator.lastName|upper}}" class="smallSizeImage"></a>
+                                    {% endif %}
+                                </td>
+                                <td>{{administrator.priorityOrder}}</td>
+                                {# Actions #}
+                                <td>
+                                    <a type="button" href="{{path('app_admin_administrator_detail', {'slug':administrator.slug})}}"><i class="fas fa-eye"></i> Voir</a>
+                                    <a type="button" href="{{path('app_admin_administrator_edit', {'slug':administrator.slug})}}"><i class="fas fa-pen"></i> Modifier</a>
+                                    <a type="button" href="{{path('app_admin_administrator_delete', {'slug':administrator.slug})}}" class="modal-trigger"  data-token="{{csrf_token('delete' ~ administrator.slug)}}" data-message="Confirmez-vous la suppression du dirigeant '{{administrator.firstName}} {{administrator.lastName|upper}}' ?" ><i class="fas fa-trash-alt"></i> Supprimer</a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                <br>
+                {# Pagination des objets Administrator #}
+                <section>
+                    <nav class="pagination">
+                        {{knp_pagination_render(administrators)}}
+                    </nav>
+                </section>
+                <section>
+                    <br>
+                    <a href="{{path('app_admin_administrator_new')}}"><i class="fas fa-plus"></i> Ajouter un dirigeant</a>
+                    <br>
+                    <p><a href="{{path('app_admin_home')}}"><i class="fas fa-backward"></i> Retour</a></p>
+                </section>
+            </section>
+        </section>
+    </administrator>
+</main>
+{% endblock %}

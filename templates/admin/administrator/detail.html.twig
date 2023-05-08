@@ -1,0 +1,50 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}Interface d'administration{% endblock %}
+
+{% block body %}
+<main class="container">
+    <header>
+        <h1>Interface d'administration</h1>
+    </header>
+    <article class="admin-container">
+        <section>
+            <header>
+                <h3>Dirigeants</h3>
+            </header>
+            {# Inclusion du aside #}
+            {% include "admin/partials/_aside.html.twig" %}
+        </section>
+        <section>
+            <header>
+                <h2>Détail d'un dirigeant</h2>
+            </header>
+            <br>
+            <section class="container">
+              {# Affichage de l'objet administrator #}
+              <section>
+                <h4>Nom du dirigeant</h4>
+                <p>{{administrator.lastName|upper}}</p>
+                <h4>Prénom du dirigeant</h4>
+                <p>{{administrator.firstName|capitalize}}</p>
+                <h4>Fonction</h4>
+                <p>{{administrator.shortDescription}}</p>
+                <h4>Description du profil du dirigeant</h4>
+                <p>{{administrator.description|raw}}</p>
+                {# Affichage de l'image de couverture de l'objet administrator #}
+                {% if administrator.coverImage %}
+                  <h4>Image de couverture</h4>
+                    <figure>
+                        <a href="{{asset('uploads/'~administrator.coverImage)}}" target="_blank"><img src="{{asset('uploads/'~ administrator.coverImage)}}" alt="Photo de profil de {{administrator.firstName}} {{administrator.lastName|upper}}" class="mediumSizeImage"></a>
+                    </figure>
+                {% endif %}
+              </section>
+            </section>
+            <section>
+                <p><a href="{{path('app_admin_administrator_edit', {'slug':administrator.slug})}}"><i class="fas fa-pen"></i> Modifier le dirigeant</a></p>
+                <p><a href="{{path('app_admin_administrator_index')}}"><i class="fas fa-backward"></i> Retour</a></p>
+            </section>       
+        </section>
+    </article>
+</main>
+{% endblock %}

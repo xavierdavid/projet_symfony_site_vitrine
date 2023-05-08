@@ -4,15 +4,17 @@ namespace App\Controller\Admin;
 
 use App\Entity\Category;
 use App\Form\CategoryType;
+use App\Form\SearchCategoryType;
+use App\Services\SearchCategory;
 use App\Repository\CategoryRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\String\Slugger\SluggerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\String\Slugger\SluggerInterface;
 
 class AdminCategoryController extends AbstractController
 {
@@ -71,10 +73,14 @@ class AdminCategoryController extends AbstractController
      */
     public function index(Request $request, PaginatorInterface $paginatorInterface, CategoryRepository $categoryRepository): Response
     {
-        // Récupération des objets Category en base de données
-        $categoriesData = $categoryRepository->findBy([],[
-            'name' => 'ASC'
-        ]);
+        // Instanciation d'un nouvel objet de recherche d'objets Category
+        $searchCategory = new SearchCategory;
+        // Création du formulaire de recherche d'objets Category
+        $form = $this->createForm(SearchCategoryType::class, $searchCategory);
+        // Analyse de la requête et traitement du formulaire de recherche
+        $form->handleRequest($request);
+        // Récupération en base de données des objets Category sélectionnés à l'aide des propriétés de l'objet SearchCategory
+        $categoriesData = $categoryRepository->findWithSearchCategory($searchCategory);
        
         // Pagination des objets Category
         $categories = $paginatorInterface->paginate(
@@ -85,9 +91,11 @@ class AdminCategoryController extends AbstractController
             // Nombre d'objets Category à afficher par page
             10
         );
+        $formView = $form->createView();
         return $this->render('admin/category/index.html.twig', [
             'categories' => $categories,
-            'categoriesData' => $categoriesData
+            'categoriesData' => $categoriesData,
+            'formView' => $formView
         ]);
     }
 

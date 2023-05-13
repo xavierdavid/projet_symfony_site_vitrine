@@ -12,6 +12,18 @@
             <h2>Bienvenue dans votre compte utilisateur</h2>
             <p>Cet espace vous permet de gérer les informations de votre compte</p>
             <br>
+            <p>Vous disposez des rôles suivants :</p>
+            <br>
+            {% for role in app.user.roles %}
+                {% if role == 'ROLE_USER' %}
+                    <p><strong>Utilisateur</strong> - Vous êtes authentifié et pouvez accéder à votre compte</p>
+                {% elseif role == 'ROLE_AUTHOR' %}
+                    <p><strong>Auteur</strong> - Vous pouvez accéder à la gestion des articles dans le backoffice</p>
+                {% elseif role == 'ROLE_ADMIN' %}
+                    <p><strong>Administrateur </strong> - Vous avez accès à l'ensemble du contenu du site</p>
+                {% endif %}
+            {% endfor %}
+            <br>
             <hr>
         </header>
         <section>

@@ -33,7 +33,7 @@ class AdminDocumentController extends AbstractController
     #[Route('/admin/document/new', name:'app_admin_document_new')]
     /**
      * Contrôle l'affichage et le traitement du formulaire de création d'un objet Document
-     * @IsGranted("ROLE_ADMIN")
+     * @IsGranted("ROLE_ADMIN", message="Vous n'êtes pas autorisé à accéder à cette page !")
      * 
      * @param Request $request
      * @return Response
@@ -77,7 +77,7 @@ class AdminDocumentController extends AbstractController
     #[Route('/admin/document/index', name:'app_admin_document_index')]
     /**
      * Contrôle l'affichage de la page d'index des objets Document
-     * @IsGranted("ROLE_ADMIN")
+     * @IsGranted("ROLE_ADMIN", message="Vous n'êtes pas autorisé à accéder à cette page !")
      *
      * @param Request $request
      * @param DocumentRepository $documentRepository
@@ -113,7 +113,7 @@ class AdminDocumentController extends AbstractController
     #[Route('/admin/document/{slug}/edit', name:'app_admin_document_edit')]
     /**
      * Contrôle l'affichage et le traitement du formulaire de modification d'un objet Document
-     * @IsGranted("ROLE_ADMIN")
+     * @IsGranted("ROLE_ADMIN", message="Vous n'êtes pas autorisé à accéder à cette page !")
      * 
      * @param [type] $slug
      * @param DocumentRepository $documentRepository
@@ -172,7 +172,7 @@ class AdminDocumentController extends AbstractController
     #[Route('/admin/document/{slug}/delete', name:'app_admin_document_delete')]
     /**
      * Contrôle le traitement de la suppression d'un objet Document
-     * @IsGranted("ROLE_ADMIN")
+     * @IsGranted("ROLE_ADMIN", message="Vous n'êtes pas autorisé à accéder à cette page !")
      * 
      * @param [type] $slug
      * @param DocumentRepository $documentRepository

@@ -1,0 +1,42 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}Interface d'administration{% endblock %}
+
+{% block body %}
+<main class="container">
+    <header>
+        <h1>Interface d'administration</h1>
+    </header>
+    <article class="admin-container">
+        <section>
+            <header>
+                <h3>Utilisateurs</h3>
+            </header>
+            {# Inclusion du aside #}
+            {% include "admin/partials/_aside.html.twig" %}
+        </section>
+        <section>
+            <header>
+                <h2>Modifier un utilisateur</h2>
+            </header>
+            <br>
+            <section>
+                {# Formulaire de création d'un objet User #}
+                {{form_start(formView)}}
+                {{form_row(formView.firstname)}}
+                {{form_row(formView.lastname)}}
+                {{form_row(formView.email)}}
+                {{form_row(formView.password)}}
+            </section>
+            <section>
+                <button type="submit">Modifier l'utilisateur</button>
+                {{form_end(formView)}}
+            </section>
+            <br>
+            <section>
+                <p><a href="{{path('app_admin_user_index')}}"><i class="fas fa-backward"></i> Retour</a></p>
+            </section>
+        </section>
+    </article>
+</main>
+{% endblock %}

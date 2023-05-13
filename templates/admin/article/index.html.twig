@@ -42,7 +42,8 @@
                     <thead>
                         <tr>
                             <th>Titre</th>
-                            <th>Date de mise à jour</th>
+                            <th>Créé par</th>
+                            <th>Mis à jour le</th>
                             <th>Image de couverture</th>
                             <th>A la une</th>
                             <th>Priorité de publication</th>
@@ -53,6 +54,7 @@
                         {% for article in articles %}
                             <tr>
                                 <td>{{article.title}}</td>
+                                <td>{{article.getUser.firstName|capitalize}} {{article.getUser.lastName|upper}}</td>
                                 <td>{{article.updatedAt|format_datetime(locale='fr', timezone='Europe/Paris')}}</td>
                                 <td>
                                     {% if article.coverImage %}

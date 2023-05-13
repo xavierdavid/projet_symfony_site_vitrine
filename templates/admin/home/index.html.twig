@@ -8,10 +8,18 @@
         <h1>Interface d'administration</h1>
     </header>
     <article class="admin-container">
-        <header></header>
-        {# Inclusion du aside #}
-        {% include "admin/partials/_aside.html.twig" %}
-        <section></section>
+        <section>
+            <header>
+                <h3>Accueil</h3>
+            </header>
+            {# Inclusion du aside #}
+            {% include "admin/partials/_aside.html.twig" %}
+        </section>
+        <section>
+            <header>
+                <h2>Sommaire</h2>
+            </header>
+        </section>
     </article>
 </main>
 {% endblock %}

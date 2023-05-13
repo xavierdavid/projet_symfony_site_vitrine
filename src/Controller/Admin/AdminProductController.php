@@ -33,7 +33,7 @@ class AdminProductController extends AbstractController
     #[Route('/admin/product/new', name:'app_admin_product_new')]
     /**
      * Contrôle l'affichage et le traitement du formulaire de création d'un objet Product
-     * @IsGranted("ROLE_ADMIN")
+     * @IsGranted("ROLE_ADMIN", message="Vous n'êtes pas autorisé à accéder à cette page !")
      *
      * @param Request $request
      * @return void
@@ -75,7 +75,7 @@ class AdminProductController extends AbstractController
     #[Route('/admin/product/index', name: 'app_admin_product_index')]
     /**
      * Contrôle l'affichage de la page d'index des objets Product
-     * @IsGranted("ROLE_ADMIN")
+     * @IsGranted("ROLE_ADMIN", message="Vous n'êtes pas autorisé à accéder à cette page !")
      *
      * @param Request $request
      * @param ProductRepository $ProductRepository
@@ -112,7 +112,7 @@ class AdminProductController extends AbstractController
     #[Route('/admin/product/{slug}/edit', name:'app_admin_product_edit')]
     /**
      * Contrôle l'affichage et le traitement du formulaire de modification d'un objet Product
-     * @IsGranted("ROLE_ADMIN")
+     * @IsGranted("ROLE_ADMIN", message="Vous n'êtes pas autorisé à accéder à cette page !")
      *
      * @param [type] $slug
      * @param Request $request
@@ -177,7 +177,7 @@ class AdminProductController extends AbstractController
     #[Route('/admin/product/{slug}/detail', name:'app_admin_product_detail')]
     /**
      * Contrôle l'affichage de la page d'un objet Product
-     * @IsGranted("ROLE_ADMIN")
+     * @IsGranted("ROLE_ADMIN", message="Vous n'êtes pas autorisé à accéder à cette page !")
      *
      * @param [type] $slug
      * @param Request $request
@@ -204,6 +204,7 @@ class AdminProductController extends AbstractController
     #[Route('/admin/product/{slug}/delete', name:'app_admin_product_delete')]
     /**
      * Contrôle le traitement de la suppression d'un objet Product
+     * @IsGranted("ROLE_ADMIN", message="Vous n'êtes pas autorisé à accéder à cette page !")
      *
      * @param [type] $slug
      * @param ProductRepository $ProductRepository

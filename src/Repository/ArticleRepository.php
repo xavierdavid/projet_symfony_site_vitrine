@@ -55,6 +55,8 @@ class ArticleRepository extends ServiceEntityRepository
             ->select('c', 'a')
             // Jointure entre les objets Article et les objets Category - Récupère par défaut tous les objets Article même ceux non associés à un objet Category (leftJoin) 
             ->leftJoin('a.categories', 'c')
+            // Jointure entre les objets Article et les objets User - Récupère par défaut tous les objets Article même ceux non associés à un objet User (leftJoin) 
+            ->leftJoin('a.user', 'u')
             // Tri des objets Article par date de mise à jour et par ordre décroissant
             ->orderBy('a.updatedAt', 'DESC');
         // Affinement de la requête si un filtre de catégorie $category est présent dans l'objet SearchArticle
@@ -71,7 +73,7 @@ class ArticleRepository extends ServiceEntityRepository
         // Affinement de la requête si un filtre de mot clé $string est présent dans l'objet SearchArticle
         if(!empty($searchArticle->string)) {
             $query = $query
-                ->andWhere('a.title LIKE :string')
+                ->andWhere('a.title LIKE :string OR u.firstname LIKE :string OR u.lastname LIKE :string')
                 ->setParameter('string', "%$searchArticle->string%");
         }
         // Retour des résultats de la requête

@@ -19,7 +19,7 @@ security:
             form_login:
                 login_path: app_login
                 check_path: app_login
-                default_target_path: app_admin_home
+                default_target_path: app_account_home
                 enable_csrf: true
             logout:
                 path: app_logout
@@ -34,8 +34,26 @@ security:
     # Easy way to control access for large sections of your site
     # Note: Only the *first* access control that matches will be used
     access_control:
-        - { path: ^/admin, roles: ROLE_ADMIN }
+        - { path: ^/admin/home, roles: ROLE_AUTHOR }
+        - { path: ^/admin/article, roles: ROLE_AUTHOR }
+        - { path: ^/admin/organization, roles: ROLE_ADMIN }
+        - { path: ^/admin/product, roles: ROLE_ADMIN }
+        - { path: ^/admin/category, roles: ROLE_ADMIN }
+        - { path: ^/admin/administrator, roles: ROLE_ADMIN }
+        - { path: ^/admin/collaborator, roles: ROLE_ADMIN }
+        - { path: ^/admin/partner, roles: ROLE_ADMIN }
+        - { path: ^/admin/contact, roles: ROLE_ADMIN }
+        - { path: ^/admin/document, roles: ROLE_ADMIN }
+        - { path: ^/admin/image, roles: ROLE_ADMIN }
+        - { path: ^/admin/carousel, roles: ROLE_ADMIN }
+        - { path: ^/admin/metatag, roles: ROLE_ADMIN }
+        - { path: ^/admin/user, roles: ROLE_ADMIN }
         - { path: ^/account, roles: ROLE_USER }
+
+    # Hiérarchisation des rôles
+    role_hierarchy:
+        ROLE_AUTHOR: ROLE_USER # Le rôle auteur possède les autorisations du rôle utilisateur authentifié
+        ROLE_ADMIN: ROLE_AUTHOR # Le rôle admin possède les autorisations du rôle auteur
 
 when@test:
     security:

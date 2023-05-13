@@ -29,8 +29,8 @@
         <a href="{{path('app_login')}}"><i class="fas fa-sign-in-alt"></i> Connection</a>
       {% endif %}
         
-      {# Accès aux pages d'administration si l'utilisateur a le rôle Admin #}
-      {% if is_granted('ROLE_ADMIN')%} 
+      {# Accès aux pages d'administration si l'utilisateur a le rôle Admin ou Author #}
+      {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_AUTHOR') %} 
           <a href="{{path('app_admin_home')}}"><i class="fas fa-unlock"></i> Accéder au back-office</a>
       {% endif %}
     </section>

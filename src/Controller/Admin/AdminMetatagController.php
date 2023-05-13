@@ -22,7 +22,7 @@ class AdminMetatagController extends AbstractController
     #[Route('/admin/metatag/index', name:'app_admin_metatag_index')]
     /**
      * Contrôle l'affichage de la page d'index des objets Metatag
-     * @IsGranted("ROLE_ADMIN")
+     * @IsGranted("ROLE_ADMIN", message="Vous n'êtes pas autorisé à accéder à cette page !")
      *
      * @param MetatagRepository $metatagRepository
      * @return Response
@@ -40,7 +40,7 @@ class AdminMetatagController extends AbstractController
     #[Route('/admin/metatag/{id}/edit', name:'app_admin_metatag_edit')]
     /**
      * Contrôle l'affichage et le traitement du formulaire de modification d'un objet Metatag
-     * @IsGranted("ROLE_ADMIN")
+     * @IsGranted("ROLE_ADMIN", message="Vous n'êtes pas autorisé à accéder à cette page !")
      * 
      * @param [type] $id
      * @param metatagRepository $metatagRepository

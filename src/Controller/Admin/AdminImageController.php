@@ -33,7 +33,7 @@ class AdminImageController extends AbstractController
     #[Route('/admin/image/new', name:'app_admin_image_new')]
     /**
      * Contrôle l'affichage et le traitement du formulaire de création d'un objet Image
-     * @IsGranted("ROLE_ADMIN")
+     * @IsGranted("ROLE_ADMIN", message="Vous n'êtes pas autorisé à accéder à cette page !")
      * 
      * @param Request $request
      * @return Response
@@ -57,7 +57,7 @@ class AdminImageController extends AbstractController
                 return $this->redirectToRoute('app_admin_image_new');
             }
             // Upload du fichier de l'objet Image
-            $newImageFile = $this->uploadFile->upload($ImageFile);
+            $newImageFile = $this->uploadFile->upload($imageFile);
             // Affectation des valeurs aux propriétés de l'objet Image
             $image->setSlug(strtolower($this->sluggerInterface->slug($image->getMediaTitle())));
             $image->setImageFile($newImageFile);
@@ -77,7 +77,7 @@ class AdminImageController extends AbstractController
     #[Route('/admin/image/index', name:'app_admin_image_index')]
     /**
      * Contrôle l'affichage de la page d'index des objets Image
-     * @IsGranted("ROLE_ADMIN")
+     * @IsGranted("ROLE_ADMIN", message="Vous n'êtes pas autorisé à accéder à cette page !")
      *
      * @param Request $request
      * @param ImageRepository $ImageRepository
@@ -113,7 +113,7 @@ class AdminImageController extends AbstractController
     #[Route('/admin/image/{slug}/edit', name:'app_admin_image_edit')]
     /**
      * Contrôle l'affichage et le traitement du formulaire de modification d'un objet Image
-     * @IsGranted("ROLE_ADMIN")
+     * @IsGranted("ROLE_ADMIN", message="Vous n'êtes pas autorisé à accéder à cette page !")
      * 
      * @param [type] $slug
      * @param ImageRepository $ImageRepository
@@ -172,7 +172,7 @@ class AdminImageController extends AbstractController
     #[Route('/admin/image/{slug}/detail', name:'app_admin_image_detail')]
     /**
      * Contrôle l'affichage de la page d'un objet Image
-     * @IsGranted("ROLE_ADMIN")
+     * @IsGranted("ROLE_ADMIN", message="Vous n'êtes pas autorisé à accéder à cette page !")
      *
      * @param [type] $slug
      * @param Request $request
@@ -199,7 +199,7 @@ class AdminImageController extends AbstractController
     #[Route('/admin/image/{slug}/delete', name:'app_admin_image_delete')]
     /**
      * Contrôle le traitement de la suppression d'un objet Image
-     * @IsGranted("ROLE_ADMIN")
+     * @IsGranted("ROLE_ADMIN", message="Vous n'êtes pas autorisé à accéder à cette page !")
      * 
      * @param [type] $slug
      * @param ImageRepository $ImageRepository

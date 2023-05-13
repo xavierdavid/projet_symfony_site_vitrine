@@ -33,7 +33,7 @@ class AdminPartnerController extends AbstractController
     #[Route('/admin/partner/new', name:'app_admin_partner_new')]
     /**
      * Contrôle l'affichage et le traitement du formulaire de création d'un objet Partner
-     * @IsGranted("ROLE_ADMIN")
+     * @IsGranted("ROLE_ADMIN", message="Vous n'êtes pas autorisé à accéder à cette page !")
      *
      * @param Request $request
      * @return void
@@ -75,7 +75,7 @@ class AdminPartnerController extends AbstractController
     #[Route('/admin/partner/index', name: 'app_admin_partner_index')]
     /**
      * Contrôle l'affichage de la page d'index des objets Partner
-     * @IsGranted("ROLE_ADMIN")
+     * @IsGranted("ROLE_ADMIN", message="Vous n'êtes pas autorisé à accéder à cette page !")
      *
      * @param Request $request
      * @param PartnerRepository $partnerRepository
@@ -112,7 +112,7 @@ class AdminPartnerController extends AbstractController
     #[Route('/admin/partner/{slug}/edit', name:'app_admin_partner_edit')]
     /**
      * Contrôle l'affichage et le traitement du formulaire de modification d'un objet Partner
-     * @IsGranted("ROLE_ADMIN")
+     * @IsGranted("ROLE_ADMIN", message="Vous n'êtes pas autorisé à accéder à cette page !")
      *
      * @param [type] $slug
      * @param Request $request
@@ -174,7 +174,7 @@ class AdminPartnerController extends AbstractController
     #[Route('/admin/partner/{slug}/detail', name:'app_admin_partner_detail')]
     /**
      * Contrôle l'affichage de la page d'un objet Partner
-     * @IsGranted("ROLE_ADMIN")
+     * @IsGranted("ROLE_ADMIN", message="Vous n'êtes pas autorisé à accéder à cette page !")
      *
      * @param [type] $slug
      * @param Request $request
@@ -195,6 +195,7 @@ class AdminPartnerController extends AbstractController
     #[Route('/admin/partner/{slug}/delete', name:'app_admin_partner_delete')]
     /**
      * Contrôle le traitement de la suppression d'un objet Partner
+     * @IsGranted("ROLE_ADMIN", message="Vous n'êtes pas autorisé à accéder à cette page !")
      *
      * @param [type] $slug
      * @param PartnerRepository $partnerRepository

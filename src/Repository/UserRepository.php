@@ -3,11 +3,12 @@
 namespace App\Repository;
 
 use App\Entity\User;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use App\Services\SearchUser;
 use Doctrine\Persistence\ManagerRegistry;
+use Symfony\Component\Security\Core\User\PasswordUpgraderInterface;
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
-use Symfony\Component\Security\Core\User\PasswordUpgraderInterface;
 
 /**
  * @extends ServiceEntityRepository<User>
@@ -54,6 +55,31 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
         $user->setPassword($newHashedPassword);
 
         $this->save($user, true);
+    }
+
+    /**
+     * Permet de configurer une requête personnalisée pour récupérer en base de données les objets User en fonction des propriétés de filtre de l'objet SearchUser
+     *
+     * @param SearchUser $searchUser
+     * @return User[]
+     */
+    public function findWithSearchUser(SearchUser $searchUser)
+    {
+        // Configuration de la requête qui récupère les objets User
+        $query = $this
+            ->createQueryBuilder('u')
+            // Sélection des objets User  
+            ->select('u')
+            // Tri des objets User par nom et par ordre croissant
+            ->orderBy('u.lastname', 'ASC');
+        // Affinement de la requête si un filtre de mot clé $string est présent dans l'objet SearchUser
+        if(!empty($searchUser->string)) {
+            $query = $query
+                ->andWhere('u.firstname LIKE :string OR u.lastname LIKE :string OR u.email LIKE :string')
+                ->setParameter('string', "%$searchUser->string%");
+        }
+        // Retour des résultats de la requête
+        return $query->getQuery()->getResult();
     }
 
 //    /**

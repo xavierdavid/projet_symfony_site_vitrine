@@ -25,7 +25,7 @@ class AdminOrganizationController extends AbstractController
     #[Route('/admin/organization/index', name:'app_admin_organization_index')]
     /**
      * Contrôle l'affichage de la page d'index des objets Organization
-     * @IsGranted("ROLE_ADMIN")
+     * @IsGranted("ROLE_ADMIN", message="Vous n'êtes pas autorisé à accéder à cette page !")
      * 
      * @param OrganizationRepository $organizationRepository
      * @return Response
@@ -46,7 +46,7 @@ class AdminOrganizationController extends AbstractController
     #[Route('/admin/organization/{id}/edit', name:'app_admin_organization_edit')]
     /**
      * Contrôle l'affichage et le traitement du formulaire de modification d'un objet Organization
-     * @IsGranted("ROLE_ADMIN")
+     * @IsGranted("ROLE_ADMIN", message="Vous n'êtes pas autorisé à accéder à cette page !")
      * 
      * @param [type] $id
      * @param OrganizationRepository $organizationRepository

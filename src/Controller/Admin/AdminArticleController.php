@@ -33,13 +33,15 @@ class AdminArticleController extends AbstractController
     #[Route('/admin/article/new', name:'app_admin_article_new')]
     /**
      * Contrôle l'affichage et le traitement du formulaire de création d'un objet Article
-     * @IsGranted("ROLE_ADMIN")
+     * @IsGranted("ROLE_AUTHOR", message="Vous n'êtes pas autorisé à accéder à cette page !")
      *
      * @param Request $request
      * @return void
      */
     public function new(Request $request)
     {
+        // Récupération de l'utilisateur authentifié
+        $user = $this->getUser();
         // Création d'une nouvelle instance de la classe Article
         $article = new Article;
         // Construction du formulaire de création d'un objet Article
@@ -59,6 +61,8 @@ class AdminArticleController extends AbstractController
             }
             // Mise à jour de la propriété slug de l'objet Article
             $article->setSlug(strtolower($this->sluggerInterface->slug($article->getTitle())));
+            // Rattachement de l'article à l'utilisateur authentifié
+            $article->setUser($user);
             // Sauvegarde et envoi en base de données
             $this->entityManagerInterface->persist($article);
             $this->entityManagerInterface->flush();
@@ -75,7 +79,7 @@ class AdminArticleController extends AbstractController
     #[Route('/admin/article/index', name: 'app_admin_article_index')]
     /**
      * Contrôle l'affichage de la page d'index des objets Article
-     * @IsGranted("ROLE_ADMIN")
+     * @IsGranted("ROLE_AUTHOR", message="Vous n'êtes pas autorisé à accéder à cette page !")
      *
      * @param Request $request
      * @param ArticleRepository $articleRepository
@@ -112,7 +116,7 @@ class AdminArticleController extends AbstractController
     #[Route('/admin/article/{slug}/edit', name:'app_admin_article_edit')]
     /**
      * Contrôle l'affichage et le traitement du formulaire de modification d'un objet Article
-     * @IsGranted("ROLE_ADMIN")
+     * @IsGranted("ROLE_AUTHOR", message="Vous n'êtes pas autorisé à accéder à cette page !")
      *
      * @param [type] $slug
      * @param Request $request
@@ -131,6 +135,8 @@ class AdminArticleController extends AbstractController
         if(!$article) {
             throw $this->createNotFoundException("L'article demandé n'existe pas !");
         }
+        // Contrôle du droit d'accès à la modification de l'objet Article à l'aide du VoterArticle
+        $this->denyAccessUnlessGranted('CAN_EDIT', $article, "Vous n'êtes pas autorisés à modifier cet article car vous n'en n'êtes pas l'auteur !");
         // Construction du formulaire de modification de l'objet Article
         $form = $this->createForm(ArticleType::class, $article);
         // Récupération de l'ancien fichier d'image de couverture de l'objet Article
@@ -177,7 +183,7 @@ class AdminArticleController extends AbstractController
     #[Route('/admin/article/{slug}/detail', name:'app_admin_article_detail')]
     /**
      * Contrôle l'affichage de la page d'un objet Article
-     * @IsGranted("ROLE_ADMIN")
+     * @IsGranted("ROLE_AUTHOR", message="Vous n'êtes pas autorisé à accéder à cette page !")
      *
      * @param [type] $slug
      * @param Request $request
@@ -207,6 +213,7 @@ class AdminArticleController extends AbstractController
     #[Route('/admin/article/{slug}/delete', name:'app_admin_article_delete')]
     /**
      * Contrôle le traitement de la suppression d'un objet Article
+     * @IsGranted("ROLE_AUTHOR", message="Vous n'êtes pas autorisé à accéder à cette page !")
      *
      * @param [type] $slug
      * @param ArticleRepository $articleRepository
@@ -224,6 +231,8 @@ class AdminArticleController extends AbstractController
         if(!$article){
             throw $this->createNotFoundException("L'article demandé n'existe pas !");
         }
+        // Contrôle du droit d'accès à la suppression de l'objet Article à l'aide du VoterArticle
+        $this->denyAccessUnlessGranted('CAN_DELETE', $article, "Vous n'êtes pas autorisés à supprimer cet article car vous n'en n'êtes pas l'auteur !");
         // Test du token autorisant la suppression de l'objet Article
         if($this->isCsrfTokenValid('delete'.$article->getSlug(), $request->get('_token'))){
             // Suppression de l'objet Article

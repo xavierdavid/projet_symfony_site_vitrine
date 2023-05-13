@@ -52,6 +52,10 @@ class Article
     #[ORM\Column(nullable: true)]
     private ?int $priorityOrder = null;
 
+    #[ORM\ManyToOne(inversedBy: 'articles')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?User $user = null;
+
     public function __construct()
     {
         $this->categories = new ArrayCollection();
@@ -242,6 +246,18 @@ class Article
     public function setPriorityOrder(?int $priorityOrder): self
     {
         $this->priorityOrder = $priorityOrder;
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): self
+    {
+        $this->user = $user;
 
         return $this;
     }

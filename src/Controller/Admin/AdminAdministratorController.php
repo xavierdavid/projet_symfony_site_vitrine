@@ -33,7 +33,7 @@ class AdminAdministratorController extends AbstractController
     #[Route('/admin/administrator/new', name:'app_admin_administrator_new')]
     /**
      * Contrôle l'affichage et le traitement du formulaire de création d'un objet Administrator
-     * @IsGranted("ROLE_ADMIN")
+     * @IsGranted("ROLE_ADMIN", message="Vous n'êtes pas autorisé à accéder à cette page !")
      *
      * @param Request $request
      * @return void
@@ -75,7 +75,7 @@ class AdminAdministratorController extends AbstractController
     #[Route('/admin/administrator/index', name: 'app_admin_administrator_index')]
     /**
      * Contrôle l'affichage de la page d'index des objets Administrator
-     * @IsGranted("ROLE_ADMIN")
+     * @IsGranted("ROLE_ADMIN", message="Vous n'êtes pas autorisé à accéder à cette page !")
      *
      * @param Request $request
      * @param AdministratorRepository $administratorRepository
@@ -112,7 +112,7 @@ class AdminAdministratorController extends AbstractController
     #[Route('/admin/administrator/{slug}/edit', name:'app_admin_administrator_edit')]
     /**
      * Contrôle l'affichage et le traitement du formulaire de modification d'un objet Administrator
-     * @IsGranted("ROLE_ADMIN")
+     * @IsGranted("ROLE_ADMIN", message="Vous n'êtes pas autorisé à accéder à cette page !")
      *
      * @param [type] $slug
      * @param Request $request
@@ -174,7 +174,7 @@ class AdminAdministratorController extends AbstractController
     #[Route('/admin/administrator/{slug}/detail', name:'app_admin_administrator_detail')]
     /**
      * Contrôle l'affichage de la page d'un objet Administrator
-     * @IsGranted("ROLE_ADMIN")
+     * @IsGranted("ROLE_ADMIN", message="Vous n'êtes pas autorisé à accéder à cette page !")
      *
      * @param [type] $slug
      * @param Request $request
@@ -195,6 +195,7 @@ class AdminAdministratorController extends AbstractController
     #[Route('/admin/administrator/{slug}/delete', name:'app_admin_administrator_delete')]
     /**
      * Contrôle le traitement de la suppression d'un objet Administrator
+     * @IsGranted("ROLE_ADMIN", message="Vous n'êtes pas autorisé à accéder à cette page !")
      *
      * @param [type] $slug
      * @param AdministratorRepository $administratorRepository

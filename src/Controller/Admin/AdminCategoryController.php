@@ -29,7 +29,7 @@ class AdminCategoryController extends AbstractController
     #[Route('/admin/category/new', name:'app_admin_category_new')]
     /**
      * Contrôle l'affichage et le traitement du formulaire de création d'un objet category
-     * @IsGranted("ROLE_ADMIN")
+     * @IsGranted("ROLE_ADMIN", message="Vous n'êtes pas autorisé à accéder à cette page !")
      * 
      * @param Request $request
      * @return Response
@@ -64,7 +64,7 @@ class AdminCategoryController extends AbstractController
     #[Route('/admin/category/index', name:'app_admin_category_index')]
     /**
      * Contrôle l'affichage de la page d'index des objets Category
-     * @IsGranted("ROLE_ADMIN")
+     * @IsGranted("ROLE_ADMIN", message="Vous n'êtes pas autorisé à accéder à cette page !")
      *
      * @param Request $request
      * @param PaginatorInterface $paginatorInterface
@@ -102,13 +102,13 @@ class AdminCategoryController extends AbstractController
     #[Route('/admin/category/{slug}/edit', name:'app_admin_category_edit')]
     /**
      * Contrôle l'affichage et le traitement du formulaire de modification d'un objet Category
-     * @IsGranted("ROLE_ADMIN")
+     * @IsGranted("ROLE_ADMIN", message="Vous n'êtes pas autorisé à accéder à cette page !")
      * 
      * @param [type] $slug
-     * @param categoryRepository $categoryRepository
+     * @param CategoryRepository $categoryRepository
      * @return Response
      */
-    public function edit($slug, Request $request, categoryRepository $categoryRepository): Response
+    public function edit($slug, Request $request, CategoryRepository $categoryRepository): Response
     {
         // Récupération de l'objet Category à modifier
         $category = $categoryRepository->findOneBy([
@@ -144,13 +144,13 @@ class AdminCategoryController extends AbstractController
     #[Route('/admin/category/{slug}/delete', name:'app_admin_category_delete')]
     /**
      * Contrôle le traitement de la suppression d'un objet Category
-     * @IsGranted("ROLE_ADMIN")
+     * @IsGranted("ROLE_ADMIN", message="Vous n'êtes pas autorisé à accéder à cette page !")
      * 
      * @param [type] $slug
-     * @param categoryRepository $categoryRepository
+     * @param CategoryRepository $categoryRepository
      * @return Void
      */
-    public function delete($slug, Request $request, categoryRepository $categoryRepository)
+    public function delete($slug, Request $request, CategoryRepository $categoryRepository)
     {
         // Récupération de l'objet Category à supprimer
         $category = $categoryRepository->findOneBy([

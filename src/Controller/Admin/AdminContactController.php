@@ -25,7 +25,7 @@ class AdminContactController extends AbstractController
     #[Route('/admin/contact/index', name: 'app_admin_contact_index')]
     /**
      * Contrôle l'affichage de la page d'index des objets Contact
-     * @IsGranted("ROLE_ADMIN")
+     * @IsGranted("ROLE_ADMIN", message="Vous n'êtes pas autorisé à accéder à cette page !")
      *
      * @param Request $request
      * @param PaginatorInterface $paginatorInterface
@@ -62,7 +62,7 @@ class AdminContactController extends AbstractController
     #[Route('/admin/contact/{id}/detail', name:'app_admin_contact_detail')]
     /**
      * Contrôle l'affichage de la page d'un objet Contact
-     * @IsGranted("ROLE_ADMIN")
+     * @IsGranted("ROLE_ADMIN", message="Vous n'êtes pas autorisé à accéder à cette page !")
      *
      * @param [type] $id
      * @param Request $request
@@ -83,7 +83,7 @@ class AdminContactController extends AbstractController
     #[Route('/admin/contact/{id}/delete', name:'app_admin_contact_delete')]
     /**
      * Contrôle le traitement de la suppression d'un objet Contact
-     * @IsGranted("ROLE_ADMIN")
+     * @IsGranted("ROLE_ADMIN", message="Vous n'êtes pas autorisé à accéder à cette page !")
      * 
      * @param [type] $id
      * @param contactRepository $contactRepository

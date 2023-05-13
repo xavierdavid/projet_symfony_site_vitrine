@@ -1,0 +1,95 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}Interface d'administration{% endblock %}
+
+{% block body %}
+<main class="container">
+    <header>
+        <h1>Interface d'administration</h1>
+    </header>
+    <article class="admin-container">
+        <section>
+            <header>
+                <h3>Utilisateurs</h3>
+            </header>
+            {# Inclusion du aside #}
+            {% include "admin/partials/_aside.html.twig" %}
+        </section>
+        <section>
+            <header>
+                <h2>Liste des utilisateurs</h2>
+            </header>
+            <aside>
+                <h4>Filter les utilisateurs</h4>
+                {# Formulaire de recherche d'objets User #}
+                <section>
+                    {{form_start(formView)}}
+                    {{form_row(formView.string)}}
+                    <br>
+                    <button type="submit">Filtrer</button>
+                    {{form_end(formView)}}
+                </section>
+            </aside>
+            <br>
+            <section>
+                <p>Nombre d'utilisateurs : <strong>{{usersData|length}}</strong></p>
+                {# Tableau des objets User #}
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Nom</th>
+                            <th>Prénom</th>
+                            <th>Email</th>
+                            <th>Rôles</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for user in users %}
+                            <tr>
+                                <td>{{user.lastName|upper}}</td>
+                                <td>{{user.firstName|capitalize}}</td>
+                                <td>{{user.email}}</td>
+                                <td>
+                                    {% for role in user.roles %}
+                                        {% if role == 'ROLE_USER' %}
+                                            <li>Utilisateur</li>
+                                        {% elseif role == 'ROLE_AUTHOR' %}
+                                            <li>Auteur</li>
+                                        {% elseif role == 'ROLE_ADMIN' %}
+                                            <li>Administrateur</li>
+                                        {% endif %}
+                                    {% endfor %}
+                                </td>
+                                {# Actions #}
+                                <td>
+                                    {# Si l'utilisateur authentifié n'a pas le rôle d'administrateur' #}
+                                    {% for role in user.roles %}
+                                        {% if role is same as 'ROLE_AUTHOR' %} 
+                                        <a type="button" href="{{path('app_admin_user_edit', {'id':user.id})}}"><i class="fas fa-pen"></i> Modifier</a>
+                                        <a type="button" href="{{path('app_admin_user_delete', {'id':user.id})}}" class="modal-trigger"  data-token="{{csrf_token('delete' ~ user.id)}}" data-message="Confirmez-vous la suppression de l'utilisateur '{{user.firstName|capitalize}} {{user.lastName|upper}}' ?" ><i class="fas fa-trash-alt"></i> Supprimer</a>
+                                        {% endif %}
+                                    {% endfor %}
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                <br>
+                {# Pagination des objets user #}
+                <section>
+                    <nav class="pagination">
+                        {{knp_pagination_render(users)}}
+                    </nav>
+                </section>
+                <section>
+                    <br>
+                    <a href="{{path('app_admin_user_new')}}"><i class="fas fa-plus"></i> Ajouter un utilisateur</a>
+                    <br>
+                    <p><a href="{{path('app_admin_home')}}"><i class="fas fa-backward"></i> Retour</a></p>
+                </section>
+            </section>
+        </section>
+    </article>
+</main>
+{% endblock %}

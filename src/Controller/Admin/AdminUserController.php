@@ -130,6 +130,7 @@ class AdminUserController extends AbstractController
         // Si l'objet User à modifier a le rôle d'administrateur
         if(in_array("ROLE_ADMIN", $roles)) {
             // Redirection vers la page de profil
+            $this->addFlash("warning", "Veuillez modifier votre profil à partir de votre compte utilisateur");
             return $this->redirectToRoute('app_account_home');
         }
         // Construction du formulaire de modification de l'objet User
@@ -148,8 +149,6 @@ class AdminUserController extends AbstractController
             $hashPassword = $this->userPasswordHasherInterface->hashPassword($user, $password);
             // Affectation du mot de passe hasché à l'objet User 
             $user->setPassword($hashPassword);
-            // Affectation du rôle 'AUTHOR' 
-            $user->setRoles(['ROLE_AUTHOR']);
             // Sauvegarde et envoi en base de données
             $this->entityManagerInterface->persist($user);
             $this->entityManagerInterface->flush();
@@ -182,6 +181,8 @@ class AdminUserController extends AbstractController
         if(!$user){
             throw $this->createNotFoundException("L'utilisateur demandé n'existe pas !");
         }
+        // Contrôle du droit d'accès à la suppression de l'objet User à l'aide du UserVoter
+        $this->denyAccessUnlessGranted('CAN_DELETE', $user, "Vous n'êtes pas autorisés à supprimer cet utilisateur car il possède le rôle d'administrateur !");
         // Récupération des objets Article associés à l'objet User
         $articles = $user->getArticles();
         // Vérification de l'existence d'objets Article associés à l'objet user

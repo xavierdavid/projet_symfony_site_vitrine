@@ -7,13 +7,13 @@ use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
- * Encapsule la logique des droits des utilisateurs concernant les objets Article
+ * Encapsule la logique des droits des utilisateurs authentifés concernant les objets Article
  */
 class ArticleVoter extends Voter
 {
     // Définition des attributs du Voter permettant d'attribuer des droits
-    public const EDIT = 'CAN_EDIT'; // Droit de modifier un article
-    public const DELETE = 'CAN_DELETE'; // Droit de supprimer un article
+    public const EDIT = 'CAN_EDIT'; // Droit de modifier un objet Article
+    public const DELETE = 'CAN_DELETE'; // Droit de supprimer un objet Article
 
     protected function supports(string $attribute, mixed $subject): bool
     {
@@ -31,15 +31,15 @@ class ArticleVoter extends Voter
         if (!$user instanceof UserInterface) {
             return false;
         }
-         // Récupération du tableau des rôles de l'objet User authentifié
-         $roles = $user->getRoles();
-         // Récupération de l'objet User associé à l'objet Article
-         $userArticle = $subject->getUser();
+        // Récupération du tableau des rôles de l'objet User authentifié
+        $roles = $user->getRoles();
+        // Récupération de l'objet User associé à l'objet Article
+        $userArticle = $subject->getUser();
 
         // Evaluation des droits d'accès en fonction des attributs
         switch ($attribute) {
             case self::EDIT:
-                // Logique permettant de déterminer le droit d'un utilisateur à modifier l'objet Article en fonction de son rôle
+                // Logique permettant de déterminer le droit d'un utilisateur authentifé à modifier l'objet Article en fonction de son rôle
 
                 // Si l'utilisateur a le rôle AUTHOR
                 if(in_array("ROLE_AUTHOR", $roles)) {
@@ -53,14 +53,14 @@ class ArticleVoter extends Voter
                 }
                 break;
             case self::DELETE:
-                // Logique permettant de déterminer le droit d'un utilisateur à supprimer l'objet Article en fonction de son rôle
+                // Logique permettant de déterminer le droit d'un utilisateur authentifé à supprimer l'objet Article en fonction de son rôle
                 
-                // Si l'utilisateur a le rôle AUTHOR
+                // Si l'utilisateur authentifé a le rôle AUTHOR
                 if(in_array("ROLE_AUTHOR", $roles)) {
                     // Retourne 'true' (accès autorisé) si l'utilisateur authentifié ayant le rôle AUTHOR est associé à l'objet Article - Sinon retourne 'false' (accès refusé)
                     return $userArticle === $user;
 
-                // Si l'utilisateur à le rôle ADMIN
+                // Si l'utilisateur authentifé à le rôle ADMIN
                 } else if(in_array("ROLE_ADMIN", $roles)) {
                     // Retourne 'true' systématiquement (accès autorisé)
                     return true;

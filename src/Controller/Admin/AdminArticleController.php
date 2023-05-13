@@ -135,7 +135,7 @@ class AdminArticleController extends AbstractController
         if(!$article) {
             throw $this->createNotFoundException("L'article demandé n'existe pas !");
         }
-        // Contrôle du droit d'accès à la modification de l'objet Article à l'aide du VoterArticle
+        // Contrôle du droit d'accès à la modification de l'objet Article à l'aide du ArticleVoter
         $this->denyAccessUnlessGranted('CAN_EDIT', $article, "Vous n'êtes pas autorisés à modifier cet article car vous n'en n'êtes pas l'auteur !");
         // Construction du formulaire de modification de l'objet Article
         $form = $this->createForm(ArticleType::class, $article);
@@ -231,7 +231,7 @@ class AdminArticleController extends AbstractController
         if(!$article){
             throw $this->createNotFoundException("L'article demandé n'existe pas !");
         }
-        // Contrôle du droit d'accès à la suppression de l'objet Article à l'aide du VoterArticle
+        // Contrôle du droit d'accès à la suppression de l'objet Article à l'aide du ArticleVoter
         $this->denyAccessUnlessGranted('CAN_DELETE', $article, "Vous n'êtes pas autorisés à supprimer cet article car vous n'en n'êtes pas l'auteur !");
         // Test du token autorisant la suppression de l'objet Article
         if($this->isCsrfTokenValid('delete'.$article->getSlug(), $request->get('_token'))){

@@ -2,19 +2,20 @@
 
 namespace App\Controller;
 
+use App\Form\ProfileType;
 use App\Services\SendEmail;
 use App\Form\UpdateEmailType;
 use App\Form\UpdatePasswordType;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
+use function PHPUnit\Framework\throwException;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Security\Csrf\TokenGenerator\TokenGeneratorInterface;
-
-use function PHPUnit\Framework\throwException;
 
 class AccountController extends AbstractController
 {
@@ -182,6 +183,42 @@ class AccountController extends AbstractController
         $formView = $form->createView();
         return $this->render('/account/update_password.html.twig', [
             'formView' => $form,
+            'user' => $user
+        ]);
+    }
+
+    #[Route('/account/update/{id}/profile', name:'app_account_update_profile')]
+    public function updateProfile($id, Request $request)
+    {
+        // Récupération de l'objet User authentifié
+        $user = $this->getUser();
+        // Vérification de l'existence de l'objet User à modifier
+        if(!$user) {
+            throw $this->createNotFoundException("L'utilisateur demandé n'existe pas !");
+        }
+        // Construction du formulaire de modification de profil de l'objet User
+        $form = $this->createForm(ProfileType::class, $user);
+        // Analyse de la requête
+        $form->handlerequest($request);
+        // Vérification de la soumission et de la validation du formulaire
+        if($form->isSubmitted() && $form->isValid()){
+            // Récupération du prénom saisi via le formulaire
+            $firstname = $form->get('firstname')->getData();
+            // Affectation du prénom à l'objet User avec la première lettre en majuscule
+            $user->setFirstname(ucfirst($firstname));
+            // Récupération du nom saisi via le formulaire
+            $lastname = $form->get('lastname') ->getData();
+            // Affectation du nom à l'objet User avec la première lettre en majuscule
+            $user->setLastname(strtoupper($lastname));
+            // Sauvegarde et envoi en base de données
+            $this->entityManagerInterface->flush($user);
+            // Message flash et redirection
+            $this->addFlash("success", "Les informations de votre profil ont été modifiées avec succès !");
+            return $this->redirectToRoute('app_account_home');
+        }
+        $formView = $form->createView();
+        return $this->render('/account/update_profile.html.twig', [
+            'formView' => $formView,
             'user' => $user
         ]);
     }

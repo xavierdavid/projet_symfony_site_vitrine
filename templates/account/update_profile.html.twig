@@ -1,0 +1,31 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Modification du profil{% endblock %}
+
+{% block body %}
+<main class="container">
+  <article>
+    <header>
+      <h1>Modification de votre profil</h1>
+    </header>
+    {# Formulaire de modification du profil #}
+    <section>
+      <p>Mes informations : </p>
+      {{form_start(formView)}}
+      {{form_row(formView.email)}}
+      {{form_row(formView.firstname)}}
+      {{form_row(formView.lastname)}}
+      <br>
+    </section>
+    <section>
+      <button type="submit">Modifier</button>
+      {{form_end(formView)}}
+    </section>
+    <br>
+    {# Lien vers la route de la page d'accueil du compte de l'utilisateur #}
+    <section>
+      <p><a href="{{path('app_account_home')}}"><i class="fas fa-backward"></i> Retour vers mon compte</a></p>
+    </section>
+  </article>
+</main>
+{% endblock %}

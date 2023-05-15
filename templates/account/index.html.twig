@@ -18,9 +18,9 @@
                 {% if role == 'ROLE_USER' %}
                     <p><strong>Utilisateur</strong> - Vous êtes authentifié et pouvez accéder à votre compte</p>
                 {% elseif role == 'ROLE_AUTHOR' %}
-                    <p><strong>Auteur</strong> - Vous pouvez accéder à la gestion des articles dans le backoffice</p>
+                    <p><strong>Auteur</strong> - Vous pouvez accéder à la gestion des articles à partir du <a href="{{path('app_admin_home')}}"><strong>backoffice</strong></a></p>
                 {% elseif role == 'ROLE_ADMIN' %}
-                    <p><strong>Administrateur </strong> - Vous avez accès à l'ensemble du contenu du site</p>
+                    <p><strong>Administrateur </strong> - Vous avez accès à l'ensemble du contenu du site à partir du <a href="{{path('app_admin_home')}}"><strong>backoffice</strong></a></p>
                 {% endif %}
             {% endfor %}
             <br>
@@ -28,6 +28,7 @@
         </header>
         <section>
             <ul>
+                <p><a href="{{path('app_account_update_profile', {'id':app.user.id})}}"><i class="fas fa-info-circle"></i> Modifier mes informations</a></p>
                 <p><a href="{{path('app_account_update_password')}}"><i class="fas fa-key"></i> Modifier mon mot de passe</a></p>
                 <p><a href="{{path('app_account_update_email')}}"><i class="fas fa-at"></i> Modifier mon email</a></p>
             </ul>

@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Nouvel article créé sur votre site !</title>
+  </head>
+  <body>
+    <h1>Un nouvel article vient d'être publié sur votre site !</h1>
+    <p>Titre de l'article : {{article.title}}</p>
+    <p>Créé par : {{article.getUser.firstName|capitalize}} {{article.getUser.lastName|upper}}</p>
+    <p>Le : {{article.updatedAt|format_datetime(locale='fr', timezone='Europe/Paris')}}</p>
+    <p><a href="{{absolute_url(path('app_admin_article_detail', {'slug': article.slug}))}}">Voir l'article</a></p>
+  </body>
+</html>

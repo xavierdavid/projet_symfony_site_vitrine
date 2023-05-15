@@ -7,6 +7,7 @@ use App\Form\ArticleType;
 use App\Services\UploadFile;
 use App\Form\SearchArticleType;
 use App\Services\SearchArticle;
+use App\Event\NewArticleSuccessEvent;
 use App\Repository\ArticleRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
@@ -15,6 +16,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\String\Slugger\SluggerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class AdminArticleController extends AbstractController
@@ -38,7 +40,7 @@ class AdminArticleController extends AbstractController
      * @param Request $request
      * @return void
      */
-    public function new(Request $request)
+    public function new(Request $request, EventDispatcherInterface $eventDispatcherInterface)
     {
         // Récupération de l'utilisateur authentifié
         $user = $this->getUser();
@@ -66,6 +68,15 @@ class AdminArticleController extends AbstractController
             // Sauvegarde et envoi en base de données
             $this->entityManagerInterface->persist($article);
             $this->entityManagerInterface->flush();
+            // Récupération du tableau des rôles de l'objet User authentifié
+            $roles = $user->getRoles();
+            // Si l'objet User authentifié possède le rôle AUTHOR
+            if(in_array("ROLE_AUTHOR", $roles)) {
+                // Création d'un nouvel objet Event qui reçoit l'objet Article créé
+                $newArticleSuccessEvent = new NewArticleSuccessEvent($article);
+                // Lancement d'un événement 'new.article.success' permettant d'envoyer une notification par email à l'administrateur 
+                $eventDispatcherInterface->dispatch($newArticleSuccessEvent, 'new.article.success');  
+            }
             // Message flash et redirection
             $this->addFlash("success", "L'article a été créé avec succès !");
             return $this->redirectToRoute('app_admin_article_index');

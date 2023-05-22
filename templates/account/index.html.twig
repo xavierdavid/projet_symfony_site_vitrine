@@ -16,7 +16,7 @@
             <br>
             {% for role in app.user.roles %}
                 {% if role == 'ROLE_USER' %}
-                    <p><strong>Utilisateur</strong> - Vous êtes authentifié et pouvez accéder à votre compte</p>
+                    <p><strong>Utilisateur</strong> - Vous êtes authentifié et pouvez modifier les informations de votre compte</p>
                 {% elseif role == 'ROLE_AUTHOR' %}
                     <p><strong>Auteur</strong> - Vous pouvez accéder à la gestion des articles à partir du <a href="{{path('app_admin_home')}}"><strong>backoffice</strong></a></p>
                 {% elseif role == 'ROLE_ADMIN' %}

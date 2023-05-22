@@ -188,6 +188,13 @@ class AccountController extends AbstractController
     }
 
     #[Route('/account/update/{id}/profile', name:'app_account_update_profile')]
+    /**
+     * Contrôle l'affichage et le traitement du formulaire de modification des informations de profil de l'utilisateur authentifié
+     *
+     * @param [type] $id
+     * @param Request $request
+     * @return void
+     */
     public function updateProfile($id, Request $request)
     {
         // Récupération de l'objet User authentifié
@@ -208,7 +215,7 @@ class AccountController extends AbstractController
             $user->setFirstname(ucfirst($firstname));
             // Récupération du nom saisi via le formulaire
             $lastname = $form->get('lastname') ->getData();
-            // Affectation du nom à l'objet User avec la première lettre en majuscule
+            // Affectation du nom à l'objet User en capitales
             $user->setLastname(strtoupper($lastname));
             // Sauvegarde et envoi en base de données
             $this->entityManagerInterface->flush($user);

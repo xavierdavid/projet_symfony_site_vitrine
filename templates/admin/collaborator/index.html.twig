@@ -1,0 +1,91 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}Interface d'administration{% endblock %}
+
+{% block body %}
+<main class="container">
+    <header>
+        <h1>Interface d'administration</h1>
+    </header>
+    <collaborator class="admin-container">
+        <section>
+            <header>
+                <h3>Collaborateur</h3>
+            </header>
+            {# Inclusion du aside #}
+            {% include "admin/partials/_aside.html.twig" %}
+        </section>
+        <section>
+            <header>
+                <h2>Liste des collaborateurs</h2>
+            </header>
+            <aside>
+                <h4>Filter les collaborateurs</h4>
+                {# Formulaire de recherche d'objets Collaborator #}
+                <section>
+                    {{form_start(formView)}}
+                    {{form_row(formView.string)}}
+                    <br>
+                    {{form_row(formView.priorityOrder)}}
+                    <br>
+                    <button type="submit">Filtrer</button>
+                    {{form_end(formView)}}
+                </section>
+            </aside>
+            <br>
+            <section>
+                <p>Nombre de collaborateurs : <strong>{{collaboratorsData|length}}</strong></p>
+                {# Tableau des objets Collaborator #}
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Nom</th>
+                            <th>Prénom</th>
+                            <th>Fonction</th>
+                            <th>Date de mise à jour</th>
+                            <th>Photo de profil</th>
+                            <th>Priorité de publication</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for collaborator in collaborators %}
+                            <tr>
+                                <td>{{collaborator.lastName|upper}}</td>
+                                <td>{{collaborator.firstName|capitalize}}</td>
+                                <td>{{collaborator.shortDescription|capitalize}}</td>
+                                <td>{{collaborator.updatedAt|format_datetime(locale='fr', timezone='Europe/Paris')}}</td>
+                                <td>
+                                    {% if collaborator.coverImage %}
+                                        <a href="{{asset('uploads/'~collaborator.coverImage)}}" target="_blank"><img src="{{asset('uploads/'~collaborator.coverImage)}}" alt="Photo de profil de {{collaborator.firstName}} {{collaborator.lastName|upper}}" class="smallSizeImage"></a>
+                                    {% endif %}
+                                </td>
+                                <td>{{collaborator.priorityOrder}}</td>
+                                {# Actions #}
+                                <td>
+                                    <a type="button" href="{{path('app_admin_collaborator_detail', {'slug':collaborator.slug})}}"><i class="fas fa-eye"></i> Voir</a>
+                                    <a type="button" href="{{path('app_admin_collaborator_edit', {'slug':collaborator.slug})}}"><i class="fas fa-pen"></i> Modifier</a>
+                                    <a type="button" href="{{path('app_admin_collaborator_delete', {'slug':collaborator.slug})}}" class="modal-trigger"  data-token="{{csrf_token('delete' ~ collaborator.slug)}}" data-message="Confirmez-vous la suppression du collaborateur '{{collaborator.firstName}} {{collaborator.lastName|upper}}' ?" ><i class="fas fa-trash-alt"></i> Supprimer</a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                <br>
+                {# Pagination des objets Collaborator #}
+                <section>
+                    <nav class="pagination">
+                        {{knp_pagination_render(collaborators)}}
+                    </nav>
+                </section>
+                <section>
+                    <br>
+                    <a href="{{path('app_admin_collaborator_new')}}"><i class="fas fa-plus"></i> Ajouter un collaborateur</a>
+                    <br>
+                    <p><a href="{{path('app_admin_home')}}"><i class="fas fa-backward"></i> Retour</a></p>
+                </section>
+            </section>
+        </section>
+    </collaborator>
+</main>
+{% endblock %}

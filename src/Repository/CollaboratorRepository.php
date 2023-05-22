@@ -3,8 +3,9 @@
 namespace App\Repository;
 
 use App\Entity\Collaborator;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use App\Services\SearchCollaborator;
 use Doctrine\Persistence\ManagerRegistry;
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 
 /**
  * @extends ServiceEntityRepository<Collaborator>
@@ -37,6 +38,36 @@ class CollaboratorRepository extends ServiceEntityRepository
         if ($flush) {
             $this->getEntityManager()->flush();
         }
+    }
+
+    /**
+     * Permet de configurer une requête personnalisée pour récupérer en base de données les objets Collaborator en fonction des propriétés de filtre de l'objet SearchCollaborator
+     *
+     * @param SearchCollaborator $searchCollaborator
+     * @return Collaborator[]
+     */
+    public function findWithSearchCollaborator(SearchCollaborator $searchCollaborator)
+    {
+        // Configuration de la requête qui récupère les objets Collaborator
+        $query = $this
+            ->createQueryBuilder('c')
+            // Sélection des objets Collaborator  
+            ->select('c')
+            // Tri des objets Collaborator par date de mise à jour et par ordre décroissant
+            ->orderBy('c.updatedAt', 'DESC');
+        // Affinement de la requête si un filtre d'ordre de priorité est présent dans l'objet SearchCollaborator
+        if(!empty($searchCollaborator->priorityOrder)) {
+            $query = $query
+                ->orderBy('c.priorityOrder', 'ASC');
+        }
+        // Affinement de la requête si un filtre de mot clé $string est présent dans l'objet SearchCollaborator
+        if(!empty($searchCollaborator->string)) {
+            $query = $query
+                ->andWhere('c.firstname LIKE :string OR c.lastname LIKE :string')
+                ->setParameter('string', "%$searchCollaborator->string%");
+        }
+        // Retour des résultats de la requête
+        return $query->getQuery()->getResult();
     }
 
 //    /**

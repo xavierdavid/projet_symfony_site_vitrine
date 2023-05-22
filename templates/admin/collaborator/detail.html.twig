@@ -1,0 +1,50 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}Interface d'administration{% endblock %}
+
+{% block body %}
+<main class="container">
+    <header>
+        <h1>Interface d'administration</h1>
+    </header>
+    <article class="admin-container">
+        <section>
+            <header>
+                <h3>Collaborateurs</h3>
+            </header>
+            {# Inclusion du aside #}
+            {% include "admin/partials/_aside.html.twig" %}
+        </section>
+        <section>
+            <header>
+                <h2>Détail d'un collaborateur</h2>
+            </header>
+            <br>
+            <section class="container">
+              {# Affichage de l'objet Collaborator #}
+              <section>
+                <h4>Nom du collaborateur</h4>
+                <p>{{collaborator.lastName|upper}}</p>
+                <h4>Prénom du collaborateur</h4>
+                <p>{{collaborator.firstName|capitalize}}</p>
+                <h4>Fonction</h4>
+                <p>{{collaborator.shortDescription}}</p>
+                <h4>Description du profil du collaborateur</h4>
+                <p>{{collaborator.description|raw}}</p>
+                {# Affichage de l'image de couverture de l'objet Collaborator #}
+                {% if collaborator.coverImage %}
+                  <h4>Image de couverture</h4>
+                    <figure>
+                        <a href="{{asset('uploads/'~collaborator.coverImage)}}" target="_blank"><img src="{{asset('uploads/'~ collaborator.coverImage)}}" alt="Photo de profil de {{collaborator.firstName}} {{collaborator.lastName|upper}}" class="mediumSizeImage"></a>
+                    </figure>
+                {% endif %}
+              </section>
+            </section>
+            <section>
+                <p><a href="{{path('app_admin_collaborator_edit', {'slug':collaborator.slug})}}"><i class="fas fa-pen"></i> Modifier le collaborateur</a></p>
+                <p><a href="{{path('app_admin_collaborator_index')}}"><i class="fas fa-backward"></i> Retour</a></p>
+            </section>       
+        </section>
+    </article>
+</main>
+{% endblock %}

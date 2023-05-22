@@ -10,18 +10,18 @@
     <article class="admin-container">
         <section>
             <header>
-                <h3>Dirigeants</h3>
+                <h3>Collaborateurs</h3>
             </header>
             {# Inclusion du aside #}
             {% include "admin/partials/_aside.html.twig" %}
         </section>
         <section>
             <header>
-                <h2>Création d'un nouveau dirigeant</h2>
+                <h2>Création d'un nouveau collaborateur</h2>
             </header>
             <br>
             <section>
-                {# Formulaire de création d'un objet Administrator #}
+                {# Formulaire de création d'un objet Collaborator #}
                 {{form_start(formView)}}
                 {{form_row(formView.firstName)}}
                 {{form_row(formView.lastName)}}
@@ -34,12 +34,12 @@
             </section>
             <section>
                 <br>
-                <button type="submit">Créer le dirigeant</button>
+                <button type="submit">Créer le collaborateur</button>
                 {{form_end(formView)}}
             </section>
             <br>
             <section>
-                <p><a href="{{path('app_admin_administrator_index')}}"><i class="fas fa-backward"></i> Retour</a></p>
+                <p><a href="{{path('app_admin_collaborator_index')}}"><i class="fas fa-backward"></i> Retour</a></p>
             </section>
         </section>
     </article>

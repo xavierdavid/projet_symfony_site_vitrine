@@ -187,6 +187,10 @@ class AdminAdministratorController extends AbstractController
         $administrator = $administratorRepository->findOneBy([
             'slug' => $slug
         ]);
+        // Vérification de l'existence de l'objet Administrator à afficher
+        if(!$administrator) {
+            throw $this->createNotFoundException("Le dirigeant demandé n'existe pas !");
+        }
         return $this->render('/admin/administrator/detail.html.twig', [
             'administrator' => $administrator
         ]);

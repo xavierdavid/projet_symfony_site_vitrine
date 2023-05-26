@@ -60,7 +60,7 @@ class AdminOrganizationController extends AbstractController
         ]);
         // Vérification de l'existence de l'objet Organization à modifier
         if(!$organization){
-            throw $this->createNotFoundException("L'organization demandée n'existe pas !");
+            throw $this->createNotFoundException("L'organisation demandée n'existe pas !");
         }
         // Construction du formulaire de modification de l'objet Organization
         $form = $this->createForm(OrganizationType::class, $organization);

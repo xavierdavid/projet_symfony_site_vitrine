@@ -185,6 +185,10 @@ class AdminImageController extends AbstractController
         $image = $imageRepository->findOneBy([
             'slug' => $slug
         ]);
+        // Vérification de l'existence de l'objet Image à afficher
+        if(!$image){
+            throw $this->createNotFoundException("Le média demandé n'existe pas !");
+        }
         // Récupération des objets Article associés à l'objet Image
         $articles = $image->getArticles();
         // Récupération des objets Product associés à l'objet Image

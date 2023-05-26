@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{metatag.title}}{% endblock %}
+{% block metadescription %}
+    <meta name="description" content="{{metatag.metaDescription}}">
+{% endblock %}
+
+{% block body %}
+<main class="container">
+    <header>
+        <h1>{{metatag.title}}</h1>
+    </header>
+    <article>
+        <section>
+            
+        </section>
+    </article>
+</main>
+{% endblock %}

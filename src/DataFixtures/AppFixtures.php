@@ -80,6 +80,13 @@ class AppFixtures extends Fixture
             ->setTitle("Titre de la page 'Contact'")
             ->setMetaDescription("Description de la page 'Contact'");
         $manager->persist($contactMetatag);
+        // Création d'un objet Metatag pour la page 'Mentions légales' du site
+        $legalNoticeMetatag = new Metatag;
+        $legalNoticeMetatag
+            ->setPageName('Mentions légales')
+            ->setTitle("Titre de la page 'Mentions légales'")
+            ->setMetaDescription("Description de la page 'Mentions légales'");
+        $manager->persist($legalNoticeMetatag);
         // Envoi en base de données
         $manager->flush();
     }

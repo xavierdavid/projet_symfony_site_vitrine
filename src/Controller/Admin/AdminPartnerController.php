@@ -187,6 +187,10 @@ class AdminPartnerController extends AbstractController
         $partner = $partnerRepository->findOneBy([
             'slug' => $slug
         ]);
+         // Vérification de l'existence de l'objet Partner à afficher
+         if(!$partner){
+            throw $this->createNotFoundException("Le partenaire demandé n'existe pas !");
+        }
         return $this->render('/admin/partner/detail.html.twig', [
             'partner' => $partner
         ]);

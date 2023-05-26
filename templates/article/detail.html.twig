@@ -1,0 +1,62 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Détail d'un article{% endblock %}
+
+{% block body %}
+<main class="container">
+  <article>
+    <header>
+      <h1>{{article.title}}</h1>
+    </header>
+    <section>
+      <p>Créé par {{article.getUser.firstName|capitalize}} {{article.getUser.lastName|upper}}</p>
+      <p>Le {{article.updatedAt|format_datetime(locale='fr', timezone='Europe/Paris')}}</p>
+      {# Affichage des objets Category associés à l'objet Article #}
+      {% if categories|length != 0 %}
+        {% for category in categories %}
+          <ul>
+            <li>{{category.name}}</li>
+          </ul>
+        {% endfor %}
+      {% endif %}
+      {# Affichage de l'image de couverture de l'objet Article #}
+      {% if article.coverImage %}
+          <figure>
+              <a href="{{asset('uploads/'~article.coverImage)}}" target="_blank"><img src="{{asset('uploads/'~ article.coverImage)}}" alt="image de couverture de l'article '{{article.title}}'" class="mediumSizeImage"></a>
+          </figure>
+      {% endif %}
+      <p>{{article.shortIntroduction}}</p>
+      <br>
+      <p>{{article.content|raw}}</p>
+      {# Affichage des objets Document associés à l'objet Article #}
+      {% if documents|length != 0 %}
+        <h4>Documents associés à l'article</h4>
+        {% for document in documents %}
+          <ul>
+            <li>
+              {{document.name}} : <a href="{{asset('uploads/'~document.documentFile)}}" target="_blank"><i class="fas fa-eye"></i> Afficher</a>
+            </li>
+          </ul>
+        {% endfor %}
+      {% endif %}
+      {# Affichage des objets Image associés à l'objet Article #}
+      {% if images|length != 0 %}
+        <h4>Voir aussi...</h4>
+        {% for image in images %}
+          <div>
+            <p>{{image.mediaTitle}}</p>
+            <figure>
+              <img src="{{asset('uploads/'~image.imageFile)}}" alt="{{image.caption}}" class="smallSizeImage">
+            </figure>
+            <p>{{image.mediaContent|raw}}</p>
+            <p><a href="{{image.urlLink}}" target="_blank">En savoir plus...</a></p>
+          </div>
+        {% endfor %}
+      {% endif %}
+      <section>
+          <p><a href="{{path('app_articles')}}"><i class="fas fa-backward"></i> Retour</a></p>
+      </section>       
+    </section>
+  </article>
+</main>
+{% endblock %}

@@ -187,6 +187,10 @@ class AdminCollaboratorController extends AbstractController
         $collaborator = $collaboratorRepository->findOneBy([
             'slug' => $slug
         ]);
+        // Vérification de l'existence de l'objet Collaborator à afficher
+        if(!$collaborator) {
+            throw $this->createNotFoundException("Le collaborateur demandé n'existe pas !");
+        }
         return $this->render('/admin/collaborator/detail.html.twig', [
             'collaborator' => $collaborator
         ]);

@@ -190,6 +190,10 @@ class AdminProductController extends AbstractController
         $product = $productRepository->findOneBy([
             'slug' => $slug
         ]);
+        // Vérification de l'existence de l'objet Product à afficher
+        if(!$product) {
+            throw $this->createNotFoundException("Le service demandé n'existe pas !");
+        }
         // Récupération des objets Image associés à l'objet Product
         $images = $product->getImages();
         // Récupération des objets Document associés à l'objet Product

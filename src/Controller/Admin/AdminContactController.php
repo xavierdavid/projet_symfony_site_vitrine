@@ -75,6 +75,10 @@ class AdminContactController extends AbstractController
         $contact = $contactRepository->findOneBy([
             'id' => $id
         ]);
+        // Vérification de l'existence de l'objet Contact à afficher
+        if(!$contact){
+            throw $this->createNotFoundException("Le message demandé n'existe pas !");
+        }
         return $this->render('/admin/contact/detail.html.twig', [
             'contact' => $contact
         ]);

@@ -1,0 +1,54 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Détail d'un service{% endblock %}
+
+{% block body %}
+<main class="container">
+  <article>
+    <header>
+      <h1>{{product.name}}</h1>
+    </header>
+    <section>
+      <p>Créé Le {{product.updatedAt|format_datetime(locale='fr', timezone='Europe/Paris')}}</p>
+      <br>
+      {# Affichage de l'image de couverture de l'objet Article #}
+      {% if product.coverImage %}
+          <figure>
+              <a href="{{asset('uploads/'~product.coverImage)}}" target="_blank"><img src="{{asset('uploads/'~ product.coverImage)}}" alt="image de couverture du service '{{product.name}}'" class="mediumSizeImage"></a>
+          </figure>
+      {% endif %}
+      <p>{{product.shortDescription}}</p>
+      <br>
+      <p>{{product.description|raw}}</p>
+      {# Affichage des objets Document associés à l'objet Product #}
+      {% if documents|length != 0 %}
+        <h4>Documents associés au service</h4>
+        {% for document in documents %}
+          <ul>
+            <li>
+              {{document.name}} : <a href="{{asset('uploads/'~document.documentFile)}}" target="_blank"><i class="fas fa-eye"></i> Afficher</a>
+            </li>
+          </ul>
+        {% endfor %}
+      {% endif %}
+      {# Affichage des objets Image associés à l'objet Product #}
+      {% if images|length != 0 %}
+        <h4>Voir aussi...</h4>
+        {% for image in images %}
+          <div>
+            <p>{{image.mediaTitle}}</p>
+            <figure>
+              <img src="{{asset('uploads/'~image.imageFile)}}" alt="{{image.caption}}" class="smallSizeImage">
+            </figure>
+            <p>{{image.mediaContent|raw}}</p>
+            <p><a href="{{image.urlLink}}" target="_blank">En savoir plus...</a></p>
+          </div>
+        {% endfor %}
+      {% endif %}
+      <section>
+          <p><a href="{{path('app_products')}}"><i class="fas fa-backward"></i> Retour</a></p>
+      </section>       
+    </section>
+  </article>
+</main>
+{% endblock %}

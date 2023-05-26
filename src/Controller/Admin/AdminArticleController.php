@@ -207,6 +207,10 @@ class AdminArticleController extends AbstractController
         $article = $articleRepository->findOneBy([
             'slug' => $slug
         ]);
+        // Vérification de l'existence de l'objet Article à afficher
+        if(!$article) {
+            throw $this->createNotFoundException("L'article demandé n'existe pas !");
+        }
         // Récupération des objets Image associés à l'objet Article
         $images = $article->getImages();
         // Récupération des objets Document associés à l'objet Article

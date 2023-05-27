@@ -2,10 +2,11 @@
 
 namespace App\Controller;
 
+use App\Repository\ArticleRepository;
 use App\Repository\MetatagRepository;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class HomeController extends AbstractController
 {
@@ -16,15 +17,18 @@ class HomeController extends AbstractController
      * @param MetatagRepository $metatagRepository
      * @return Response
      */
-    public function index(MetatagRepository $metatagRepository): Response
+    public function index(MetatagRepository $metatagRepository, ArticleRepository $articleRepository): Response
     {
         // Récupération de l'objet Metatag de la page 'Accueil'
         $metatag = $metatagRepository->findOneBy([
             'pageName' => 'Accueil'
         ]);
+        // Récupération des objets Article à la une triés par ordre priorité
+        $articles = $articleRepository->findBy(['isFrontPage' => true,],['priorityOrder' => 'ASC']);
         
         return $this->render('home/index.html.twig', [
-            'metatag' => $metatag
+            'metatag' => $metatag,
+            'articles' => $articles
         ]);
     }
 }

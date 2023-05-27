@@ -12,20 +12,23 @@
     </header>
     <article>
         <section>
-            <h4>Filter les articles</h4>
             {# Formulaire de recherche d'objets Article #}
-            <section>
-                {{form_start(formView)}}
-                {{form_row(formView.string)}}
+            <aside>
+                <h4>Rechercher des articles</h4>
+                <section>
+                    {{form_start(formView)}}
+                    <p><small>Par mot clé</small></p>
+                    {{form_row(formView.string)}}
+                    <br>
+                    <p><small>Par catégorie</small></p>
+                    <small>{{form_row(formView.category)}}</small>
+                    <br>
+                    <button type="submit">Filtrer</button>
+                    {{form_end(formView)}}
+                </section>
                 <br>
-                {{form_row(formView.category)}}
-                <br>
-                {{form_row(formView.priorityOrder)}}
-                <br>
-                <button type="submit">Filtrer</button>
-                {{form_end(formView)}}
-            </section>
-            <br>
+            </aside>
+            {# Affichage des objets Articles #}
             <section>
                 {% for article in articles %}
                     <section>

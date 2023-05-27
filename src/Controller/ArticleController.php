@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Form\SearchArticleType;
 use App\Services\SearchArticle;
+use App\Form\SearchArticleSimpleType;
 use App\Repository\ArticleRepository;
 use App\Repository\MetatagRepository;
 use Knp\Component\Pager\PaginatorInterface;
@@ -33,7 +34,7 @@ class ArticleController extends AbstractController
         // Instanciation d'un nouvel objet de recherche d'objets Article
         $searchArticle = new SearchArticle;
         // Création du formulaire de recherche d'objets Article
-        $form = $this->createForm(SearchArticleType::class, $searchArticle);
+        $form = $this->createForm(SearchArticleSimpleType::class, $searchArticle);
         // Analyse de la requête et traitement du formulaire de recherche
         $form->handleRequest($request);
         // Récupération en base de données des objets Article sélectionnés à l'aide des propriétés de l'objet SearchArticle

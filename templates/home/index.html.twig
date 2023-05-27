@@ -13,6 +13,37 @@
     <article>
         <header></header>
         <section></section>
+        {# Affichage des objets Articles à la une #}
+        <section>
+            <header>
+                <h2>Articles à la une</h2>
+            </header>
+            {% for article in articles %}
+                <section>
+                    <h3>{{article.title}}</h3>
+                    <p>Publié le {{article.updatedAt|format_datetime(locale='fr', timezone='Europe/Paris')}}</p>
+                    {# Affichage des objets Category associés à l'objet Article #}
+                    {% if article.categories|length != 0 %}
+                        {% for category in article.categories %}
+                            <p><strong>{{category.name}}</strong></p>
+                            <br>
+                        {% endfor %}
+                    {% endif %}
+                    {% if article.coverImage %}
+                        <figure>
+                            <a href="{{asset('uploads/'~article.coverImage)}}" target="_blank"><img src="{{asset('uploads/'~article.coverImage)}}" alt="{{article.title}}" class="largeSizeImage"></a>
+                        </figure>
+                    {% endif %}
+                    <p>{{article.shortIntroduction}}</p>
+                    <br>
+                    <p><strong><a href="{{path('app_article_detail', {'slug':article.slug})}}">Plus d'infos...</a></strong></p>
+                  
+                </section>
+                <br>
+            {% endfor %}
+        
+        
+        </section>
         <aside></aside>
     </article>
 </main>

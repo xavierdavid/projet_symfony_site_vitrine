@@ -10,45 +10,34 @@
     <header>
         <h1>{{metatag.title}}</h1>
     </header>
-    <product>
+    <article>
+        {# Affichage des objets Product #}
         <section>
-            <h4>Filter les services</h4>
-            {# Formulaire de recherche d'objets Product #}
-            <section>
-                {{form_start(formView)}}
-                {{form_row(formView.string)}}
-                <br>
-                {{form_row(formView.priorityOrder)}}
-                <br>
-                <button type="submit">Filtrer</button>
-                {{form_end(formView)}}
-            </section>
-            <br>
-            <section>
-                {% for product in products %}
-                    <section>
-                        <h3>{{product.name}}</h3>
-                        <p>Publié le {{product.updatedAt|format_datetime(locale='fr', timezone='Europe/Paris')}}</p>
-                        {% if product.coverImage %}
-                            <figure>
-                                <a href="{{asset('uploads/'~product.coverImage)}}" target="_blank"><img src="{{asset('uploads/'~product.coverImage)}}" alt="{{product.name}}" class="largeSizeImage"></a>
-                            </figure>
-                        {% endif %}
-                        <p>{{product.shortDescription}}</p>
-                        <br>
-                        <p><strong><a href="{{path('app_product_detail', {'slug':product.slug})}}">Plus d'infos...</a></strong></p>
-                    </section>
-                    <br>
-                {% endfor %}
-                <br>
-                {# Pagination des objets Product #}
+            {% for product in products %}
                 <section>
-                    <nav class="pagination">
-                        {{knp_pagination_render(products)}}
-                    </nav>
+                    <h2>{{product.name}}</h2>
+                    <p>Publié le {{product.updatedAt|format_datetime(locale='fr', timezone='Europe/Paris')}}</p>
+                    <br>
+                    {% if product.coverImage %}
+                        <figure>
+                            <a href="{{asset('uploads/'~product.coverImage)}}" target="_blank"><img src="{{asset('uploads/'~product.coverImage)}}" alt="{{product.name}}" class="largeSizeImage"></a>
+                        </figure>
+                    {% endif %}
+                    <p>{{product.shortDescription}}</p>
+                    <br>
+                    <p><strong><a href="{{path('app_product_detail', {'slug':product.slug})}}">Plus d'infos...</a></strong></p>
                 </section>
+                <br>
+            {% endfor %}
+            <br>
+            {# Pagination des objets Product #}
+            <section>
+                <nav class="pagination">
+                    {{knp_pagination_render(products)}}
+                </nav>
             </section>
         </section>
-    </product>
+        
+    </article>
 </main>
 {% endblock %}

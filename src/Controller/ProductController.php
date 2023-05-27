@@ -30,16 +30,10 @@ class ProductController extends AbstractController
         $metatag = $metatagRepository->findOneBy([
             'pageName' => 'Services'
         ]);
-        // Instanciation d'un nouvel objet de recherche d'objets Product
-        $searchProduct = new SearchProduct;
-        // Création du formulaire de recherche d'objets Product
-        $form = $this->createForm(SearchProductType::class, $searchProduct);
-        // Analyse de la requête et traitement du formulaire de recherche
-        $form->handleRequest($request);
-        // Récupération en base de données des objets Product sélectionnés à l'aide des propriétés de l'objet SearchProduct
-        $productsData = $productRepository->findWithSearchProduct($searchProduct);
+        // Récupération des objets Product triés par ordre priorité
+        $productsData = $productRepository->findBy([],['priorityOrder' => 'ASC']);
         // Pagination des objets Product
-        $Products = $paginatorInterface->paginate(
+        $products = $paginatorInterface->paginate(
             // Objets Product récupérés
             $productsData,
             // Récupération de la valeur de l'attribut 'page' (page en cours) transmis en 'GET' dans la requête
@@ -47,11 +41,9 @@ class ProductController extends AbstractController
             // Nombre d'objets Product à afficher par page
             3
         );
-        $formView = $form->createView();
         return $this->render('product/index.html.twig', [
-            'products' => $Products,
+            'products' => $products,
             'productsData' => $productsData,
-            'formView' => $formView,
             'metatag' => $metatag
         ]);
     }

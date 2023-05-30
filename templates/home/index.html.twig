@@ -37,14 +37,26 @@
                     <p>{{article.shortIntroduction}}</p>
                     <br>
                     <p><strong><a href="{{path('app_article_detail', {'slug':article.slug})}}">Plus d'infos...</a></strong></p>
-                  
                 </section>
                 <br>
             {% endfor %}
-        
-        
         </section>
-        <aside></aside>
+        <section>
+            {# Formulaire de d'inscription à la newsletter #}
+            <header>
+                <h3>S'inscrire à la newsletter</h3>
+            </header>
+            <section>
+                {{form_start(formView)}}
+                {{form_row(formView.email)}}
+                {{form_start(formView)}}
+            </section>
+            <section>
+                <br>
+                <button type="submit">S'inscrire</button>
+                {{form_end(formView)}}
+            </section>
+        </aside>
     </article>
 </main>
 {% endblock %}

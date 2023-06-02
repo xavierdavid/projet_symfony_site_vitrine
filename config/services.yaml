@@ -6,6 +6,9 @@
 parameters:
     # Répertoire cible des fichiers uploadés
     uploads_directory: '%kernel.project_dir%/public/uploads'
+    # Variables d'environnement
+    MAILJET_API_KEY: '%env(MAILJET_API_KEY)%'
+    MAILJET_API_KEY_SECRET: '%env(MAILJET_API_KEY_SECRET)%'
 
 services:
     # default configuration for services in *this* file
@@ -29,3 +32,10 @@ services:
     App\Services\UploadFile:
         arguments:
             $targetDirectory: '%uploads_directory%'
+
+    # Service d'inscription au service tiers MailJet   
+    App\Services\SubscribeToMailJet:
+        arguments:
+            # Variables d'environnement
+            $mailjet_api_key: '%env(MAILJET_API_KEY)%'
+            $mailjet_api_key_secret: '%env(MAILJET_API_KEY_SECRET)%'

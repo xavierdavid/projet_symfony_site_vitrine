@@ -8,13 +8,25 @@ use Mailjet\Resources;
 class SubscribeToMailJet {
   
   // Clés d'API MailJet
-  private $api_key = '04a519e07e603468a821100c678095bd';
-  private $api_key_secret = '4df7de4a91c09274d6d44a813765979f';
+  private $mailjet_api_key;
+  private $mailjet_api_key_secret;
 
+  public function __construct($mailjet_api_key, $mailjet_api_key_secret)
+  {
+    $this->mailjet_api_key=$mailjet_api_key;
+    $this->mailjet_api_key_secret=$mailjet_api_key_secret;
+  }
+
+  /**
+   * Permet d'envoyer de nouveaux contact 'emails' vers le service tiers MailJet
+   *
+   * @param [type] $email
+   * @return void
+   */
   public function addNewContact($email)
   {
     // Instanciation d'un nouvel objet MailJet
-    $mj = new Client($this->api_key, $this->api_key_secret);
+    $mj = new Client($this->mailjet_api_key, $this->mailjet_api_key_secret);
     // Ajout d'un nouveau contact 'email' au compte MailJet
     $body = [
       'email'=> $email

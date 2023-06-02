@@ -1,0 +1,27 @@
+{# Page d'erreur 404 #}
+{% extends "base.html.twig" %}
+
+{% block title %}Page introuvable{% endblock %}
+
+{% block body %}
+<main class="container">
+    <header>
+        <h1>Oups ! La page que vous recherchez n'existe pas !</h1>
+    </header>
+    <article>
+        <section>
+          <figure>
+            <img src="{{asset('img/error.png')}}" alt="Petit robot de la page d'erreur" class="largeSizeImage">
+          </figure>
+        </section>
+        <section>
+          <p>Désolé, cette page ne semble pas être accessible pour le moment.</p>
+          <p><strong>Erreur 404</strong></p>
+          <a href="{{ path('app_home') }}"><i class="fas fa-backward"></i> Revenir sur la page d'accueil</a>.
+        </section>
+    </article>
+</main>
+{% endblock %}
+
+
+

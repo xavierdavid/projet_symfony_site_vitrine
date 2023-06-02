@@ -1,0 +1,24 @@
+{# Page d'erreur 403 #}
+{% extends "base.html.twig" %}
+
+{% block title %}Accès non autorisé{% endblock %}
+
+{% block body %}
+<main class="container">
+    <header>
+        <h1>Oups ! Vous n'êtes pas autorisé à accéder à cette page !</h1>
+    </header>
+    <article>
+        <section>
+          <figure>
+            <img src="{{asset('img/error.png')}}" alt="Petit robot de la page d'erreur" class="largeSizeImage">
+          </figure>
+        </section>
+        <section>
+          <p>Désolé, vous ne disposez pas des droits d'accès à cette ressource.</p>
+          <p><strong>Erreur 403</strong></p>
+          <a href="{{ path('app_home') }}"><i class="fas fa-backward"></i> Revenir sur la page d'accueil</a>.
+        </section>
+    </article>
+</main>
+{% endblock %}

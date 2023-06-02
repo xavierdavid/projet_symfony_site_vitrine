@@ -28,6 +28,9 @@
       <p>{{article.shortIntroduction}}</p>
       <br>
       <p>{{article.content|raw}}</p>
+      <br>
+      {# Partage sur les réseaux sociaux #}
+      {% include 'partials/_social_share.html.twig'%}
       {# Affichage des objets Document associés à l'objet Article #}
       {% if documents|length != 0 %}
         <h4>Documents associés à l'article</h4>

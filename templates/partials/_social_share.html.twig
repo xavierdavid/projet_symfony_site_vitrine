@@ -1,0 +1,19 @@
+{# Partage sur les réseaux sociaux #}
+<section>
+  <header>
+    <p><i class="fas fa-share-alt"></i> <strong>Partager</strong></p>
+  </header>
+  <br>
+  {# Facebook #}
+  <section>
+    <a href="https://www.facebook.com/sharer/sharer.php?u={{absolute_url(path('app_article_detail', {'slug':article.slug}))}}" target="_blank">
+      <img src="{{asset('img/facebook.png')}}" alt="Logo de Facebook", class="verySmallSizeImage">
+    </a>
+  </section>
+  {# Twitter #}
+  <section>
+    <a href="https://www.twitter.com/intent/tweet?text={{article.title|url_encode}}%20{{absolute_url(path('app_article_detail', {'slug':article.slug}))}}%20@monSite" target="_blank">
+      <img src="{{asset('img/twitter.png')}}" alt="Logo de Twitter", class="verySmallSizeImage">
+    </a>
+  </section>
+</section>

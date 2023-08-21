@@ -35,18 +35,19 @@
                 <p>Nombre de documents : <strong>{{documentsData|length}}</strong></p>
                 {# Tableau des objets Document #}
                 <table>
+                    <colgroup span="2"></colgroup>
                     <thead>
                         <tr>
                             <th>Nom</th>
                             <th>Document</th>
                             <th>Description</th>
-                            <th>Actions</th>
+                            <th colspan="2" scope="colgroup">Actions</th>
                         </tr>
                     </thead>
                     <tbody>
                         {% for document in documents %}
                             <tr>
-                                <td>{{document.name}}</td>
+                                <th>{{document.name}}</th>
                                 <td>
                                     {% if document.documentFile %}
                                         <a href="{{asset('uploads/'~document.documentFile)}}" target="_blank"><i class="fas fa-eye"></i> Afficher</a>
@@ -56,6 +57,8 @@
                                 {# Actions #}
                                 <td>
                                     <a type="button" href="{{path('app_admin_document_edit', {'slug':document.slug})}}"><i class="fas fa-pen"></i> Modifier</a>
+                                </td>
+                                <td>
                                     <a type="button" href="{{path('app_admin_document_delete', {'slug':document.slug})}}" class="modal-trigger"  data-token="{{csrf_token('delete' ~ document.slug)}}" data-message="Confirmez-vous la suppression du document '{{document.name}}' ?" ><i class="fas fa-trash-alt"></i> Supprimer</a>
                                 </td>
                             </tr>

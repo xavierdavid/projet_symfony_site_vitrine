@@ -35,19 +35,20 @@
                 <p>Nombre d'utilisateurs : <strong>{{usersData|length}}</strong></p>
                 {# Tableau des objets User #}
                 <table>
+                    <colgroup span="2"></colgroup>
                     <thead>
                         <tr>
                             <th>Nom</th>
                             <th>Prénom</th>
                             <th>Email</th>
                             <th>Rôles</th>
-                            <th>Actions</th>
+                            <th colspan="2" scope="colgroup">Actions</th>
                         </tr>
                     </thead>
                     <tbody>
                         {% for user in users %}
                             <tr>
-                                <td>{{user.lastName|upper}}</td>
+                                <th>{{user.lastName|upper}}</th>
                                 <td>{{user.firstName|capitalize}}</td>
                                 <td>{{user.email}}</td>
                                 <td>
@@ -62,12 +63,18 @@
                                     {% endfor %}
                                 </td>
                                 {# Actions #}
-                                <td>
-                                    {# Si l'utilisateur authentifié n'a pas le rôle d'administrateur' #}
+                                <td> 
                                     {% for role in user.roles %}
-                                        {% if role is same as 'ROLE_AUTHOR' %} 
-                                        <a type="button" href="{{path('app_admin_user_edit', {'id':user.id})}}"><i class="fas fa-pen"></i> Modifier</a>
-                                        <a type="button" href="{{path('app_admin_user_delete', {'id':user.id})}}" class="modal-trigger"  data-token="{{csrf_token('delete' ~ user.id)}}" data-message="Confirmez-vous la suppression de l'utilisateur '{{user.firstName|capitalize}} {{user.lastName|upper}}' ?" ><i class="fas fa-trash-alt"></i> Supprimer</a>
+                                        {# Si l'utilisateur authentifié n'a pas le rôle d'administrateur' #}
+                                        {% if role is same as 'ROLE_AUTHOR' %}
+                                            <a type="button" href="{{path('app_admin_user_edit', {'id':user.id})}}"><i class="fas fa-pen"></i> Modifier</a>
+                                        {% endif %}
+                                    {% endfor %}   
+                                </td>
+                                <td>
+                                    {% for role in user.roles %}
+                                        {% if role is same as 'ROLE_AUTHOR' %}
+                                            <a type="button" href="{{path('app_admin_user_delete', {'id':user.id})}}" class="modal-trigger"  data-token="{{csrf_token('delete' ~ user.id)}}" data-message="Confirmez-vous la suppression de l'utilisateur '{{user.firstName|capitalize}} {{user.lastName|upper}}' ?" ><i class="fas fa-trash-alt"></i> Supprimer</a>
                                         {% endif %}
                                     {% endfor %}
                                 </td>

@@ -37,19 +37,20 @@
                 <p>Nombre de partenaires : <strong>{{partnersData|length}}</strong></p>
                 {# Tableau des objets Partner #}
                 <table>
+                    <colgroup span="3"></colgroup>
                     <thead>
                         <tr>
                             <th>Nom</th>
                             <th>Date de mise à jour</th>
                             <th>Image de couverture</th>
                             <th>Priorité de publication</th>
-                            <th>Actions</th>
+                            <th colspan="3" scope="colgroup">Actions</th>
                         </tr>
                     </thead>
                     <tbody>
                         {% for partner in partners %}
                             <tr>
-                                <td>{{partner.name}}</td>
+                                <th>{{partner.name}}</th>
                                 <td>{{partner.updatedAt|format_datetime(locale='fr', timezone='Europe/Paris')}}</td>
                                 <td>
                                     {% if partner.coverImage %}
@@ -60,7 +61,11 @@
                                 {# Actions #}
                                 <td>
                                     <a type="button" href="{{path('app_admin_partner_detail', {'slug':partner.slug})}}"><i class="fas fa-eye"></i> Voir</a>
+                                </td>
+                                <td>
                                     <a type="button" href="{{path('app_admin_partner_edit', {'slug':partner.slug})}}"><i class="fas fa-pen"></i> Modifier</a>
+                                </td>
+                                <td>
                                     <a type="button" href="{{path('app_admin_partner_delete', {'slug':partner.slug})}}" class="modal-trigger"  data-token="{{csrf_token('delete' ~ partner.slug)}}" data-message="Confirmez-vous la suppression du partenaire '{{partner.name}}' ?" ><i class="fas fa-trash-alt"></i> Supprimer</a>
                                 </td>
                             </tr>

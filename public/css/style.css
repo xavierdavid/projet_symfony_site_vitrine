@@ -20,10 +20,11 @@
   --color-accent: #00b894;
   --color-accent-lighter:#55efc4; 
   --color-accent-darker: #014a3b;
-  --color-grey: #636e72;
-  --color-grey-lighter: #b2bec3;
-  --color-grey-darker:#2d3436;
-  --color-white: #f1f1f1;
+  --color-grey: #e9ecef;
+  --color-grey-lighter: #f8f9fa;
+  --color-grey-darker:#495057;
+  --color-grey-text: #343a40;
+  --color-white: #ffffff;
   --color-danger: #DC3644;
   --color-warning: #FFC107;
   --color-success: #198754;
@@ -118,19 +119,19 @@ h1 {
 h2 {
   text-align: center;
   padding: 20px;
-  color: var(--color-grey-darker);
+  color: var(--color-grey-text);
   font-size: 25px;
 }
 
 h3 {
   padding: 20px;
-  color: var(--color-grey-darker);
+  color: var(--color-grey-text);
   font-size: 20px; 
 }
 
 h4 {
   padding: 20px;
-  color: var(--color-grey-darker);
+  color: var(--color-grey-text);
   font-size: 18px; 
 }
 
@@ -139,7 +140,7 @@ h4 {
 /*****************************************************/
 p {
   font-size: 15px;
-  color: var(--color-grey);
+  color: var(--color-grey-text);
 }
 
 /*****************************************************/
@@ -148,7 +149,7 @@ p {
 a:link, a:visited {
   font-family: 'Raleway', sans-serif; 
   font-size: 15px;
-  color: var(--color-grey-darker);
+  color: var(--color-grey-text);
   text-decoration: none;
 }
 
@@ -214,19 +215,36 @@ a:active {
 .alert-info p {
   color: var(--color-info);;
 }
+
 /*****************************************************/
 /***                    Tableaux                   ***/
 /*****************************************************/
 table {
+  width: 1200px;
+  margin: 0 auto;
   border-collapse: collapse;
 }
 
 td, th {
-  border: 1px solid black;
+  padding: 10px 10px;
+  text-align: left;
+}
+
+thead th {
+  background-color: var(--color-main-darker);
+  color: var(--color-white);
+}
+
+tbody tr:nth-child(odd) {
+  background-color:var(--color-grey); /* Couleur de fond des rangées impaires des tableaux */
+}
+
+tbody tr:nth-child(even) {
+  background-color: var(--color-grey-lighter); /* Couleur de fond des rangées paires des tableaux */
 }
 
 /*****************************************************/
-/***                 Fenêtre modale                ***/
+/***                Fenêtres modales               ***/
 /*****************************************************/
 .modal-container {
   visibility: hidden;

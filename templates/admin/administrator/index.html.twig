@@ -37,6 +37,7 @@
                 <p>Nombre de dirigeants : <strong>{{administratorsData|length}}</strong></p>
                 {# Tableau des objets Administrator #}
                 <table>
+                    <colgroup span="3"></colgroup>
                     <thead>
                         <tr>
                             <th>Nom</th>
@@ -45,14 +46,14 @@
                             <th>Date de mise à jour</th>
                             <th>Photo de profil</th>
                             <th>Priorité de publication</th>
-                            <th>Actions</th>
+                            <th colspan="3" scope="colgroup">Actions</th>
                         </tr>
                     </thead>
                     <tbody>
                         {% for administrator in administrators %}
                             <tr>
-                                <td>{{administrator.lastName|upper}}</td>
-                                <td>{{administrator.firstName|capitalize}}</td>
+                                <th>{{administrator.lastName|upper}}</th>
+                                <th>{{administrator.firstName|capitalize}}</th>
                                 <td>{{administrator.shortDescription|capitalize}}</td>
                                 <td>{{administrator.updatedAt|format_datetime(locale='fr', timezone='Europe/Paris')}}</td>
                                 <td>
@@ -64,7 +65,11 @@
                                 {# Actions #}
                                 <td>
                                     <a type="button" href="{{path('app_admin_administrator_detail', {'slug':administrator.slug})}}"><i class="fas fa-eye"></i> Voir</a>
+                                </td>
+                                <td>
                                     <a type="button" href="{{path('app_admin_administrator_edit', {'slug':administrator.slug})}}"><i class="fas fa-pen"></i> Modifier</a>
+                                </td>
+                                <td>
                                     <a type="button" href="{{path('app_admin_administrator_delete', {'slug':administrator.slug})}}" class="modal-trigger"  data-token="{{csrf_token('delete' ~ administrator.slug)}}" data-message="Confirmez-vous la suppression du dirigeant '{{administrator.firstName}} {{administrator.lastName|upper}}' ?" ><i class="fas fa-trash-alt"></i> Supprimer</a>
                                 </td>
                             </tr>

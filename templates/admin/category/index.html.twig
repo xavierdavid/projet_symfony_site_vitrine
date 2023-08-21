@@ -35,19 +35,22 @@
                 <p>Nombre de catégories : <strong>{{categoriesData|length}}</strong></p>
                 {# Tableau des objets Category #}
                 <table>
+                    <colgroup span="2"></colgroup>
                     <thead>
                         <tr>
                             <th>Nom de la catégorie d'article</th>
-                            <th>Actions</th>
+                            <th colspan="2" scope="colgroup">Actions</th>
                         </tr>
                     </thead>
                     <tbody>
                         {% for category in categories %}
                             <tr>
-                                <td>{{category.name|capitalize}}</td>
+                                <th>{{category.name|capitalize}}</th>
                                 {# Actions #}
                                 <td>
                                     <a type="button" href="{{path('app_admin_category_edit', {'slug':category.slug})}}"><i class="fas fa-pen"></i> Modifier</a>
+                                </td>
+                                <td>
                                     <a type="button" href="{{path('app_admin_category_delete', {'slug':category.slug})}}" class="modal-trigger"  data-token="{{csrf_token('delete' ~ category.slug)}}" data-message="Confirmez-vous la suppression de la catégorie '{{category.name}}' ?" ><i class="fas fa-trash-alt"></i> Supprimer</a>
                                 </td>
                             </tr>

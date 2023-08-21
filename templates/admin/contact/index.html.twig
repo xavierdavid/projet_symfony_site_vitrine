@@ -37,6 +37,7 @@
                 <p>Nombre de messages : <strong>{{contactsData|length}}</strong></p>
                 {# Tableau des objets Contact #}
                 <table>
+                    <colgroup span="3"></colgroup>
                     <thead>
                         <tr>
                             <th>Date d'envoi</th>
@@ -44,13 +45,13 @@
                             <th>Organisation</th>
                             <th>Email</th>
                             <th>Sujet</th>
-                            <th>Actions</th>
+                            <th colspan="2" scope="colgroup">Actions</th>
                         </tr>
                     </thead>
                     <tbody>
                         {% for contact in contacts %}
                             <tr>
-                                <td>{{contact.createdAt|format_datetime(locale='fr', timezone='Europe/Paris')}}</td>
+                                <th>{{contact.createdAt|format_datetime(locale='fr', timezone='Europe/Paris')}}</th>
                                 <td>{{contact.firstname}} {{contact.lastname|upper}}</td>
                                 <td>{{contact.organization}}</td>
                                 <td><a href="mailto:{{contact.email}}" target="_blank">{{contact.email}}</a></td>
@@ -58,6 +59,8 @@
                                 {# Actions #}
                                 <td>
                                     <a type="button" href="{{path('app_admin_contact_detail', {'id':contact.id})}}"><i class="fas fa-eye"></i> Voir</a>
+                                </td>
+                                <td>
                                     <a type="button" href="{{path('app_admin_contact_delete', {'id':contact.id})}}" class="modal-trigger"  data-token="{{csrf_token('delete' ~ contact.id)}}" data-message="Confirmez-vous la suppression du message de '{{contact.firstname}} {{contact.lastname|upper}} envoyé le {{contact.createdAt|format_datetime(locale='fr', timezone='Europe/Paris')}} ?" ><i class="fas fa-trash-alt"></i> Supprimer</a>
                                 </td>
                             </tr>

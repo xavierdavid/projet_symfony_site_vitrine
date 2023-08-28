@@ -47,13 +47,22 @@ body {
 
 /** Container de pages - Front **/
 .container {
-  width: 95%;
+  width: 100%;
   margin: 0 auto;
 }
 
 /** Container de pages - Interface d'administration **/
 .admin-container {
+  width: 100%;
   display: flex;
+}
+
+.admin-items-section {
+ 
+}
+
+.admin-content-section {
+
 }
 
 /*****************************************************/
@@ -241,6 +250,90 @@ tbody tr:nth-child(odd) {
 
 tbody tr:nth-child(even) {
   background-color: var(--color-grey-lighter); /* Couleur de fond des rangées paires des tableaux */
+}
+
+tbody tr:hover {
+  background-color: var(--color-main-lighter);
+}
+
+/*****************************************************/
+/***                   Pagination                  ***/
+/*****************************************************/
+.pagination {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+nav .pagination {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.first a:link,
+.first a:visited,
+.last a:link,
+.last a:visited,
+.previous a:link,
+.previous a:visited,
+.next a:link,
+.next a:visited {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  text-decoration: none;
+  width: 35px;
+  height: 35px;
+  color: var(--color-main-darker); 
+  background-color: var(--color-white);
+  border: solid var(--color-main-darker) 1px;
+  border-radius: 50%;
+}
+
+.first a:hover,
+.first a:active,
+.last a:hover,
+.last a:active,
+.previous a:hover,
+.previous a:active,
+.next a:hover,
+.next a:active {
+  background-color: var(--color-main-darker);
+  color:var(--color-white);
+}
+
+.page a:link,
+.page a:visited
+{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  color: var(--color-grey-text);
+  text-decoration: none;
+  width: 30px;
+  height: 30px;
+  border-radius: 50px;
+}
+
+.page a:hover,
+.page a:active {
+  color: var(--color-white);
+  background-color: var(--color-main-darker);
+}
+
+.current {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  text-decoration: none;
+  width: 30px;
+  height: 30px;
+  color: var(--color-white);
+  background-color: var(--color-main-darker);
+  border-radius: 50%;
 }
 
 /*****************************************************/

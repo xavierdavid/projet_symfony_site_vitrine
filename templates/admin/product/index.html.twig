@@ -8,19 +8,19 @@
         <h1>Interface d'administration</h1>
     </header>
     <article class="admin-container">
-        <section>
+        <section class="admin-items-section">
             <header>
                 <h3>Services</h3>
             </header>
             {# Inclusion du aside #}
             {% include "admin/partials/_aside.html.twig" %}
         </section>
-        <section>
+        <section class="admin-content-section">
             <header>
                 <h2>Liste des services</h2>
             </header>
             <aside>
-                <h4>Filter les services</h4>
+                <h4>Filtrer les services</h4>
                 {# Formulaire de recherche d'objets Product #}
                 <section>
                     {{form_start(formView)}}

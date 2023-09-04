@@ -1,89 +1,167 @@
 
 /*****************************************************/
-/***                    Polices                    ***/
+/***                     HEADER                    ***/
 /*****************************************************/
-/* Raleway */
-@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@100;400&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@600&display=swap');
-/* Open Sans */
-@import url('https://fonts.googleapis.com/css2?family=Open+Sans&family=Raleway:wght@100;400&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@600&family=Raleway:wght@600&display=swap');
-
-
-/*****************************************************/
-/***                    Couleurs                   ***/
-/*****************************************************/
-:root {
-  --color-main: #ff7675;
-  --color-main-lighter: #fab1a0;
-  --color-main-darker: #964747;
-  --color-accent: #00b894;
-  --color-accent-lighter:#55efc4; 
-  --color-accent-darker: #014a3b;
-  --color-grey: #e9ecef;
-  --color-grey-lighter: #f8f9fa;
-  --color-grey-darker:#495057;
-  --color-grey-text: #343a40;
-  --color-white: #ffffff;
-  --color-danger: #DC3644;
-  --color-warning: #FFC107;
-  --color-success: #198754;
-  --color-info:#0DCAF0;
+.logo {
+  /*height: 2.4rem;*/
 }
 
-/*****************************************************/
-/***               Paramètres généraux             ***/
-/*****************************************************/
-*, ::before, ::after {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
-
-body {
-  font-family: 'Raleway', sans-serif;
-  color: var(--color-grey-darker);
-}
-
-/** Container de pages - Front **/
-.container {
-  width: 100%;
-  margin: 0 auto;
-}
-
-/** Container de pages - Interface d'administration **/
-.admin-container {
-  width: 100%;
+.header {
   display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: var(--color-main-tint);
+  height: 9.6rem; /* Hauteur fixe du header pour la rendre collante (sticky) en haut de la page lors du défilement */
+  padding: 0 4.8rem;
 }
 
-.admin-items-section {
- 
+.section-logo {
+  display: flex;
+  align-items: center;
 }
 
-.admin-content-section {
-
-}
-
-/*****************************************************/
-/***                     Header                    ***/
-/*****************************************************/
-
-.main-header {
-  padding: 20px;
-}
-
-.admin-header {
-  padding: 20px;
+.site-title {
+  font-weight: 500;
+  font-size: 1.8rem;
 }
 
 /*****************************************************/
-/***                     Footer                    ***/
+/***                    NAVIGATION                 ***/
+/*****************************************************/
+.main-nav {
+  display: flex;
+  gap: 3.2rem;
+}
+
+.main-nav-list,
+.user-nav-list {
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 3.2rem;
+}
+
+.main-nav-link:link,
+.user-nav-link:link,
+.main-nav-link:visited,
+.user-nav-link:visited {
+  display: inline-block;
+  font-weight: 500;
+  font-size: 1.8rem;
+  transition: all 0.3s;
+}
+
+.main-nav-link:hover,
+.user-nav-link:hover,
+.main-nav-link:active,
+.user-nav-link:active {
+  color: var(--color-main-darker);
+}
+
+/* Call To Action */
+.user-nav-link.nav-cta:link,
+.user-nav-link.nav-cta:visited {
+  padding: 1.2rem 2.4rem;
+  border-radius: 9px;
+  color: var(--color-white);
+  background-color: var(--color-main);
+}
+
+.user-nav-link.nav-cta:hover,
+.user-nav-link.nav-cta:active {
+  background-color: var(--color-main-darker);
+}
+
+
+/*****************************************************/
+/***                      HERO                     ***/
+/*****************************************************/
+.section-hero {
+  background-color: var(--color-main-tint);
+  padding: 9.6rem 0;
+}
+
+.hero-container {
+  display: grid; /* Grille */
+  max-width: 130rem; /* Conteneur de grille de largeur définie à 130rem et qui s'ajuste à l'écran pour une taille inférieure à 130rem */
+  margin: 0 auto; /* Centrage horizontal du conteneur */
+  padding: 0 3.2rem; 
+  grid-template-columns: 1fr 1fr; /* Colonnes */
+  gap: 9.6rem; /* Ecart entre les colonnes */
+  align-items: center; /* Centrage vertical des éléments du conteneur */
+}
+
+.hero-img {
+  width: 100%;
+}
+
+.hero-description {
+  font-size: 2rem;
+  line-height: 1.6;
+  margin-bottom: 4.8rem;
+}
+
+/*****************************************************/
+/***                 HOME ARTICLES                 ***/
+/*****************************************************/
+.section-home-articles {
+  padding: 9.6rem 0;
+}
+
+.article-text-box {
+  position: relative;
+}
+
+.article-text-box::before {
+  content: "";
+  display: block;
+  width: 25%;
+  /*height: 25%*/
+  padding-bottom: 25%; /* 25% of parent's width */
+  background-color: var(--color-main-tint);
+  position: absolute;
+  top: -8rem;
+  left: -8rem;
+  border-radius: 50%;
+  z-index: -1;
+}
+.article-text-box::after {
+  content: "";
+  display: block;
+  width: 20%;
+  /*height: 20%*/
+  padding-bottom: 20%; /* 20% of parent's width */
+  background-color: var(--color-white);
+  position: absolute;
+  top: -5rem;
+  left: -5rem;
+  border-radius: 50%;
+  z-index: -1;
+}
+
+.article-img-box {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.article-img {
+  width: 85%;
+}
+
+.article-introduction {
+  font-size: 1.8rem;
+  line-height: 1.2;
+}
+
+
+/*****************************************************/
+/***                     FOOTER                    ***/
 /*****************************************************/
 .main-footer {
   width: 100%;
-  margin-top: 50px;
-  padding: 20px;
+  margin-top: 5rem;
+  padding: 2rem;
   background-color: var(--color-main-lighter);
 }
 
@@ -99,8 +177,8 @@ body {
 }
 .admin-footer {
   width: 100%;
-  margin-top: 50px;
-  padding: 20px;
+  margin-top: 5rem;
+  padding: 2rem;
   background-color: var(--color-main-lighter);
 }
 
@@ -113,339 +191,6 @@ body {
 .admin-footer a {
   display: block;
   text-align: center;
-}
-
-/*****************************************************/
-/***                     Titres                    ***/
-/*****************************************************/
-h1 {
-  text-align: center;
-  padding: 20px;
-  color: var(--color-main-darker);
-  font-size: 35px;
-}
-
-h2 {
-  text-align: center;
-  padding: 20px;
-  color: var(--color-grey-text);
-  font-size: 25px;
-}
-
-h3 {
-  padding: 20px;
-  color: var(--color-grey-text);
-  font-size: 20px; 
-}
-
-h4 {
-  padding: 20px;
-  color: var(--color-grey-text);
-  font-size: 18px; 
-}
-
-/*****************************************************/
-/***                  Paragraphes                  ***/
-/*****************************************************/
-p {
-  font-size: 15px;
-  color: var(--color-grey-text);
-}
-
-/*****************************************************/
-/***                     Liens                     ***/
-/*****************************************************/
-a:link, a:visited {
-  font-family: 'Raleway', sans-serif; 
-  font-size: 15px;
-  color: var(--color-grey-text);
-  text-decoration: none;
-}
-
-a:hover {
-  font-size: 15px;
-  color: var(--color-main);
-  font-weight: bold;
-  text-decoration: none;
-}
-
-a:active {
-  font-style: italic;
-}
-
-/*****************************************************/
-/***                      Images                   ***/
-/*****************************************************/
-.largeSizeImage {
-  width: 200px;
-  height: auto;
-}
-
-.mediumSizeImage {
-  max-width: 100px;
-  height: auto;
-}
-
-.smallSizeImage {
-  max-width: 60px;
-  height: auto;
-}
-
-.verySmallSizeImage {
-  max-width: 40px;
-  height: auto;
-}
-
-.fullSizeImage {
-  max-width: 100%;
-  height: auto;
-}
-
-/*****************************************************/
-/***                     Boutons                   ***/
-/*****************************************************/
-
-
-/*****************************************************/
-/***                 Messages Flash                ***/
-/*****************************************************/
-.alert-success p {
-  color:var(--color-success);
-}
-
-.alert-warning p {
-  color: var(--color-warning);
-}
-
-.alert-danger p {
-  color: var(--color-danger);;
-}
-
-.alert-info p {
-  color: var(--color-info);;
-}
-
-/*****************************************************/
-/***                    Tableaux                   ***/
-/*****************************************************/
-table {
-  width: 1200px;
-  margin: 0 auto;
-  border-collapse: collapse;
-}
-
-td, th {
-  padding: 10px 10px;
-  text-align: left;
-}
-
-thead th {
-  background-color: var(--color-main-darker);
-  color: var(--color-white);
-}
-
-tbody tr:nth-child(odd) {
-  background-color:var(--color-grey); /* Couleur de fond des rangées impaires des tableaux */
-}
-
-tbody tr:nth-child(even) {
-  background-color: var(--color-grey-lighter); /* Couleur de fond des rangées paires des tableaux */
-}
-
-tbody tr:hover {
-  background-color: var(--color-main-lighter);
-}
-
-/*****************************************************/
-/***                   Pagination                  ***/
-/*****************************************************/
-.pagination {
-  display: flex;
-  justify-content: center;
-  margin-top: 20px;
-}
-nav .pagination {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-
-.first a:link,
-.first a:visited,
-.last a:link,
-.last a:visited,
-.previous a:link,
-.previous a:visited,
-.next a:link,
-.next a:visited {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 18px;
-  text-decoration: none;
-  width: 35px;
-  height: 35px;
-  color: var(--color-main-darker); 
-  background-color: var(--color-white);
-  border: solid var(--color-main-darker) 1px;
-  border-radius: 50%;
-}
-
-.first a:hover,
-.first a:active,
-.last a:hover,
-.last a:active,
-.previous a:hover,
-.previous a:active,
-.next a:hover,
-.next a:active {
-  background-color: var(--color-main-darker);
-  color:var(--color-white);
-}
-
-.page a:link,
-.page a:visited
-{
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 16px;
-  color: var(--color-grey-text);
-  text-decoration: none;
-  width: 30px;
-  height: 30px;
-  border-radius: 50px;
-}
-
-.page a:hover,
-.page a:active {
-  color: var(--color-white);
-  background-color: var(--color-main-darker);
-}
-
-.current {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 16px;
-  text-decoration: none;
-  width: 30px;
-  height: 30px;
-  color: var(--color-white);
-  background-color: var(--color-main-darker);
-  border-radius: 50%;
-}
-
-/*****************************************************/
-/***                Fenêtres modales               ***/
-/*****************************************************/
-.modal-container {
-  visibility: hidden;
-  position: fixed;
-  top: 0;
-  width: 100vw;
-  height: 100vh;
-  transition: visibility 0.4s;
-}
-
-.modal-container.active {
-  visibility: visible;
-}
-
-.overlay {
-  opacity: 1;
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  background: var(--background-overlay);
-  transition: opacity 0.4s 0.2s ease-out;
-}
-
-.modal-container.active .overlay {
-  opacity: 1;
-  transition: opacity 0.4s ease-out;
-}
-
-.modal {
-  opacity: 0;
-  width: 95%;
-  max-width: 500px;
-  min-width: 300px;
-  padding: 30px;
-  background: var(--color-grey-darker);
-  color: var(--color-white);
-  border-radius: 5px;
-  position: absolute;
-  top: 40%;
-  left: 50%;
-  transform: translate(-50%, calc(-50% - 50px));
-  transition: opacity 0.4s ease-out, transform 0.4s ease-out;
-}
-
-.modal-container.active .modal {
-  opacity: 1;
-  transform: translate(-50%, -50%);
-  transition: opacity 0.4s 0.2s ease-out, transform 0.4s 0.2s ease-out;
-}
-
-.close-modal {
-  padding: 8px 10px;
-  border: none;
-  border-radius: 5px;
-  font-size: 18px;
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  cursor: pointer;
-  background: var(--color-title-dark);
-  color: var(--color-white);
-}
-
-.modal h2 {
-  text-align: center;
-  margin-bottom: 5px;
-  font-weight: 500;
-  color: var(--color-grey-lighter)
-}
-
-.modal p {
-  line-height: 1.4;
-  margin-bottom: 16px;
-  text-align: center;
-  color: var(--color-accent-lighter)
-}
-
-.modal a {
-  margin: auto;
-}
-
-/*****************************************************/
-/*****                 Formulaires               *****/
-/*****************************************************/
-
-/** Conteneur de formulaire **/
-.form-container {
-  font-family: inherit;
-}
-
-/** Mise en page du formulaire **/
-.form-container form {
-  font-family: inherit;
-}
-
-/** Label du champ de formulaire **/
-.form-row label {
-  font-family: inherit;
-}
-
-/** Champs input et textarea de formulaire **/ 
-.form-row input, .form-row textarea {
-  font-family: inherit;
-}
-
-/** Placeholder de champ de formulaire **/
-.form-row input::placeholder, .form-row textarea::placeholder {
-  
 }
 
 

@@ -7,56 +7,94 @@
 
 {% block body %}
 <main class="container">
-    <header>
-        <h1>{{metatag.title}}</h1>
-    </header>
-    <article>
-        <header></header>
-        <section></section>
-        {# Affichage des objets Articles à la une #}
+    <section class="section-hero">
+        <div class="hero-container">
+            <div class="hero-text-box">
+                <h1 class="heading-primary">{{metatag.title}}</h1>
+                <p class="hero-description">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Alias, sunt voluptatem expedita voluptates amet corrupti nulla ratione ab illo ullam veniam facilis aliquid? Eaque, consequatur accusamus.</p>
+                <a href="#" class="btn btn--full margin-right-sm">Bouton 1</a>
+                <a href="#" class="btn btn--outline">Bouton 2 &darr;</a>
+            </div>
+            <div class="hero-img-box">
+                <img src="{{asset("uploads/hubble_telescope6320a51b77c5e08ef5938ec7276206da.jpg")}}" alt="Télescope Hubble voyageant dans l'espace" class="hero-img fullSizeImage">
+            </div>
+        </div>
+    </section>
+    <section class="section-home-articles">
+        <header class="container-grid">
+            <span class="subheading">Actualités</span>
+            <h2 class="heading-secondary">Nos dernières publications</h2>
+        </header>
+        {# Affichage des 3 premiers objets Articles à la une #}
+        <section class="container-grid grid grid--2--cols grid--center-v">
+            {# Article 1 #}
+            <div class="article-text-box">
+                <h3 class="heading-tertiary">{{articles[0].title}}</h3>
+                <p class="article-date">Publié le {{articles[0].updatedAt|format_datetime(locale='fr', timezone='Europe/Paris')}}</p>
+                {% if articles[0].categories|length != 0 %}
+                    {% for category in articles[0].categories %}
+                        <p><strong>{{category.name}}</strong></p>
+                    {% endfor %}
+                {% endif %}
+                <p class="article-introduction">{{articles[0].shortIntroduction}}</p>
+                <p class="article-more"><strong><a href="{{path('app_article_detail', {'slug':articles[0].slug})}}">Plus d'infos...</a></strong></p>
+            </div>
+            <div class="article-img-box">
+                {% if articles[0].coverImage %}
+                    <img src="{{asset('uploads/'~articles[0].coverImage)}}" alt="{{articles[0].title}}" class="article-img fullSizeImage">
+                {% endif %}
+            </div>
+            {# Article 2 #}
+            <div class="article-img-box">
+                {% if articles[1].coverImage %}
+                    <img src="{{asset('uploads/'~articles[1].coverImage)}}" alt="{{articles[1].title}}" class="article-img fullSizeImage">
+                {% endif %}
+            </div>
+            <div class="article-text-box">
+                <h3 class="heading-tertiary">{{articles[1].title}}</h3>
+                <p class="article-date">Publié le {{articles[1].updatedAt|format_datetime(locale='fr', timezone='Europe/Paris')}}</p>
+                {% if articles[1].categories|length != 0 %}
+                    {% for category in articles[1].categories %}
+                        <p><strong>{{category.name}}</strong></p>
+                    {% endfor %}
+                {% endif %}
+                <p class="article-introduction">{{articles[1].shortIntroduction}}</p>
+                <p class="article-more"><strong><a href="{{path('app_article_detail', {'slug':articles[1].slug})}}">Plus d'infos...</a></strong></p>
+            </div>
+            {# Article 3 #}
+            <div class="article-text-box">
+                <h3 class="heading-tertiary">{{articles[2].title}}</h3>
+                <p class="article-date">Publié le {{articles[2].updatedAt|format_datetime(locale='fr', timezone='Europe/Paris')}}</p>
+                {% if articles[2].categories|length != 0 %}
+                    {% for category in articles[2].categories %}
+                        <p><strong>{{category.name}}</strong></p>
+                    {% endfor %}
+                {% endif %}
+                <p class="article-introduction">{{articles[2].shortIntroduction}}</p>
+                <p class="article-more"><strong><a href="{{path('app_article_detail', {'slug':articles[2].slug})}}">Plus d'infos...</a></strong></p>
+            </div>
+            <div class="article-img-box">
+                {% if articles[2].coverImage %}
+                    <img src="{{asset('uploads/'~articles[2].coverImage)}}" alt="{{articles[2].title}}" class="article-img fullSizeImage">
+                {% endif %}
+            </div>
+        </section>
+    </section>
+    <section>
+        {# Formulaire de d'inscription à la newsletter #}
+        <header>
+            <h3>S'inscrire à la newsletter</h3>
+        </header>
         <section>
-            <header>
-                <h2>Articles à la une</h2>
-            </header>
-            {% for article in articles %}
-                <section>
-                    <h3>{{article.title}}</h3>
-                    <p>Publié le {{article.updatedAt|format_datetime(locale='fr', timezone='Europe/Paris')}}</p>
-                    {# Affichage des objets Category associés à l'objet Article #}
-                    {% if article.categories|length != 0 %}
-                        {% for category in article.categories %}
-                            <p><strong>{{category.name}}</strong></p>
-                            <br>
-                        {% endfor %}
-                    {% endif %}
-                    {% if article.coverImage %}
-                        <figure>
-                            <a href="{{asset('uploads/'~article.coverImage)}}" target="_blank"><img src="{{asset('uploads/'~article.coverImage)}}" alt="{{article.title}}" class="largeSizeImage"></a>
-                        </figure>
-                    {% endif %}
-                    <p>{{article.shortIntroduction}}</p>
-                    <br>
-                    <p><strong><a href="{{path('app_article_detail', {'slug':article.slug})}}">Plus d'infos...</a></strong></p>
-                </section>
-                <br>
-            {% endfor %}
+            {{form_start(formView)}}
+            {{form_row(formView.email)}}
+            {{form_start(formView)}}
         </section>
         <section>
-            {# Formulaire de d'inscription à la newsletter #}
-            <header>
-                <h3>S'inscrire à la newsletter</h3>
-            </header>
-            <section>
-                {{form_start(formView)}}
-                {{form_row(formView.email)}}
-                {{form_start(formView)}}
-            </section>
-            <section>
-                <br>
-                <button type="submit">S'inscrire</button>
-                {{form_end(formView)}}
-            </section>
+            <br>
+            <button type="submit">S'inscrire</button>
+            {{form_end(formView)}}
         </section>
-    </article>
+    </section>
 </main>
 {% endblock %}

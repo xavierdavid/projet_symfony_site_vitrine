@@ -1,25 +1,29 @@
 {# Header #}
-<header class="admin-header">
-  <nav>
+<header class="header">
+  <section class="section-logo">
     {# Affichage du logo de l'organisation avec l'extension twig OrganizationExtension #}
     <a href="{{path('app_home')}}">
       {% for organization_data in organization_datas.getOrganization %}
-          <img src="{{asset('uploads/'~ organization_data.logo)}}" alt="logo de l'organisation {{organization_data.organizationName}}" class="smallSizeImage">
+          <img src="{{asset('uploads/'~ organization_data.logo)}}" alt="logo de l'organisation {{organization_data.organizationName}}" class="logo smallSizeImage">
       {% endfor %}
     </a>
     {# Affichage du titre du site avec l'extension twig OrganizationExtension #}
-    <strong class="site_title">
+    <p class="site-title">
       {% for organization_data in organization_datas.getOrganization %}
           {{organization_data.organizationName}} 
       {% endfor %}
-    </strong>
-    {# Affichage des liens en fonction du statut d'authentification de l'utilisateur #}
-    {% if app.user %}
-      <a href="{{path('app_home')}}"><i class="fas fa-eye"></i> Voir le site</a>
-      <a href="{{path('app_account_home')}}"><i class="fas fa-user"></i> Mon compte</a>
-      <a href="{{path('app_logout')}}"><i class="fas fa-sign-out-alt"></i> Deconnection</a>
-    {% else %}
-      <a href="{{path('app_login')}}"><i class="fas fa-sign-in-alt"></i> Connection</a>
-    {% endif %}   
+    </p>
+  </section>
+  <nav class="main-nav">
+    <ul class="user-nav-list">
+      {# Affichage des liens en fonction du statut d'authentification de l'utilisateur #}
+      {% if app.user %}
+        <li><a href="{{path('app_home')}}" class="user-nav-link"><i class="fas fa-eye"></i> Voir le site</a></li>
+        <li><a href="{{path('app_account_home')}}" class="user-nav-link"><i class="fas fa-user"></i> Mon compte</a></li>
+        <li><a href="{{path('app_logout')}}" class="user-nav-link nav-cta"><i class="fas fa-sign-out-alt"></i> Deconnection</a></li>
+      {% else %}
+        <li><a href="{{path('app_login')}}" class="user-nav-link"><i class="fas fa-sign-in-alt"></i> Connection</a></li>
+      {% endif %} 
+    </ul>  
   </nav>
 </header>

@@ -26,8 +26,8 @@ class HomeController extends AbstractController
         $metatag = $metatagRepository->findOneBy([
             'pageName' => 'Accueil'
         ]);
-        // Récupération des objets Article à la une triés par ordre priorité
-        $articles = $articleRepository->findBy(['isFrontPage' => true,],['priorityOrder' => 'ASC']);
+        // Récupération des objets Article à la une triés par ordre priorité et limité à 3 articles
+        $articles = $articleRepository->findBy(['isFrontPage' => true,],['priorityOrder' => 'ASC'],3);
         // Création du formulaire d'inscription à la newsletter
         $form = $this->createForm(NewsletterRegistrationType::class);
         // Analyse de la requête

@@ -21,48 +21,48 @@ class ContactType extends AbstractType
             ->add('firstname', TextType::class, [
                 'label' => 'Prénom',
                 'attr'=> [
-                    'placeholder' => "Veuillez renseigner votre prénom"
+                    'placeholder' => "John"
                 ],
                 'required' => true
             ])
             ->add('lastname', TextType::class, [
                 'label' => 'Nom',
                 'attr'=> [
-                    'placeholder' => "Veuillez renseigner votre nom"
+                    'placeholder' => "DOE"
                 ],
                 'required' => true
             ])
             ->add('organization', TextType::class, [
                 'label' => 'Organisation',
                 'attr'=> [
-                    'placeholder' => "Veuillez renseigner le nom de votre organisation (facultatif)"
+                    'placeholder' => "Nom de votre organisation"
                 ],
                 'required' => false
             ])
             ->add('email', EmailType::class,[
                 'label' => 'Email',
                 'attr' => [
-                    'placeholder' => "Merci de saisir votre adresse email"
+                    'placeholder' => "johndoe@exemple.com"
                 ],
                 'required' => true
             ])
             ->add('subject', TextType::class, [
                 'label' => 'Sujet',
                 'attr'=> [
-                    'placeholder' => "Veuillez renseigner le sujet de votre message"
+                    'placeholder' => "Demande d'informations"
                 ],
                 'required' => false
             ])
             ->add('message', TextareaType::class, [
                 'label' => 'Votre message',
                 'attr'=> [
-                    'placeholder' => "Veuillez rédiger votre message"
+                    'placeholder' => "Votre message"
                 ],
                 'required' => true
             ]) 
             ->add('isRgpd', CheckboxType::class, [
                 'label' => 'Consentement RGPD',
-                'help'=> "J'autorise ce site à conserver mes données personnelles transmises via ce formulaire. Aucune exploitation commerciale ne sera faite des données conservées.",
+                'help'=> "Vous acceptez que les informations transmises soient conservées et utilisées conformément à notre politique de protection des données.",
                 'required' => true
             ]) 
             ->add('captcha', Recaptcha3Type::class, [

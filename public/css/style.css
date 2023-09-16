@@ -72,7 +72,6 @@
   background-color: var(--color-main-darker);
 }
 
-
 /*****************************************************/
 /***                      HERO                     ***/
 /*****************************************************/
@@ -154,6 +153,59 @@
   line-height: 1.2;
 }
 
+/*****************************************************/
+/***                  CONTACT FORM                 ***/
+/*****************************************************/
+/* CTA - Call To Action */
+.section-cta-form {
+  padding: 9.6rem 0;
+  background-color: var(--color-main-tint);
+  /*background-image: linear-gradient(to bottom, var(--color-main-tint), var(--color-white)); /* Fond avec dégradé */
+}
+
+.contact-cta-container {
+  display: grid;
+  max-width: 130rem;
+  margin: 0 auto; 
+  grid-template-columns: 2fr 1fr;
+  background-color: var(--color-main-tint);
+  overflow: hidden;
+  border-radius: 2.5rem;
+}
+
+.cta-text-box {
+  padding: 6.4rem;
+  color: var(--color-main-text);
+  background-color: var(--color-main-tint);
+}
+
+.cta-text {
+  font-size: 1.8rem;
+  color: var(--color-main-text);
+  line-height: 1.8;
+  margin-bottom: 4.8rem;
+}
+
+/* Image de fonds avec dégradé */
+.cta-img-box {
+  background-image: linear-gradient(to bottom, var(--gradient-main-tint), var(--gradient-main-lighter)), url('../img/hubble_telescope.jpg');
+  background-size: cover;
+  background-position: center;
+}
+
+/* Mise en page du formulaire de contact */
+.cta-form {
+  display:grid;
+  grid-template-columns: 1fr 1fr;
+  column-gap: 3.2rem;
+  row-gap: 2.4rem;
+}
+
+/* Focus du formulaire de contact */
+.cta-form *:focus {
+  outline: none;
+  box-shadow: 0 0 0 0.8rem rgba(179, 84, 82, 0.5);
+}
 
 /*****************************************************/
 /***                     FOOTER                    ***/
@@ -177,7 +229,6 @@
 }
 .admin-footer {
   width: 100%;
-  margin-top: 5rem;
   padding: 2rem;
   background-color: var(--color-main-lighter);
 }
@@ -192,6 +243,93 @@
   display: block;
   text-align: center;
 }
+
+/*****************************************************/
+/***                     ADMIN                     ***/
+/*****************************************************/
+.admin-container {
+  display: grid;
+  margin: 0 auto;
+  grid-template-columns: 1fr 5fr;
+  gap: 6.4rem; /* Ecart entre les colonnes */
+  align-items: center;
+}
+
+.admin-nav {
+  padding: 6.4rem;
+  background-color: var(--color-grey-tint);
+  min-height: 80rem;
+}
+
+.admin-content {
+  padding: 6.4rem;
+  min-height: 80rem;
+}
+
+.admin-img-box,
+.admin-text-box {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.admin-nav-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 1.7rem;
+}
+
+.admin-list {
+  font-size: 1.8rem;
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+
+.admin-list a:link,
+.admin-list a:visited {
+  font-weight: 500;
+  font-size: 1.8rem;
+  transition: all 0.3s;
+}
+
+.admin-list a:hover,
+.admin-list a:active {
+  color: var(--color-main-darker);
+}
+
+.edit-box-header {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  margin-bottom: 1.5rem;
+}
+
+.edit-box-header p {
+  font-size: 2rem; 
+  line-height: 1.2;
+  font-weight: 600;
+}
+
+.edit-box {
+  display:flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.edit-box-info {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+
+.edit-box-item {
+  font-weight: 600;
+  color: var(--color-main-darker);
+  margin-top: 1.5rem;
+}
+
 
 
 

@@ -4,54 +4,69 @@
 
 {% block body %}
 <main class="container">
-    <header>
-        <h1>Interface d'administration</h1>
-    </header>
-    <article class="admin-container">
-        <section>
-            <header>
-                <h3>Organisation</h3>
-            </header>
-            {# Inclusion du aside #}
-            {% include "admin/partials/_aside.html.twig" %}
+    <section class="section-admin">
+        <section class="admin-container">
+            <nav class="admin-nav">
+                {# Inclusion du aside #}
+                {% include "admin/partials/_aside.html.twig" %}
+            </nav>
+            <div class="admin-content">
+                <div class="admin-text-box">
+                    <h1 class="heading-primary">Mon organisation</h1>
+                </div>
+                <div class="admin-edit-box grid grid--2--cols grid--center-v">
+                    {# Affichage du dernier objet Organization enregistré en base de données #}
+                    {% for organization in organization %}
+                        <section>
+                            <header class="edit-box-header">
+                                {% if organization.logo %}
+                                    <figure>
+                                        <img src="{{asset('uploads/'~ organization.logo)}}" alt="logo de {{organization.organizationName}}" class="mediumSizeImage">
+                                    </figure>
+                                {% endif %}
+                                <p>{{organization.organizationName}}</p>
+                            </header>
+                            <div class="edit-box">
+                                <p class="edit-box-info"><ion-icon class="icon icon-secondary" name="id-card-outline"></ion-icon><strong>Adresse :</strong>{{organization.address}} - {{organization.postal}} {{organization.city}} ({{organization.country|upper}})</p>
+                                <p class="edit-box-info"><ion-icon class="icon icon-secondary" name="call-outline"></ion-icon><strong>Téléphone :</strong>{{organization.phone}}</p>
+                                {% if organization.facebook %}
+                                    <p class="edit-box-info"><ion-icon class="icon icon-secondary"name="logo-facebook"></ion-icon><strong>Facebook :</strong>{{organization.facebook}}</p>
+                                {% endif %}
+                                {% if organization.instagram %}
+                                    <p class="edit-box-info"><ion-icon class="icon icon-secondary" name="logo-instagram"></ion-icon><strong>Instagram :</strong>{{organization.instagram}}</p>
+                                {% endif %}
+                                {% if organization.twitter %}
+                                    <p class="edit-box-info"><ion-icon class="icon icon-secondary" name="logo-twitter"></ion-icon><strong>Twitter :</strong>{{organization.twitter}}</p>
+                                {% endif %}
+                                <p class="edit-box-info"><ion-icon class="icon icon-secondary" name="person-outline"></ion-icon> <strong>Responsable :</strong>{{organization.administratorFirstname}} {{organization.administratorLastname}}</p>
+                            </div>
+                        </section>
+                        <section>
+                            <div class="edit-box">
+                                <p class="edit-box-item">Nom du site</p>
+                                <p>{{organization.siteTitle}}</p>
+                                <p class="edit-box-item">Courte description</p>
+                                <p>{{organization.shortDescription}}</p>
+                                <p class="edit-box-item">Description</p>
+                                {{organization.description|raw}}
+                            </div>
+                        </section>
+                        <section>
+                            <ul class="admin-nav-list">
+                                <li class="admin-list">
+                                    <ion-icon class="icon icon-admin" name="pencil"></ion-icon>
+                                    <span><a href="{{path('app_admin_organization_edit', {'id':organization.id})}}">Modifier</a></span>
+                                </li>
+                                <li class="admin-list">
+                                    <ion-icon class="icon icon-admin" name="play-back"></ion-icon>
+                                    <span><a href="{{path('app_admin_home')}}"> Retour</a></span>
+                                </li>
+                            </ul>
+                        </section>
+                    {% endfor %} 
+                </div>
+            </div>
         </section>
-        <section>
-            <header>
-                <h2>Mon organisation</h2>
-                <p>Bienvenue dans l'espace dédié à votre organisation</p>
-            </header>
-            <br>
-            <section class="container">
-                {# Affichage du dernier objet Organization enregistré en base de données #}
-                {% for organization in organization %}
-                    <section>
-                        <header>
-                            <h3>{{organization.organizationName}}</h3>
-                        </header>
-                        <p><i class="fas fa-address-card"></i> Adresse : {{organization.address}} - {{organization.postal}} {{organization.city}} ({{organization.country|upper}})</p>
-                        <p><i class="fas fa-phone"></i> Téléphone : {{organization.phone}}</p>
-                        <p>{{organization.facebook}}</p>
-                        <p>{{organization.instagram}}</p>
-                        <p>{{organization.twitter}}</p>
-                        <p><i class="fas fa-user"></i> Responsable : {{organization.administratorFirstname}} {{organization.administratorLastname}}</p>
-                    </section>
-                    <section>
-                        {% if organization.logo %}
-                            <figure>
-                                <img src="{{asset('uploads/'~ organization.logo)}}" alt="logo de {{organization.organizationName}}" class="mediumSizeImage">
-                            </figure>
-                        {% endif %}
-                        <p><strong>{{organization.siteTitle}}</strong></p>
-                        <p>{{organization.shortDescription}}</p>
-                        <p>{{organization.description|raw}}</p>
-                    </section>
-            </section>
-            <section>
-                <p><a href="{{path('app_admin_organization_edit', {'id':organization.id})}}"><i class="fas fa-pen"></i> Modifier mon organisation</a></p>
-                <p><a href="{{path('app_admin_home')}}"><i class="fas fa-backward"></i> Retour</a></p>
-            </section>
-                {% endfor %}       
-        </section>
-    </article>
+    </section>
 </main>
 {% endblock %}

@@ -18,6 +18,10 @@
         
         {# Fontawesome #}
         <script src="https://kit.fontawesome.com/44950cf195.js" crossorigin="anonymous"></script>
+
+        {# Ionicons #}
+            <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+            <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
         
         {# Lien vers les feuilles de style CSS #}
         <link rel="stylesheet" href="{{asset('/css/general.css')}}">
@@ -39,6 +43,7 @@
         {% include "partials/_footer.html.twig" %}
         
         {# Lien vers les scripts javascript #}
-        {% block javascripts %}{% endblock %}
+        {% block javascripts %}
+        {% endblock %}
     </body>
 </html>

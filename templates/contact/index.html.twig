@@ -10,43 +10,54 @@
 
 {% block body %}
 <main class="container">
-    <header>
-        <h1>{{metatag.title}}</h1>
-    </header>
-    <article>
-        <header>
-            <h2>Formulaire de contact</h2>
-        </header>
-        {# Formulaire de contact #}
-        <section class="form-container">
-            {{form_start(formView)}}
-            {# Champ Firstname #}
-            {{form_row(formView.firstname)}}
-            {# Champ Lastname #}
-            {{form_row(formView.lastname)}}
-            {# Champ Organization #}
-            {{form_row(formView.organization)}}
-            {# Champ Email #}
-            {{form_row(formView.email)}}
-            {# Champ Subject #}
-            {{form_row(formView.subject)}}
-            {# Champ Message #}
-            {{form_row(formView.message)}}
-            {# Champ RGPD #}
-            <div class="form-row">
-                {{form_widget(formView.isRgpd)}}
-                {{form_label(formView.isRgpd)}}
-                {{form_errors(formView.isRgpd)}}
-                <small>{{form_help(formView.isRgpd)}}</small>
-                <br> 
+    <section class="section-cta-form">
+        <div class="contact-cta-container">
+            <div class="cta-text-box">
+                <header>
+                    <h1 class="heading-primary">{{metatag.title}}</h1>
+                </header>
+                <p class="cta-text">
+                    Plus d'info ? N'hésitez pas à nous contacter en utilisant le formulaire ci-dessous ...
+                </p>
+                {# Formulaire de contact #}
+                <section class="form-container">
+                    {# Début du formulaire #}
+                    {{form_start(formView, {'attr' : {'class': 'cta-form'}})}}
+                        <div>
+                            {# Champ Firstname #}
+                            {{form_row(formView.firstname)}}
+                            {# Champ Lastname #}
+                            {{form_row(formView.lastname)}}
+                            {# Champ Organization #}
+                            {{form_row(formView.organization)}}
+                            {# Champ Email #}
+                            {{form_row(formView.email)}}
+                        </div>
+                        <div>
+                            {# Champ Subject #}
+                            {{form_row(formView.subject)}}
+                            {# Champ Message #}
+                            {{form_row(formView.message)}}
+                            {# Champ RGPD #}
+                            <div class="form-row">
+                                <div class="cta-form-check">
+                                    {{form_widget(formView.isRgpd)}}
+                                    {{form_label(formView.isRgpd)}}
+                                </div>
+                                {{form_errors(formView.isRgpd)}}
+                                {{form_help(formView.isRgpd)}}
+                            </div>
+                        </div>
+                        {# Bouton de soumission du formulaire #}
+                        <button class="btn btn--form" type="submit">Envoyer</button>
+                    {# Fin du formulaire #}
+                    {{form_end(formView)}}
+                </section>
             </div>
-            {# Bouton de soumission du formulaire #}
-            <button type="submit">Envoyer</button>
-            {# Fin du formulaire #}
-            {{form_end(formView)}}
-        </section>
-        <aside></aside>
-    </article>
+            <div class="cta-img-box" role="img" aria-label="Hubble telescope dans l'espace">   
+            </div>
+        </div>
+    </section>
 </main>
 {% endblock %}
 
@@ -55,9 +66,7 @@
     <div class="form-row">
         {{form_label(form)}}
         {{form_errors(form)}}
-        <br>
         {{form_widget(form)}}
-        <small>{{form_help(form)}}</small>
-        <br>
+        {{form_help(form)}}
     </div>
 {% endblock %}

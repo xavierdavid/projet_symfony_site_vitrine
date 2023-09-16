@@ -43,6 +43,14 @@ Defaut: 9px
 
 
 --- 05 SHADOWS
+
+box-shadow-main: 0 2.4rem 4.8rem rgba(0, 0, 0, 0.075);
+box-shadow-darker: 0 2.4rem 4.8rem rgba(0, 0, 0, 0.15);
+
+--- 06 ICONS TOOLS
+
+- Ionic: https://ionic.io/ionicons 
+- Fontawesome: https://fontawesome.com/ 
 */
 
 /*****************************************************/
@@ -67,10 +75,11 @@ Defaut: 9px
   --color-accent-darker: #014a3b;
   --color-accent-tint: #e6f8f4;
   /* Grey color */
-  --color-grey: #e9ecef;
-  --color-grey-lighter: #f8f9fa;
-  --color-grey-darker:#495057;
-  --color-grey-text: #333;
+  --color-grey: #707070;
+  --color-grey-lighter: #a9a9a9;
+  --color-grey-darker:#292929;
+  --color-grey-text: #333333;
+  --color-grey-tint: #f1f1f1;
   /* Utility color */
   --color-black: #000000; 
   --color-white: #ffffff;
@@ -78,6 +87,21 @@ Defaut: 9px
   --color-warning: #FFC107;
   --color-success: #198754;
   --color-info:#0DCAF0;
+  /* Gradient color */
+  --gradient-main: rgba(255, 117, 117, 0.35);
+  --gradient-main-lighter: rgba(255, 160, 158, 0.35);
+  --gradient-main-darker: rgba(179, 84, 82, 0.35);
+  --gradient-main-tint: rgba(255, 241, 241, 0.35);
+  --gradient-main-text:rgba(76, 35, 35, 0.35);
+}
+
+/*****************************************************/
+/***                   BOX-SHADOWS                 ***/
+/*****************************************************/
+:root {
+  --box-shadow-main: 0 2.4rem 4.8rem rgba(0, 0, 0, 0.075);
+  --box-shadow-lighter: 0 1px 2px rgba(0, 0, 0, 0.1);
+  --box-shadow-darker: 0 2.4rem 4.8rem rgba(0, 0, 0, 0.15);
 }
 
 /*****************************************************/
@@ -115,13 +139,32 @@ body {
 /** Container de pages - Interface d'administration **/
 .admin-container {
   width: 100%;
-  display: flex;
+  margin: 0 auto;
+}
+
+/* Focus des liens, boutons et champs de formulaires - Accessibilité */
+*:focus {
+  /* Bordure de type outline */
+  outline: none;
+  /*outline: 4px dotted var(--color-main-darker);*/
+  /*outline-offset: 8px;*/
+  box-shadow: 0 0 0 0.8rem rgba(179, 84, 82, 0.5);
+}
+
+/* Centrage du texte */
+.center-text {
+  text-align: center;
+}
+
+/** Elément Strong **/
+strong {
+  font-weight: 500;
 }
 
 /*****************************************************/
 /***                    GRID LAYOUT                ***/
 /*****************************************************/
-/* Conteneur de grille */
+/* Conteneurs de grille */
 .container-grid {
   max-width: 120rem; /* Largeur définie à 120rem (environ 1140 px) s'ajustant à l'écran pour une taille inférieure à 120rem */
   padding: 0 3.2rem;
@@ -161,7 +204,8 @@ body {
 
 .heading-primary,
 .heading-secondary,
-.heading-tertiary {
+.heading-tertiary,
+.heading-quaternary {
   font-weight: 700;
   color: var(--color-main-text);
   letter-spacing: -0.5px;
@@ -183,14 +227,16 @@ h2,
 
 h3,
 .heading-tertiary {
-  font-size: 3rem; 
+  font-size: 3.6rem; 
   line-height: 1.2;
   margin-bottom: 3.2rem;
 }
 
-h4 {
-  color: var(--color-grey-text);
-  font-size: 1.8rem; 
+h4,
+.heading-quaternary {
+  font-size: 3rem; 
+  line-height: 1.2;
+  margin-bottom: 3.2rem;
 }
 
 .subheading {
@@ -207,7 +253,7 @@ h4 {
 /***                   PARAGRAPHS                  ***/
 /*****************************************************/
 p {
-  font-size: 1.5rem;
+  font-size: 1.6rem;
   color: var(--color-grey-text);
 }
 
@@ -235,6 +281,7 @@ a:active {
 /*****************************************************/
 /***                     BUTTONS                   ***/
 /*****************************************************/
+.btn,
 .btn:link,
 .btn:visited {
   display: inline-block;
@@ -245,6 +292,11 @@ a:active {
   border-radius: 9px;
   /* Animation de transitiion sur l'état d'origine : permet de changer de la valeur d'une ou de plusieurs propriétés sur une durée de temps donnée */
   transition: background-color 0.3s;
+  
+  /* Style par défaut du .btn */
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
 }
 
 .btn--full:link,
@@ -271,6 +323,18 @@ a:active {
   box-shadow: inset 0 0 0 3px var(--color-white);
 }
 
+/* Bouton de formulaire */
+.btn--form {
+  background-color: var(--color-main);
+  color: var(--color-main-tint);
+  padding: 1.2rem;
+}
+
+.btn--form:hover {
+  background-color: var(--color-white);
+  color: var(--color-main-darker);
+}
+
 /*****************************************************/
 /***                      MARGINS                  ***/
 /*****************************************************/
@@ -281,27 +345,32 @@ a:active {
 /*****************************************************/
 /***                      IMAGES                   ***/
 /*****************************************************/
-.fullSizeImage {
+.fullSizeImage
+.full-img {
   max-width: 100%;
   height: auto;
 }
 
-.largeSizeImage {
+.largeSizeImage,
+.lg-img {
   width: 20rem;
   height: auto;
 }
 
-.mediumSizeImage {
+.mediumSizeImage,
+.md-img {
   max-width: 10rem;
   height: auto;
 }
 
-.smallSizeImage {
+.smallSizeImage,
+.sm-img {
   max-width: 6rem;
   height: auto;
 }
 
-.verySmallSizeImage {
+.verySmallSizeImage,
+.xs-img {
   max-width: 4rem;
   height: auto;
 }
@@ -309,6 +378,30 @@ a:active {
 /*****************************************************/
 /***                      ICONS                    ***/
 /*****************************************************/
+.icon {
+  height: 1.9rem;
+  width: 1.9rem;
+  padding: 0.8rem;
+  border-radius: 50%;
+}
+
+.icon-primary {
+  color: var(--color-white);
+  background-color:var(--color-main-darker);
+
+}
+
+.icon-secondary {
+  color: var(--color-main-darker);
+  background-color: var(--color-white);
+  border: solid 1px var(--color-main-darker)
+}
+
+.icon-admin {
+  color: var(--color-grey-text);
+  padding: 0;
+  border-radius: 0;
+}
 
 /*****************************************************/
 /***                      ALERTS                   ***/
@@ -547,26 +640,57 @@ nav .pagination {
 }
 
 /** Mise en page du formulaire **/
-.form-container form {
+.cta-form {
   font-family: inherit;
 }
 
-/** Label du champ de formulaire **/
+/** Label du formulaire **/
 .form-row label {
-  font-family: inherit;
+  display: block;
+  font-size: 1.8rem;
+  font-weight: 500;
+  margin-bottom: 1.2rem;
 }
 
-/** Champs input et textarea de formulaire **/ 
-.form-row input, .form-row textarea {
-  font-family: inherit;
+/** Champs input, textarea et select du formulaire **/
+.form-row input,
+.form-row textarea,
+.form-row select {
+  width: 100%;
+  padding: 1.2rem;
+  font-size: 1.8rem;
+  margin-bottom: 2.4rem;
+  font-family: inherit; /* Héritage de la famille de police */
+  color: inherit;
+  border: none;
+  background-color: var(--color-white);
+  border-radius: 9px;
+  box-shadow: var(--box-shadow-lighter);
 }
 
-/** Placeholder de champ de formulaire **/
-.form-row input::placeholder, .form-row textarea::placeholder {
+/** Select du formulaire **/
+.form-row select {
   
 }
 
-label,
-input {
-  font-size: 1.5rem;
+/* Mise en page du champ de type checkbox */
+.cta-form-check {
+  display: flex;
+  gap: 1rem;
+}
+
+/* Case à cocher checkbox */
+.cta-form-check input {
+  width: 5%;
+  margin-bottom: 1.2rem;
+}
+
+/* Texte d'aide de champ de formulaire */
+.help-text {
+  font-size: 1.6rem;
+}
+
+/** Placeholder des input et textarea du formulaire **/
+.form-row input::placeholder, .form-row textarea::placeholder {
+  color: var(--color-grey-lighter);
 }

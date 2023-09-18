@@ -4,13 +4,13 @@ namespace App\Form;
 
 use App\Entity\Image;
 use Symfony\Component\Form\AbstractType;
-use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Validator\Constraints\File;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 
 class ImageType extends AbstractType
 {
@@ -24,7 +24,7 @@ class ImageType extends AbstractType
                 ],
                 'required' => true
             ])
-            ->add('mediaContent', CKEditorType::class, [
+            ->add('mediaContent', TextareaType::class, [
                 'label' => "Contenu du média",
                 'attr' => [
                     'placeholder' => "Veuillez renseigner le contenu du média"

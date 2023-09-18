@@ -4,7 +4,6 @@ namespace App\Form;
 
 use App\Entity\Partner;
 use Symfony\Component\Form\AbstractType;
-use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Validator\Constraints\File;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -51,7 +50,7 @@ class PartnerType extends AbstractType
                 ],
                 'required' => true
             ])
-            ->add('description', CKEditorType::class, [
+            ->add('description', TextareaType::class, [
                 'label' => "Contenu du service",
                 'attr' => [
                     'placeholder' => "Veuillez décrire le partenaire"

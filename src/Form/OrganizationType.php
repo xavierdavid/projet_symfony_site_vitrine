@@ -4,7 +4,6 @@ namespace App\Form;
 
 use App\Entity\Organization;
 use Symfony\Component\Form\AbstractType;
-use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Validator\Constraints\File;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -97,7 +96,7 @@ class OrganizationType extends AbstractType
                 ],
                 'required' => true,
             ])
-            ->add('description', CKEditorType::class, [
+            ->add('description', TextareaType::class, [
                 'label' => "Description",
                 'attr'  => [
                     'placeholder' => "Présentez votre organisation"

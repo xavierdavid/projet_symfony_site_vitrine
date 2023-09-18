@@ -7,7 +7,6 @@ use App\Entity\Article;
 use App\Entity\Category;
 use App\Entity\Document;
 use Symfony\Component\Form\AbstractType;
-use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Validator\Constraints\File;
@@ -56,7 +55,7 @@ class ArticleType extends AbstractType
                 ],
                 'required' => true
             ])
-            ->add('content', CKEditorType::class, [
+            ->add('content', TextareaType::class, [
                 'label' => "Contenu de l'article",
                 'attr' => [
                     'placeholder' => "Veuillez rédiger le contenu de l'article"

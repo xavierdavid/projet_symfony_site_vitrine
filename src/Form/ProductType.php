@@ -6,7 +6,6 @@ use App\Entity\Image;
 use App\Entity\Product;
 use App\Entity\Document;
 use Symfony\Component\Form\AbstractType;
-use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Validator\Constraints\File;
@@ -54,7 +53,7 @@ class ProductType extends AbstractType
                 ],
                 'required' => true
             ])
-            ->add('description', CKEditorType::class, [
+            ->add('description', TextareaType::class, [
                 'label' => "Contenu du service",
                 'attr' => [
                     'placeholder' => "Veuillez rédiger le contenu de l'article"

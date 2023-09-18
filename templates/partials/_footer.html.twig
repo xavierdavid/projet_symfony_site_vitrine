@@ -1,18 +1,80 @@
 {# Footer #}
 <footer class="main-footer">
-{# Affichage du titre du site avec l'extension twig OrganizationExtension #}
-      <p></strong>
-        {% for organization_data in organization_datas.getOrganization %}
-           Bienvenue sur le site de {{organization_data.organizationName}} ! &copy;<script type "text/javascript">document.write(new Date().getFullYear());</script></p>
-        {% endfor %}
-      <strong></p>
-      {# Affichage du logo de l'organisation avec l'extension twig OrganizationExtension #}
-      <a href="{{path('app_home')}}">
-        {% for organization_data in organization_datas.getOrganization %}
-          <img src="{{asset('uploads/'~ organization_data.logo)}}" alt="logo de l'organisation {{organization_data.organizationName}}" class="verySmallSizeImage">
-        {% endfor %}
-      </a>
-  <a href="{{path('app_home')}}">Accueil</a>
-  <a href="{{path('app_contact')}}">Nous contacter</a>
-  <a href="{{path('app_legal_notice')}}">Mentions légales</a>
+  {% for organization in organization %}
+    <div class="container-grid grid grid--4--cols">
+      {# Logo et copyright #}
+      <div class="logo-col">
+        {# Affichage du logo de l'organisation avec l'extension twig OrganizationExtension #}
+        <a href="{{path('app_home')}}" class="footer-logo">
+          {% for organization_data in organization_datas.getOrganization %}
+            <img src="{{asset('uploads/'~ organization_data.logo)}}" alt="logo de l'organisation {{organization_data.organizationName}}" class="sm-img">
+          {% endfor %}
+        </a>
+        <p class="footer-site-title">{{organization.organizationName}}</p>
+        {# Liens vers les réseaux sociaux #}
+        <ul class="social-links">
+          {% if organization.facebook %}
+            <li><a class="footer-link" href="{{organization.facebook}}" target="_blank"><ion-icon  class="social-icon" name="logo-facebook"></ion-icon></a></li>
+          {% endif %}
+          {% if organization.instagram %}
+            <li><a class="footer-link" href="{{organization.instagram}}" target="_blank"><ion-icon class="social-icon" name="logo-instagram"></ion-icon></a></li>
+          {% endif %}
+          {% if organization.twitter %}
+            <li><a class="footer-link" href="{{organization.twitter}}" target="_blank"><ion-icon class="social-icon" name="logo-twitter"></ion-icon></a></li>
+          {% endif %}
+        </ul>
+        {# Affichage du titre du site avec l'extension twig OrganizationExtension #}
+        <p class="copyright">
+          {% for organization_data in organization_datas.getOrganization %}
+            Bienvenue sur le site de {{organization_data.organizationName}} ! &copy;<script type "text/javascript">document.write(new Date().getFullYear());</script></p>
+          {% endfor %}
+        </p>
+      </div>
+      {# Bloc d'adresse #}
+      <div class="address-col">
+        <p class="footer-heading">Nous contacter</p>
+          <address class="footer-address">
+            <p class="address-item"><ion-icon class="address-icon" name="map-outline"></ion-icon>{{organization.address}}</p>
+            <p class="address-item"><ion-icon class="address-icon" name="locate-outline"></ion-icon>{{organization.postal}} {{organization.city}} ({{organization.country|upper}})</p>
+            <p class="address-item"><ion-icon class="address-icon" name="call-outline"></ion-icon>{{organization.phone}}</p>
+          </address>
+      </div>
+      {# Navigatin du footer #}
+      <nav class="nav-col">
+        <p class="footer-heading">Menu</p>
+        <ul class="footer-nav">
+          <li><a class="footer-link" href="{{path('app_home')}}">Accueil</a></li>
+          <li><a class="footer-link" href="{{path('app_contact')}}">Nous contacter</a></li>
+          <li><a class="footer-link" href="{{path('app_legal_notice')}}">Mentions légales</a></li>
+          {# Affichage des liens en fonction du statut d'authentification de l'utilisateur #}
+          {% if app.user %}
+            <li><a class="footer-link" href="{{path('app_logout')}}">Deconnection</a></li>
+            <li><a class="footer-link" href="{{path('app_account_home')}}">Mon compte</a></li>
+          {% else %}
+            <li><a class="footer-link" href="{{path('app_login')}}">Connection</a></li>
+          {% endif %}
+          {# Accès aux pages d'administration si l'utilisateur a le rôle Admin ou Author #}
+          {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_AUTHOR') %}
+              <li><a class="footer-link" href="{{path('app_admin_home')}}">Accéder au back-office</a></li>
+          {% endif %}
+        </ul>
+      </nav>
+      {# Formulaire de d'inscription à la newsletter #}
+      <div class="newsletter-form-col">
+        <section class="form-container">
+          <header>
+              <p class="footer-heading">S'inscrire à la newsletter</p>
+          </header>
+          <section>
+              {{form_start(formView, {'action': path('app_newsletter_registration'), 'attr': {'class': 'newsletter-form'}})}}
+                <div class="form-row">
+                  {{form_row(formView.email)}}
+                </div>
+                <button class="btn btn--form" type="submit">S'inscrire</button>
+                {{form_end(formView)}}
+          </section>
+        </section>
+      </div>
+    </div>
+  {% endfor %}
 </footer>

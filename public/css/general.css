@@ -29,6 +29,7 @@ Paragraph defautl: 1.6
 
 - Open Color: https://yeun.github.io/open-color/
 - Tint and Shade Generator: https://maketintsandshades.com/
+- Color Contrast Accessibility Checker : https://coolors.co/contrast-checker/112a46-acc8e5 
 
 
 --- 03 WHITESPACE
@@ -79,7 +80,7 @@ box-shadow-darker: 0 2.4rem 4.8rem rgba(0, 0, 0, 0.15);
   --color-grey-lighter: #a9a9a9;
   --color-grey-darker:#292929;
   --color-grey-text: #333333;
-  --color-grey-tint: #f1f1f1;
+  --color-grey-tint: #eeeeee;
   /* Utility color */
   --color-black: #000000; 
   --color-white: #ffffff;
@@ -191,6 +192,11 @@ strong {
 /* 4 colonnes */
 .grid--4--cols {
   grid-template-columns: repeat(4, 1fr);
+}
+
+/* 5 colonnes */
+.grid--5--cols {
+  grid-template-columns: repeat(5, 1fr);
 }
 
 /* Centrage vertical des éléments de grille */
@@ -331,8 +337,8 @@ a:active {
 }
 
 .btn--form:hover {
-  background-color: var(--color-white);
-  color: var(--color-main-darker);
+  background-color: var(--color-main-darker);;
+  color: var(--color-main-tint);
 }
 
 /*****************************************************/
@@ -404,8 +410,12 @@ a:active {
 }
 
 /*****************************************************/
-/***                      ALERTS                   ***/
+/***             ALERTS - FLASH MESSAGES           ***/
 /*****************************************************/
+.flash-container {
+  
+}
+
 .alert-success p {
   color:var(--color-success);
 }
@@ -456,11 +466,11 @@ thead th {
 }
 
 tbody tr:nth-child(odd) {
-  background-color:var(--color-grey); /* Couleur de fond des rangées impaires des tableaux */
+  background-color:var(--color-grey-tint); /* Couleur de fond des rangées impaires des tableaux */
 }
 
 tbody tr:nth-child(even) {
-  background-color: var(--color-grey-lighter); /* Couleur de fond des rangées paires des tableaux */
+  background-color: var(--color-white); /* Couleur de fond des rangées paires des tableaux */
 }
 
 tbody tr:hover {

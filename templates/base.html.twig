@@ -39,8 +39,8 @@
         {# Affichage des messages flash #}
         {% include "partials/_flashbag.html.twig" %}
         
-        {# Inclusion du footer #}
-        {% include "partials/_footer.html.twig" %}
+        {# Inclusion du footer - Appel au FooterController - Traitement du formulaire d'inscription à la newsletter #}
+        {{ render(controller('App\\Controller\\FooterController::index')) }}
         
         {# Lien vers les scripts javascript #}
         {% block javascripts %}

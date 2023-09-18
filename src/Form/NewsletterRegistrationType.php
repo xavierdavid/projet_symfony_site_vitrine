@@ -15,7 +15,7 @@ class NewsletterRegistrationType extends AbstractType
             ->add('email', EmailType::class, [
                 'label' => 'Email',
                 'attr'=>[
-                        'placeholder' => 'Veuillez renseigner votre adresse email'
+                        'placeholder' => 'johndoe@exemple.com'
                 ],
                 'required' => true
             ])

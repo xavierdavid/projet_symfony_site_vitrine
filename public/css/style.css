@@ -210,33 +210,120 @@
 /*****************************************************/
 /***                     FOOTER                    ***/
 /*****************************************************/
+
+/* Main footer */
 .main-footer {
   width: 100%;
-  margin-top: 5rem;
-  padding: 2rem;
+  padding: 12.8rem 0;
   background-color: var(--color-main-lighter);
+  border-top: 1px solid var(--color-main-tint);
 }
 
-.main-footer p {
-  text-align: center;
-  color: var(--color-grey-darker);
-  font-weight: bold;
+.logo-col {
+  display: flex;
+  flex-direction: column;
+}
+
+.footer-logo {
+  display: block;
+  margin-bottom: 3.2rem;
+}
+
+.copyright {
+  font-size: 1.4rem;
+  line-height: 1.6;
+  color: var(--color-main-text);
+  margin-top: auto; /* Astuce : Le copyright est poussé vers le bas grâce au flexbox du logo-col */
+}
+
+.footer-heading {
+  font-size: 1.8rem;
+  font-weight: 600;
+  margin-bottom: 4rem;
+  color: var(--color-main-text);
+}
+
+.social-links {
+  list-style: none;
+  display: flex;
+  gap: 2.4rem;
+}
+
+.social-icon,
+.address-icon {
+  height: 2.4rem;
+  width: 2.4rem;
+}
+
+.footer-address {
+  font-style: normal;
+  font-size: 1.6rem;
+  line-height: 1.6;
+  color: var(--color-main-text);
+  display: flex;
+  flex-direction: column;
+  gap: 2.4rem;
+}
+
+.footer-site-title {
+  margin-bottom: 2.4rem;
+}
+
+.address-item {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+
+.footer-nav {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 2.4rem;
+}
+
+.footer-link:link,
+.footer-link:visited {
+  text-decoration: none;
+  font-size: 1.6rem;
+  color: var(--color-main-text);
+  transition: all 0.3s;
+}
+
+.footer-link:hover,
+.footer-link:active {
+  color: var(--color-white);
 }
 
 .main-footer a {
   display: block;
-  text-align: center;
 }
+
+/* Footer newsletter form */
+.newsletter-form label {
+  font-size: 1.6rem;
+  font-weight: 400;
+}
+
+.newsletter-form input::placeholder{
+  font-size: 1.6rem;
+}
+
+.newsletter-form button {
+  font-size: 1.6rem;
+}
+
+/* Admin footer */
 .admin-footer {
   width: 100%;
-  padding: 2rem;
+  padding: 4.8rem 0;
   background-color: var(--color-main-lighter);
 }
 
 .admin-footer p {
   text-align: center;
   color: var(--color-grey-darker);
-  font-weight: bold;
+  font-weight: 600;
 }
 
 .admin-footer a {

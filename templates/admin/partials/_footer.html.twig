@@ -1,15 +1,15 @@
 {# Footer #}
 <footer class="admin-footer">
+  {# Affichage du logo de l'organisation avec l'extension twig OrganizationExtension #}
+  <a href="{{path('app_home')}}" class="footer-logo">
+    {% for organization_data in organization_datas.getOrganization %}
+      <img src="{{asset('uploads/'~ organization_data.logo)}}" alt="logo de l'organisation {{organization_data.organizationName}}" class="sm-img">
+    {% endfor %}
+  </a>
   {# Affichage du titre du site avec l'extension twig OrganizationExtension #}
-      <p>
-        {% for organization_data in organization_datas.getOrganization %}
-           Bienvenue <strong>{{app.user.firstname}}</strong> sur l'interface d'administration du site de {{organization_data.organizationName}} ! &copy;<script type "text/javascript">document.write(new Date().getFullYear());</script></p>
-        {% endfor %}
-      </p>
-      {# Affichage du logo de l'organisation avec l'extension twig OrganizationExtension #}
-      <a href="{{path('app_home')}}">
-        {% for organization_data in organization_datas.getOrganization %}
-          <img src="{{asset('uploads/'~ organization_data.logo)}}" alt="logo de l'organisation {{organization_data.organizationName}}" class="verySmallSizeImage">
-        {% endfor %}
-      </a>
+  <p>
+    {% for organization_data in organization_datas.getOrganization %}
+        Bienvenue <strong>{{app.user.firstname}}</strong> sur l'interface d'administration du site de {{organization_data.organizationName}} ! &copy;<script type "text/javascript">document.write(new Date().getFullYear());</script></p>
+    {% endfor %}
+  </p>
 </footer>

@@ -25,14 +25,23 @@
     <ul class="user-nav-list">
       {# Affichage des liens en fonction du statut d'authentification de l'utilisateur #}
       {% if app.user %}
-        <li><a href="{{path('app_logout')}}" class="user-nav-link nav-cta"><i class="fas fa-sign-out-alt"></i> Deconnection</a></li>
-        <li><a href="{{path('app_account_home')}}" class="user-nav-link"><i class="fas fa-user"></i> Mon compte</a></li>
+        {# Lien d'ouverture de la dropdown #}
+        <li class="user-nav-list"><ion-icon name="person-outline" class="nav-icon"></ion-icon><a href="#" class="user-nav-link dropdown-link"> {{app.user.email}}</a></li>
+        {# Dropdown #}
+        <div class="dropdown-box">
+          <div class="dropdown-content">
+            <ul class="nav-dropdown-list">
+              <li><a href="{{path('app_account_home')}}" class="user-nav-link dropdown-link"><ion-icon name="settings-outline" class="nav-icon"></ion-icon> Mon compte</a></li>
+              {# Accès aux pages d'administration si l'utilisateur a le rôle Admin ou Author #}
+              {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_AUTHOR') %}
+                <li><a href="{{path('app_admin_home')}}" class="user-nav-link"><ion-icon name="lock-open-outline" class="nav-icon"></ion-icon> Back-office</a></li>
+              {% endif %}
+              <li><a href="{{path('app_logout')}}" class="user-nav-link nav-cta"><ion-icon name="log-out-outline" class="nav-icon"></ion-icon>Deconnection</a></li>
+            </ul>
+          </div>
+        </div>
       {% else %}
-        <li><a href="{{path('app_login')}}" class="user-nav-link nav-cta"><i class="fas fa-sign-in-alt"></i> Connection</a></li>
-      {% endif %}
-      {# Accès aux pages d'administration si l'utilisateur a le rôle Admin ou Author #}
-      {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_AUTHOR') %}
-          <li><a href="{{path('app_admin_home')}}" class="user-nav-link"><i class="fas fa-unlock"></i> Accéder au back-office</a></li>
+        <li><a href="{{path('app_login')}}" class="user-nav-link nav-cta"><ion-icon name="log-in-outline" class="nav-icon"></ion-icon> Connection</a></li>
       {% endif %}
     </ul>
   </nav>

@@ -41,11 +41,18 @@
   gap: 3.2rem;
 }
 
+.nav-dropdown-list {
+  list-style: none;
+  display: flex;
+  align-items: left;
+  gap: 3.2rem;
+}
+
 .main-nav-link:link,
 .user-nav-link:link,
 .main-nav-link:visited,
 .user-nav-link:visited {
-  display: inline-block;
+  /*display: inline-block;*/
   font-weight: 500;
   font-size: 1.8rem;
   transition: all 0.3s;
@@ -58,7 +65,19 @@
   color: var(--color-main-darker);
 }
 
-/* Call To Action */
+.user-nav-link,
+.user-nav-list {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+}
+
+.nav-icon {
+  height: 2.4rem;
+  width: 2.4rem;
+}
+
+/* Bouton de navigation de la dropdown - Call To Action */
 .user-nav-link.nav-cta:link,
 .user-nav-link.nav-cta:visited {
   padding: 1.2rem 2.4rem;
@@ -70,6 +89,35 @@
 .user-nav-link.nav-cta:hover,
 .user-nav-link.nav-cta:active {
   background-color: var(--color-main-darker);
+}
+
+.nav-dropdown-list {
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+/* Dropdown du menu utilisateur authentifié */
+.dropdown-box {
+  position: relative;
+  display: inline-block;
+}
+
+/* Contenu de la dropdown - Caché par défaut */
+.dropdown-content {
+  display: none;
+  position: absolute;
+  top: 30px;
+  right: 0px;
+  cursor: pointer;
+  background-color: var(--color-white);
+  box-shadow: var(--box-shadow-main);
+  border-radius: 9px;
+  padding: 2.4rem;
+}
+
+/* Classe d'activation de la dropdown - Gestion avec Javascript */
+.active-dropdown {
+  display: block;
 }
 
 /*****************************************************/
@@ -151,6 +199,62 @@
 .article-introduction {
   font-size: 1.8rem;
   line-height: 1.2;
+}
+
+/*****************************************************/
+/***                    PARTNERS                   ***/
+/*****************************************************/
+.section-partners {
+  padding: 4.8rem 0 9.6rem 0;
+}
+
+.container-partners {
+  max-width: 120rem;
+  margin: 0 auto;
+  padding: 0 3.2rem;
+}
+
+.partner-box {
+  /*display: flex;
+  justify-content: space-between;*/
+}
+
+.partner-item {
+  text-align: center;
+}
+
+.partner-name {
+  color: var(--color-grey);
+  margin-bottom: 2.4rem;
+  font-weight: 500;
+}
+
+.partner-short-description,
+.partner-description {
+  color: var(--color-grey);
+  font-size: 1.6rem;
+}
+
+.partner-short-description {
+  font-style: italic;
+  margin-bottom: 1.6rem;
+}
+
+.partner-item img {
+  height: 6.4rem; /* Hauteur identique pour tous les logos de partenaires */
+  filter: grayscale(100%); /* Logos en nuances de gris */
+  opacity: 85%;
+  margin-bottom: 2.4rem;
+}
+
+.heading-partners {
+  font-size: 1.6rem;
+  text-transform: uppercase;
+  letter-spacing: 0.75px;
+  font-weight: 500;
+  text-align: center;
+  margin-bottom: 6.4rem;
+  color: var(--color-main-darker);
 }
 
 /*****************************************************/

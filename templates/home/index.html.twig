@@ -7,6 +7,7 @@
 
 {% block body %}
 <main class="container">
+    {# Section Hero #}
     <section class="section-hero">
         <div class="hero-container">
             <div class="hero-text-box">
@@ -16,10 +17,11 @@
                 <a href="#" class="btn btn--outline">Bouton 2 &darr;</a>
             </div>
             <div class="hero-img-box">
-                <img src="{{asset("uploads/hubble_telescope6320a51b77c5e08ef5938ec7276206da.jpg")}}" alt="Télescope Hubble voyageant dans l'espace" class="hero-img fullSizeImage">
+                <img src="{{asset("uploads/hubble_telescope6320a51b77c5e08ef5938ec7276206da.jpg")}}" alt="Télescope Hubble voyageant dans l'espace" class="hero-img .full-img">
             </div>
         </div>
     </section>
+    {# Section articles à la une #}
     <section class="section-home-articles">
         <header class="container-grid">
             <span class="subheading">Actualités</span>
@@ -41,13 +43,13 @@
             </div>
             <div class="article-img-box">
                 {% if articles[0].coverImage %}
-                    <img src="{{asset('uploads/'~articles[0].coverImage)}}" alt="{{articles[0].title}}" class="article-img fullSizeImage">
+                    <img src="{{asset('uploads/'~articles[0].coverImage)}}" alt="{{articles[0].title}}" class="article-img .full-img">
                 {% endif %}
             </div>
             {# Article 2 #}
             <div class="article-img-box">
                 {% if articles[1].coverImage %}
-                    <img src="{{asset('uploads/'~articles[1].coverImage)}}" alt="{{articles[1].title}}" class="article-img fullSizeImage">
+                    <img src="{{asset('uploads/'~articles[1].coverImage)}}" alt="{{articles[1].title}}" class="article-img .full-img">
                 {% endif %}
             </div>
             <div class="article-text-box">
@@ -75,10 +77,26 @@
             </div>
             <div class="article-img-box">
                 {% if articles[2].coverImage %}
-                    <img src="{{asset('uploads/'~articles[2].coverImage)}}" alt="{{articles[2].title}}" class="article-img fullSizeImage">
+                    <img src="{{asset('uploads/'~articles[2].coverImage)}}" alt="{{articles[2].title}}" class="article-img .full-img">
                 {% endif %}
             </div>
         </section>
+    </section>
+    {# Section partenaires #}
+    <section class="section-partners">
+        <div class="container-partners">
+            <h2 class="heading-partners">Nos partenaires</h2>
+            <div class="partner-box grid grid--3--cols">
+                {% for partner in partners %}
+                    <div class="partner-item">
+                        <p class="partner-name">{{partner.name}}</p>
+                        <img src="{{asset('uploads/'~partner.coverImage)}}" alt="Logo du partenaire {{partner.name}}" class="md-img">
+                        <p class="partner-short-description">{{partner.shortDescription}}</p>
+                        <p class="partner-description">{{partner.description}}</p>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
     </section>
 </main>
 {% endblock %}

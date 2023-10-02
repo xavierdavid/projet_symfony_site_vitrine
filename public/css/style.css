@@ -261,7 +261,7 @@
 /***                  CONTACT FORM                 ***/
 /*****************************************************/
 /* CTA - Call To Action */
-.section-cta-form {
+.section-contact-cta-form {
   padding: 9.6rem 0;
   background-color: var(--color-main-tint);
   /*background-image: linear-gradient(to bottom, var(--color-main-tint), var(--color-white)); /* Fond avec dégradé */
@@ -277,13 +277,13 @@
   border-radius: 2.5rem;
 }
 
-.cta-text-box {
+.contact-cta-text-box {
   padding: 6.4rem;
   color: var(--color-main-text);
   background-color: var(--color-main-tint);
 }
 
-.cta-text {
+.contact-cta-text {
   font-size: 1.8rem;
   color: var(--color-main-text);
   line-height: 1.8;
@@ -291,14 +291,14 @@
 }
 
 /* Image de fonds avec dégradé */
-.cta-img-box {
+.contact-cta-img-box {
   background-image: linear-gradient(to bottom, var(--gradient-main-tint), var(--gradient-main-lighter)), url('../img/hubble_telescope.jpg');
   background-size: cover;
   background-position: center;
 }
 
 /* Mise en page du formulaire de contact */
-.cta-form {
+.contact-cta-form {
   display:grid;
   grid-template-columns: 1fr 1fr;
   column-gap: 3.2rem;
@@ -306,7 +306,7 @@
 }
 
 /* Focus du formulaire de contact */
-.cta-form *:focus {
+.contact-cta-form *:focus {
   outline: none;
   box-shadow: 0 0 0 0.8rem rgba(179, 84, 82, 0.5);
 }
@@ -433,6 +433,85 @@
 .admin-footer a {
   display: block;
   text-align: center;
+}
+
+/*****************************************************/
+/***              AUTHENTIFICATION FORM            ***/
+/*****************************************************/
+.section-authentification-form {
+  padding: 9.6rem 0;
+  background-color: var(--color-main-tint);
+}
+
+.authentification-container {
+  display: grid;
+  max-width: 130rem;
+  margin: 0 auto; 
+  grid-template-columns: 2fr 1fr;
+  background-color: var(--color-main-tint);
+  overflow: hidden;
+  border-radius: 2.5rem;
+}
+
+.authentification-text-box {
+  padding: 6.4rem;
+  color: var(--color-main-text);
+  background-color: var(--color-main-tint);
+}
+
+.authentification-text {
+  font-size: 1.8rem;
+  color: var(--color-main-text);
+  line-height: 1.8;
+  margin-bottom: 4.8rem;
+}
+
+/* Image de fonds avec dégradé */
+.authentification-img-box {
+  background-image: linear-gradient(to bottom, var(--gradient-main-tint), var(--gradient-main-lighter)), url('../img/hubble_telescope.jpg');
+  background-size: cover;
+  background-position: center;
+}
+
+/* Mise en page du formulaire de contact */
+.authentification-form {
+  display:grid;
+  grid-template-columns: 1fr 1fr;
+  column-gap: 3.2rem;
+  row-gap: 2.4rem;
+}
+
+/* Focus du formulaire de contact */
+.authentification-form *:focus {
+  outline: none;
+  box-shadow: 0 0 0 0.8rem rgba(179, 84, 82, 0.5);
+}
+
+.authentification-nav-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 1.7rem;
+}
+
+.authentification-list {
+  font-size: 1.8rem;
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  margin-top: 1.2rem;
+}
+
+.authentification-list a:link,
+.authentification-list a:visited {
+  font-weight: 500;
+  font-size: 1.8rem;
+  transition: all 0.3s;
+}
+
+.authentification-list a:hover,
+.authentification-list a:active {
+  color: var(--color-main-darker);
 }
 
 /*****************************************************/

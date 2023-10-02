@@ -10,19 +10,19 @@
 
 {% block body %}
 <main class="container">
-    <section class="section-cta-form">
+    <section class="section-contact-cta-form">
         <div class="contact-cta-container">
-            <div class="cta-text-box">
+            <div class="contact-cta-text-box">
                 <header>
                     <h1 class="heading-primary">{{metatag.title}}</h1>
                 </header>
-                <p class="cta-text">
+                <p class="contact-cta-text">
                     Plus d'info ? N'hésitez pas à nous contacter en utilisant le formulaire ci-dessous ...
                 </p>
                 {# Formulaire de contact #}
                 <section class="form-container">
                     {# Début du formulaire #}
-                    {{form_start(formView, {'attr' : {'class': 'cta-form'}})}}
+                    {{form_start(formView, {'attr' : {'class': 'contact-cta-form'}})}}
                         <div>
                             {# Champ Firstname #}
                             {{form_row(formView.firstname)}}
@@ -54,7 +54,7 @@
                     {{form_end(formView)}}
                 </section>
             </div>
-            <div class="cta-img-box" role="img" aria-label="Hubble telescope dans l'espace">   
+            <div class="contact-cta-img-box" role="img" aria-label="Hubble telescope dans l'espace">   
             </div>
         </div>
     </section>

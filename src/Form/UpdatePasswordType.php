@@ -34,7 +34,7 @@ class UpdatePasswordType extends AbstractType
                 'mapped' => false,
                 'label' => "Mon mot de passe actuel",
                 'attr' => [
-                    'placeholder' => "Veuillez saisir votre mot de passe actuel"
+                    'placeholder' => "Saisir votre mot de passe actuel"
                 ]
             ])
             ->add('new_password', RepeatedType::class, [
@@ -47,13 +47,13 @@ class UpdatePasswordType extends AbstractType
                 'first_options' => [
                     'label' => "Nouveau mot de passe",
                     'attr' => [
-                        'placeholder' => "Veuillez saisir un nouveau mot de passe"
+                        'placeholder' => "Saisir un nouveau mot de passe"
                     ],
                 ],
                 'second_options' => [
                     'label' => "Confirmez votre nouveau mot de passe",
                     'attr' => [
-                        'placeholder' => "Veuillez confirmer votre nouveau mot de passe"
+                        'placeholder' => "Confirmer votre nouveau mot de passe"
                     ]
                 ],
                 'mapped' => false,

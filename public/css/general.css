@@ -700,6 +700,21 @@ nav .pagination {
   font-size: 1.6rem;
 }
 
+/* Message d'erreur de champ de formulaire */
+.form-error {
+  color:red;
+  font-weight: 500;
+  margin-bottom: 1.2rem;
+}
+
+.form-row ul li {
+  color: red;
+  font-size: 1.2rem;
+  font-weight: 500;
+  list-style-type: none;
+  margin-bottom: 1.2rem;
+}
+
 /** Placeholder des input et textarea du formulaire **/
 .form-row input::placeholder, .form-row textarea::placeholder {
   color: var(--color-grey-lighter);

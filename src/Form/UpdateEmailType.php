@@ -13,9 +13,9 @@ class UpdateEmailType extends AbstractType
     {
         $builder
             ->add('new_email', EmailType::class, [
-                'label' => "Nouvelle adresse email : ",
+                'label' => "Votre nouvelle adresse email",
                 'attr' => [
-                    'placeholder' => "Veuillez saisir votre nouvelle adresse email"
+                    'placeholder' => "Saisir votre nouvelle adresse email"
                 ]
             ])
         ;

@@ -4,49 +4,50 @@
 
 {% block body %}
 <main class="container">
-    <section class="section-authentification-form">
-        <div class="authentification-container">
-            <div class="authentification-text-box">
-                <header>
-                    <h1 class="heading-primary">Se connecter</h1>
-                </header>
-                <p class="authentification-text">
-                    Saisir vos identifiants de connexion pour vous authentifier ...
-                </p>
-                <section class="form-container">
-                    {# Message d'erreur d'authentification #}
-                    {% if error %}
-                        <p class="form-error">{{ error.messageKey|trans(error.messageData, 'security') }}</p>
-                    {% endif %}
-                    {# Formulaire de login #}
-                    <form action="{{path('app_login')}}", method="post" class="authentification-form">
-                        <div class="form-row">
-                            <label for="username">Email : </label>
-                            <input type="text" id="username" name="_username" value="{{last_username}}">
-                            <label for="password">Mot de passe : </label>
-                            <input type="text" id="password" name="_password">
-                            {# Protection CSRF #}
-                            <input type="hidden" name="_csrf_token" value={{csrf_token('authenticate')}}>
-                        </div>
-                        <br>
-                        <button class="btn btn--form" type="submit">Connexion</button>
-                    </form>
-                </section>
-                {# Mot de passe oublié #}
-                <section>
-                    <ul class="authentification-nav-list">
-                        <li class="authentification-list">
-                            <ion-icon class="icon icon-secondary" name="help-outline"></ion-icon>
-                            <span>
-                                <a href="{{path('app_forgotten_password')}}">Mot de passe oublié</a>
-                            </span>
-                        </li>
-                    </ul>
-                </section>
+    {% for hero in hero %}
+        <section class="section-authentification-form">
+            <div class="authentification-container">
+                <div class="authentification-text-box">
+                    <header>
+                        <h1 class="heading-primary">Se connecter</h1>
+                    </header>
+                    <p class="authentification-text">
+                        Saisir vos identifiants de connexion pour vous authentifier ...
+                    </p>
+                    <section class="form-container">
+                        {# Message d'erreur d'authentification #}
+                        {% if error %}
+                            <p class="form-error">{{ error.messageKey|trans(error.messageData, 'security') }}</p>
+                        {% endif %}
+                        {# Formulaire de login #}
+                        <form action="{{path('app_login')}}", method="post" class="authentification-form">
+                            <div class="form-row">
+                                <label for="username">Email : </label>
+                                <input type="text" id="username" name="_username" value="{{last_username}}">
+                                <label for="password">Mot de passe : </label>
+                                <input type="text" id="password" name="_password">
+                                {# Protection CSRF #}
+                                <input type="hidden" name="_csrf_token" value={{csrf_token('authenticate')}}>
+                            </div>
+                            <br>
+                            <button class="btn btn--form" type="submit">Connexion</button>
+                        </form>
+                    </section>
+                    {# Mot de passe oublié #}
+                    <section>
+                        <ul class="authentification-nav-list">
+                            <li class="authentification-list">
+                                <ion-icon class="icon icon-secondary" name="help-outline"></ion-icon>
+                                <span>
+                                    <a href="{{path('app_forgotten_password')}}">Mot de passe oublié</a>
+                                </span>
+                            </li>
+                        </ul>
+                    </section>
+                </div>
+                <div class="contact-cta-img-box" style="background-image:linear-gradient(to bottom, var(--gradient-main-tint), var(--gradient-main-lighter)), url({{asset('uploads/'~hero.masterImage)}})" role="img" aria-label="{{hero.masterImageDescription}}"></div>
             </div>
-            <div class="authentification-img-box" role="img" aria-label="Hubble telescope dans l'espace">   
-            </div> 
-        </div>
-    </section>
+        </section>
+    {% endfor %}
 </main>
 {% endblock %}

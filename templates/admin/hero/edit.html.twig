@@ -1,0 +1,66 @@
+{% extends 'admin/base.html.twig' %}
+
+{# Appel du thème de formulaire personnalisé #}
+{% form_theme formView _self %}
+
+{% block title %}Interface d'administration{% endblock %}
+
+{% block body %}
+<main class="container">
+    <section class="section-admin">
+        <section class="admin-container">
+            <nav class="admin-nav">
+                {# Inclusion du aside #}
+                {% include "admin/partials/_aside.html.twig" %}
+            </nav>
+            <div class="admin-content">
+                <div class="admin-text-box">
+                    <h1 class="heading-primary">Modifier une section Hero</h1>
+                </div>
+                {# Formulaire de modification #}
+                <div class="form-container">
+                    {# Début du formulaire #}
+                    {{form_start(formView, {'attr' : {'class': 'admin-form'}})}}
+                    {# Formulaire de modification d'un objet Hero #}
+                    {{form_row(formView.slogan)}}
+                    {{form_row(formView.content)}}
+                    {{form_row(formView.firstButtonTitle)}}
+                    {{form_row(formView.firstButtonUrl)}}
+                    {{form_row(formView.secondButtonTitle)}}
+                    {{form_row(formView.secondButtonUrl)}}
+                    {{form_row(formView.masterImage)}}
+                    {# Affichage de l'image principale de l'objet Hero à modifier #}
+                    {% if hero.masterImage %}
+                        <figure>
+                            <img src="{{asset('uploads/'~hero.masterImage)}}" alt="Image principale du site : {{hero.slogan}}" class="xl-img">
+                        </figure>
+                    {% endif %}
+                    {{form_row(formView.masterImageDescription)}}
+                    {# Bouton de soumission du formulaire #}
+                    <button class="btn btn--form" type="submit">Modifier</button>
+                    {# Fin du formulaire #}
+                    {{form_end(formView)}}
+                </div>
+                <div>
+                    <ul class="admin-nav-list">
+                        <li class="admin-list">
+                            <ion-icon class="icon icon-primary" name="play-back"></ion-icon>
+                            <span><a href="{{path('app_admin_hero_index')}}"> Retour</a></span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+    </section>
+</main>
+{% endblock %}
+
+{# Thème de formulaire personnalisé pour le champ form_row #}
+{% block form_row %}
+    <div class="form-row">
+        {{form_label(form)}}
+        {{form_errors(form)}}
+        {{form_widget(form)}}
+        {{form_help(form)}}
+    </div>
+{% endblock %}

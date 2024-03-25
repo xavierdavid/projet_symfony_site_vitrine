@@ -357,6 +357,11 @@ a:active {
   height: auto;
 }
 
+.xl-img {
+  width: 40rem;
+  height: auto
+}
+
 .largeSizeImage,
 .lg-img {
   width: 20rem;
@@ -647,6 +652,7 @@ nav .pagination {
 /** Conteneur de formulaire **/
 .form-container {
   font-family: inherit;
+  margin-bottom: 2rem;
 }
 
 /** Mise en page du formulaire **/

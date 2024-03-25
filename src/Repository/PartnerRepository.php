@@ -53,7 +53,7 @@ class PartnerRepository extends ServiceEntityRepository
             ->createQueryBuilder('p')
             // Sélection des objets Partner  
             ->select('p')
-            // Tri des objets PArtner par date de mise à jour et par ordre décroissant
+            // Tri des objets Partner par date de mise à jour et par ordre décroissant
             ->orderBy('p.updatedAt', 'DESC');
         // Affinement de la requête si un filtre d'ordre de priorité est présent dans l'objet SearchPartner
         if(!empty($searchPartner->priorityOrder)) {

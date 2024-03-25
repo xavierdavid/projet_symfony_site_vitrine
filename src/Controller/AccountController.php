@@ -6,14 +6,15 @@ use App\Form\ProfileType;
 use App\Services\SendEmail;
 use App\Form\UpdateEmailType;
 use App\Form\UpdatePasswordType;
+use App\Repository\HeroRepository;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use function PHPUnit\Framework\throwException;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Security\Csrf\TokenGenerator\TokenGeneratorInterface;
 
@@ -33,10 +34,16 @@ class AccountController extends AbstractController
      *
      * @return Response
      */
-    public function index(): Response
+    public function index(HeroRepository $heroRepository): Response
     {
+        // Récupération du dernier objet Hero inséré en base de données
+        $hero = $heroRepository->findBy([], [
+            'id' => 'DESC'], // Tri par identifiant et par ordre décroissant
+            1, // Limite de 1 enregistrement
+            0 // Offset
+        );
         return $this->render('account/index.html.twig', [
-            
+            'hero' => $hero
         ]);
     }
 
@@ -49,8 +56,14 @@ class AccountController extends AbstractController
      * @param UserRepository $userRepository
      * @return Response
      */
-    public function updateEmail(Request $request, TokenGeneratorInterface $tokenGeneratorInterface): Response
+    public function updateEmail(Request $request, TokenGeneratorInterface $tokenGeneratorInterface, HeroRepository $heroRepository): Response
     {
+        // Récupération du dernier objet Hero inséré en base de données
+        $hero = $heroRepository->findBy([], [
+            'id' => 'DESC'], // Tri par identifiant et par ordre décroissant
+            1, // Limite de 1 enregistrement
+            0 // Offset
+        );
         // Récupération de l'objet User authentifié
         $user = $this->getUser();
         // Création du formulaire de modification de l'email
@@ -101,7 +114,8 @@ class AccountController extends AbstractController
         $formView = $form->createView();
         return $this->render('/account/update_email.html.twig', [
             'formView' => $formView,
-            'user' => $user
+            'user' => $user,
+            'hero' => $hero
         ]);
     }
 
@@ -148,8 +162,14 @@ class AccountController extends AbstractController
      * @param Request $request
      * @return Response
      */
-    public function updatePassword(Request $request, UserPasswordHasherInterface $userPasswordHasherInterface): Response
+    public function updatePassword(Request $request, UserPasswordHasherInterface $userPasswordHasherInterface, HeroRepository $heroRepository): Response
     {
+        // Récupération du dernier objet Hero inséré en base de données
+        $hero = $heroRepository->findBy([], [
+            'id' => 'DESC'], // Tri par identifiant et par ordre décroissant
+            1, // Limite de 1 enregistrement
+            0 // Offset
+        );
         // Récupération de l'objet User authentifié
         $user = $this->getUser();
         // Création du formulaire de modification du mot de passe de l'utilisateur
@@ -182,8 +202,9 @@ class AccountController extends AbstractController
         }
         $formView = $form->createView();
         return $this->render('/account/update_password.html.twig', [
-            'formView' => $form,
-            'user' => $user
+            'formView' => $formView,
+            'user' => $user,
+            'hero' => $hero
         ]);
     }
 
@@ -195,8 +216,14 @@ class AccountController extends AbstractController
      * @param Request $request
      * @return void
      */
-    public function updateProfile($id, Request $request)
+    public function updateProfile($id, Request $request, HeroRepository $heroRepository)
     {
+        // Récupération du dernier objet Hero inséré en base de données
+        $hero = $heroRepository->findBy([], [
+            'id' => 'DESC'], // Tri par identifiant et par ordre décroissant
+            1, // Limite de 1 enregistrement
+            0 // Offset
+        );
         // Récupération de l'objet User authentifié
         $user = $this->getUser();
         // Vérification de l'existence de l'objet User à modifier
@@ -226,7 +253,8 @@ class AccountController extends AbstractController
         $formView = $form->createView();
         return $this->render('/account/update_profile.html.twig', [
             'formView' => $formView,
-            'user' => $user
+            'user' => $user,
+            'hero' => $hero
         ]);
     }
 }

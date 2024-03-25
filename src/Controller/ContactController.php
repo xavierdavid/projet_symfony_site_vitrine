@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Contact;
 use App\Form\ContactType;
 use App\Services\SendEmail;
+use App\Repository\HeroRepository;
 use App\Repository\MetatagRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -22,12 +23,18 @@ class ContactController extends AbstractController
      * @param MetatagRepository $metatagRepository
      * @return Response
      */
-    public function index(Request $request, MetatagRepository $metatagRepository, EntityManagerInterface $entityManagerInterface, SendEmail $sendEmail): Response
+    public function index(Request $request, MetatagRepository $metatagRepository, HeroRepository $heroRepository, EntityManagerInterface $entityManagerInterface, SendEmail $sendEmail): Response
     {
         // Récupération de l'objet Metatag de la page 'Contact'
         $metatag = $metatagRepository->findOneBy([
             'pageName' => 'Contact'
         ]);
+        // Récupération du dernier objet Hero inséré en base de données
+        $hero = $heroRepository->findBy([], [
+            'id' => 'DESC'], // Tri par identifiant et par ordre décroissant
+            1, // Limite de 1 enregistrement
+            0 // Offset
+        );
         // Création d'une nouvelle instance de la classe Contact
         $contact = new Contact;
         // Construction du formulaire de création d'un objet Contact
@@ -61,7 +68,8 @@ class ContactController extends AbstractController
         $formView = $form->createView();
         return $this->render('contact/index.html.twig', [
             'formView' => $formView,
-            'metatag' => $metatag
+            'metatag' => $metatag,
+            'hero' => $hero
         ]);
     }
 }

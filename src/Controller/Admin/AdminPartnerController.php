@@ -98,7 +98,7 @@ class AdminPartnerController extends AbstractController
             $partnersData,
             // Récupération de la valeur de l'attribut 'page' (page en cours) transmis en 'GET' dans la requête
             $request->query->getInt('page', 1),
-            // Nombre d'objets partner à afficher par page
+            // Nombre d'objets Partner à afficher par page
             10
         );
         $formView = $form->createView();

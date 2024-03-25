@@ -2,6 +2,7 @@
 
 namespace App\DataFixtures;
 
+use App\Entity\Hero;
 use App\Entity\User;
 use App\Entity\Metatag;
 use App\Entity\Organization;
@@ -33,59 +34,75 @@ class AppFixtures extends Fixture
         // Création d'un objet Organization
         $organization = new Organization; 
         $organization 
-            ->setOrganizationName('organisation test')
-            ->setSiteTitle('site test')
-            ->setAddress('3 rue des tilleuls')
+            ->setOrganizationName('Space Explorer')
+            ->setSiteTitle('Site web de Space Explorer')
+            ->setAddress('15 rue de la voie lactée')
             ->setPostal('75000')
             ->setCity('Paris')
             ->setCountry(('France'))
             ->setPhone('0237356600')
+            ->setFacebook('https://www.facebook.com')
+            ->setInstagram('https://www.instagram.com')
+            ->setTwitter('https://www.twitter.com')
             ->setShortDescription('Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.')
             ->setDescription('Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.')
+            ->setLogo('logo_fusee.png')
             ->setAdministratorFirstname('Xavier')
             ->setAdministratorLastname('DAVID'); 
         $manager->persist($organization);
+        // Création d'un objet Hero
+        $hero = new Hero;
+        $hero
+            ->setSlogan('Bienvenue sur le site de Space Explorer !')
+            ->setContent('Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.')
+            ->setFirstButtonTitle('Bouton 1')
+            ->setFirstButtonUrl('#')
+            ->setSecondButtonTitle('Bouton 2')
+            ->setSecondButtonUrl('#')
+            ->setMasterImage('hubble_telescope.jpg')
+            ->setMasterImageDescription('Téléscope Hubble dans l\'espace');
+        $manager->persist($hero);
         // Création d'un objet Metatag pour la page 'Accueil' du site
         $homeMetatag = new Metatag;
         $homeMetatag
             ->setPageName('Accueil')
-            ->setTitle("Titre de la page 'Accueil'")
-            ->setMetaDescription("Description de la page d'accueil");
+            ->setTitle("A la découverte de l'univers !'")
+            ->setMetaDescription("Page d'accueil");
         $manager->persist($homeMetatag);
         // Création d'un objet Metatag pour la page 'A propos' du site
         $aProposMetatag = new Metatag;
         $aProposMetatag
             ->setPageName('A propos')
-            ->setTitle("Titre de la page 'A propos'")
-            ->setMetaDescription("Description de la page 'A propos'");
+            ->setTitle("Qui sommes-nous ?")
+            ->setMetaDescription("Page 'A propos'");
         $manager->persist($aProposMetatag);
         // Création d'un objet Metatag pour la page 'Services' du site
         $servicesMetatag = new Metatag;
         $servicesMetatag
             ->setPageName('Services')
-            ->setTitle("Titre de la page 'Services'")
-            ->setMetaDescription("Description de la page 'Services'");
+            ->setTitle("Nos services")
+            ->setMetaDescription("Page 'Services'");
         $manager->persist($servicesMetatag);
         // Création d'un objet Metatag pour la page 'Articles' du site
         $articlesMetatag = new Metatag;
         $articlesMetatag
             ->setPageName('Articles')
-            ->setTitle("Titre de la page 'Articles'")
-            ->setMetaDescription("Description de la page 'Articles'");
+            ->setTitle("Nos dernières publications'")
+            ->setMetaDescription("Page 'Articles'");
         $manager->persist($articlesMetatag);
         // Création d'un objet Metatag pour la page 'Contact' du site
         $contactMetatag = new Metatag;
         $contactMetatag
             ->setPageName('Contact')
-            ->setTitle("Titre de la page 'Contact'")
-            ->setMetaDescription("Description de la page 'Contact'");
+            ->setTitle("Nous contacter'")
+            ->setMetaDescription("Page 'Contact'");
         $manager->persist($contactMetatag);
         // Création d'un objet Metatag pour la page 'Mentions légales' du site
         $legalNoticeMetatag = new Metatag;
         $legalNoticeMetatag
             ->setPageName('Mentions légales')
-            ->setTitle("Titre de la page 'Mentions légales'")
-            ->setMetaDescription("Description de la page 'Mentions légales'");
+            ->setTitle("Mentions légales")
+            ->setMetaDescription("Page 'Mentions légales'");
         $manager->persist($legalNoticeMetatag);
         // Envoi en base de données
         $manager->flush();

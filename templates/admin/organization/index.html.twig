@@ -14,7 +14,7 @@
                 <div class="admin-text-box">
                     <h1 class="heading-primary">Mon organisation</h1>
                 </div>
-                <div class="admin-edit-box grid grid--2--cols grid--center-v">
+                <div class="admin-edit-box grid grid--3--cols grid--center-v">
                     {# Affichage du dernier objet Organization enregistré en base de données #}
                     {% for organization in organization %}
                         <section>
@@ -54,11 +54,11 @@
                         <section>
                             <ul class="admin-nav-list">
                                 <li class="admin-list">
-                                    <ion-icon class="icon icon-admin" name="pencil"></ion-icon>
+                                    <ion-icon class="icon icon-primary" name="pencil"></ion-icon>
                                     <span><a href="{{path('app_admin_organization_edit', {'id':organization.id})}}">Modifier</a></span>
                                 </li>
                                 <li class="admin-list">
-                                    <ion-icon class="icon icon-admin" name="play-back"></ion-icon>
+                                    <ion-icon class="icon icon-primary" name="play-back"></ion-icon>
                                     <span><a href="{{path('app_admin_home')}}"> Retour</a></span>
                                 </li>
                             </ul>

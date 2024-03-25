@@ -8,19 +8,21 @@
 {% block body %}
 <main class="container">
     {# Section Hero #}
+    {% for hero in hero %}
     <section class="section-hero">
         <div class="hero-container">
             <div class="hero-text-box">
                 <h1 class="heading-primary">{{metatag.title}}</h1>
-                <p class="hero-description">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Alias, sunt voluptatem expedita voluptates amet corrupti nulla ratione ab illo ullam veniam facilis aliquid? Eaque, consequatur accusamus.</p>
-                <a href="#" class="btn btn--full margin-right-sm">Bouton 1</a>
-                <a href="#" class="btn btn--outline">Bouton 2 &darr;</a>
+                <p class="hero-description">{{hero.content}}</p>
+                <a href="{{hero.firstButtonUrl}}" class="btn btn--full margin-right-sm">{{hero.firstButtonTitle}}</a>
+                <a href="{{hero.secondButtonUrl}}" class="btn btn--outline">{{hero.secondButtonTitle}} &darr;</a>
             </div>
             <div class="hero-img-box">
-                <img src="{{asset("uploads/hubble_telescope6320a51b77c5e08ef5938ec7276206da.jpg")}}" alt="Télescope Hubble voyageant dans l'espace" class="hero-img .full-img">
+                <img src="{{asset('uploads/'~hero.masterImage)}}" alt="{{hero.masterImageDescription}}" class="hero-img .full-img">
             </div>
         </div>
     </section>
+    {% endfor %}
     {# Section articles à la une #}
     <section class="section-home-articles">
         <header class="container-grid">

@@ -292,7 +292,7 @@
 
 /* Image de fonds avec dégradé */
 .contact-cta-img-box {
-  background-image: linear-gradient(to bottom, var(--gradient-main-tint), var(--gradient-main-lighter)), url('../img/hubble_telescope.jpg');
+  /* background-image: linear-gradient(to bottom, var(--gradient-main-tint), var(--gradient-main-lighter)), url('../img/hubble_telescope.jpg'); */
   background-size: cover;
   background-position: center;
 }
@@ -473,7 +473,7 @@
   background-position: center;
 }
 
-/* Mise en page du formulaire de contact */
+/* Mise en page du formulaire d'authentification */
 .authentification-form {
   display:grid;
   grid-template-columns: 1fr 1fr;
@@ -481,7 +481,7 @@
   row-gap: 2.4rem;
 }
 
-/* Focus du formulaire de contact */
+/* Focus du formulaire d'authentification */
 .authentification-form *:focus {
   outline: none;
   box-shadow: 0 0 0 0.8rem rgba(179, 84, 82, 0.5);
@@ -528,7 +528,8 @@
 .admin-nav {
   padding: 6.4rem;
   background-color: var(--color-grey-tint);
-  min-height: 80rem;
+  /*min-height: 80rem;*/
+  min-height: 100%;
 }
 
 .admin-content {
@@ -541,6 +542,11 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  margin-bottom : 3rem;
+}
+
+.admin-edit-box {
+
 }
 
 .admin-nav-list {
@@ -599,6 +605,38 @@
   color: var(--color-main-darker);
   margin-top: 1.5rem;
 }
+
+/*****************************************************/
+/***                    ADMIN FORM                 ***/
+/*****************************************************/
+
+/* Mise en page du formulaire d'administration */
+.admin-form {
+  display:grid;
+  grid-template-columns: 1fr 1fr;
+  column-gap: 3.2rem;
+  row-gap: 2.4rem;
+  background-color: var(--color-main-tint);
+  padding: 6.4rem;
+  border-radius: 1rem;
+}
+
+.admin-form figure {
+  text-align: center;
+}
+
+.admin-form img {
+  border-radius: 1rem;
+}
+
+/* Focus du formulaire d'administration */
+.admin-form *:focus {
+  outline: none;
+  box-shadow: 0 0 0 0.8rem rgba(179, 84, 82, 0.5);
+}
+
+
+
 
 
 

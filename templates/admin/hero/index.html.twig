@@ -1,0 +1,65 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}Interface d'administration{% endblock %}
+
+{% block body %}
+<main class="container">
+    <section class="section-admin">
+        <section class="admin-container">
+            <nav class="admin-nav">
+                {# Inclusion du aside #}
+                {% include "admin/partials/_aside.html.twig" %}
+            </nav>
+            <div class="admin-content">
+                <div class="admin-text-box">
+                    <h1 class="heading-primary">Section Hero</h1>
+                </div>
+                <div class="admin-edit-box">
+                    {# Tableau de l'objet Hero #}
+                    <table>
+                        <colgroup span="3"></colgroup>
+                        <thead>
+                            <tr>
+                                <th>Slogan</th>
+                                <th>Image principale du site</th>
+                                <th>Texte d'accueil du site</th>
+                                <th>Texte du premier bouton</th>
+                                <th>Url du premier bouton</th>
+                                <th>Texte du second bouton</th>
+                                <th>Url du second bouton</th>
+                                <th colspan="3" scope="colgroup">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {# Affichage du dernier objet Hero enregistré en base de données #}
+                            {% for hero in hero %}
+                                <tr>
+                                    <th>{{hero.slogan}}</th>
+                                    <td>
+                                        {% if hero.masterImage %}
+                                            <a href="{{asset('uploads/'~hero.masterImage)}}" target="_blank"><img src="{{asset('uploads/'~hero.masterImage)}}" alt="Image principale du site {{hero.slogan}}" class="md-img"></a>
+                                        {% endif %}
+                                    </td>
+                                    <td>{{hero.content}}</td>
+                                    <td>{{hero.firstButtonTitle}}</td>
+                                    <td>{{hero.firstButtonUrl}}</td>
+                                    <td>{{hero.secondButtontitle}}</td>
+                                    <td>{{hero.secondButtonUrl}}</td>
+                                    {# Actions #}
+                                    <td class="table-td-action">
+                                        <ul class="admin-nav-list">
+                                            <li class="admin-list">
+                                                <span><a href="{{path('app_admin_hero_edit', {'id':hero.id})}}"><ion-icon class="icon icon-primary" name="pencil"></ion-icon></a></span>
+                                            </li>
+                                        </ul>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+    </section>
+</main>
+{% endblock %}

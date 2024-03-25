@@ -4,45 +4,46 @@
 
 {% block body %}
 <main class="container">
-  <section class="section-authentification-form">
-    <div class="authentification-container">
-      <div class="authentification-text-box">
-        <header>
-          <h1 class="heading-primary">Modifier mes informations</h1>
-        </header>
-        <p class="authentification-text">
-            Utilisez le formulaire pour modifier les informations de votre compte ... 
-        </p>
-         {# Formulaire de modification du profil #}
-        <section>
-          <p class="subheading">Mes informations : </p>
-          <br>
-          {{form_start(formView, {'attr' : {'class': 'authentification-form'}})}}
-            <div class="form-row">
-              {{form_row(formView.email)}}
-              {{form_row(formView.firstname)}}
-              {{form_row(formView.lastname)}}
-            </div>
+  {% for hero in hero %}
+    <section class="section-authentification-form">
+      <div class="authentification-container">
+        <div class="authentification-text-box">
+          <header>
+            <h1 class="heading-primary">Modifier mes informations</h1>
+          </header>
+          <p class="authentification-text">
+              Utilisez le formulaire pour modifier les informations de votre compte ... 
+          </p>
+          {# Formulaire de modification du profil #}
+          <section>
+            <p class="subheading">Mes informations : </p>
             <br>
-          {# Bouton de soumission du formulaire #}
-          <button class="btn btn--form" type="submit">Envoyer</button>
-          {{form_end(formView)}}
-        </section>
-        {# Lien vers la route de la page d'accueil du compte de l'utilisateur #}
-        <section>
-          <ul class="authentification-nav-list">
-            <li class="authentification-list">
-              <ion-icon class="icon icon-secondary" name="play-back"></ion-icon>
-              <span>
-                  <a href="{{path('app_account_home')}}">Retour vers mon compte</a>
-              </span>
-            </li>
-          </ul>
-        </section>
+            {{form_start(formView, {'attr' : {'class': 'authentification-form'}})}}
+              <div class="form-row">
+                {{form_row(formView.email)}}
+                {{form_row(formView.firstname)}}
+                {{form_row(formView.lastname)}}
+              </div>
+              <br>
+            {# Bouton de soumission du formulaire #}
+            <button class="btn btn--form" type="submit">Envoyer</button>
+            {{form_end(formView)}}
+          </section>
+          {# Lien vers la route de la page d'accueil du compte de l'utilisateur #}
+          <section>
+            <ul class="authentification-nav-list">
+              <li class="authentification-list">
+                <ion-icon class="icon icon-secondary" name="play-back"></ion-icon>
+                <span>
+                    <a href="{{path('app_account_home')}}">Retour vers mon compte</a>
+                </span>
+              </li>
+            </ul>
+          </section>
+        </div>
+        <div class="contact-cta-img-box" style="background-image:linear-gradient(to bottom, var(--gradient-main-tint), var(--gradient-main-lighter)), url({{asset('uploads/'~hero.masterImage)}})" role="img" aria-label="{{hero.masterImageDescription}}"></div>
       </div>
-      <div class="authentification-img-box" role="img" aria-label="Hubble telescope dans l'espace">   
-      </div>
-    </div>
-  </section>
+    </section>
+  {% endfor %}
 </main>
 {% endblock %}

@@ -6,6 +6,7 @@ use App\Services\SendEmail;
 use App\Repository\UserRepository;
 use App\Form\ForgottenPasswordType;
 use App\Form\ResetPasswordType;
+use App\Repository\HeroRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -32,16 +33,23 @@ class SecurityController extends AbstractController
      * @param AuthenticationUtils $authenticationUtils
      * @return Response
      */
-    public function login(AuthenticationUtils $authenticationUtils): Response
+    public function login(AuthenticationUtils $authenticationUtils, HeroRepository $heroRepository): Response
     {
         // Récupération d'une éventuelle erreur d'authentification
         $error = $authenticationUtils->getLastAuthenticationError();
         // Récupération du dernier identifiant ou email saisi dans le formulaire de login
         $lastUsername = $authenticationUtils->getLastUsername();
+        // Récupération du dernier objet Hero inséré en base de données
+        $hero = $heroRepository->findBy([], [
+            'id' => 'DESC'], // Tri par identifiant et par ordre décroissant
+            1, // Limite de 1 enregistrement
+            0 // Offset
+        );
 
         return $this->render('security/login.html.twig', [
             'last_username' => $lastUsername,
-            'error'         => $error
+            'error'         => $error,
+            'hero'          => $hero
         ]);
     }
 
@@ -55,8 +63,14 @@ class SecurityController extends AbstractController
      * @param EntityManagerInterface $entityManagerInterface
      * @return void
      */
-    public function forgottenPassword(Request $request, UserRepository $userRepository, TokenGeneratorInterface $tokenGeneratorInterface, EntityManagerInterface $entityManagerInterface)
+    public function forgottenPassword(Request $request, UserRepository $userRepository, HeroRepository $heroRepository, TokenGeneratorInterface $tokenGeneratorInterface, EntityManagerInterface $entityManagerInterface)
     {
+        // Récupération du dernier objet Hero inséré en base de données
+        $hero = $heroRepository->findBy([], [
+            'id' => 'DESC'], // Tri par identifiant et par ordre décroissant
+            1, // Limite de 1 enregistrement
+            0 // Offset
+        );
         // Création du formulaire de demande de réinitialisation du mot de passe
         $form = $this->createForm(ForgottenPasswordType::class);
         // Récupération des données du formulaire via la requête
@@ -112,7 +126,8 @@ class SecurityController extends AbstractController
         }
         $formView = $form->createView();
         return $this->render('security/forgotten_password.html.twig', [
-            'formView' => $formView
+            'formView' => $formView, 
+            'hero'     => $hero
         ]);
     }       
     
@@ -127,8 +142,14 @@ class SecurityController extends AbstractController
      * @param UserPasswordHasherInterface $userPasswordHasherInterface
      * @return void
      */
-    public function resetPassword($resetToken, Request $request, UserRepository $userRepository, EntityManagerInterface $entityManagerInterface, UserPasswordHasherInterface $userPasswordHasherInterface)
+    public function resetPassword($resetToken, Request $request, UserRepository $userRepository, HeroRepository $heroRepository, EntityManagerInterface $entityManagerInterface, UserPasswordHasherInterface $userPasswordHasherInterface)
     {
+        // Récupération du dernier objet Hero inséré en base de données
+        $hero = $heroRepository->findBy([], [
+            'id' => 'DESC'], // Tri par identifiant et par ordre décroissant
+            1, // Limite de 1 enregistrement
+            0 // Offset
+        );
         // Récupération de l'utilisateur correspondant au resetToken
         $user = $userRepository->findOneBy(['resetToken'=>$resetToken]);
         // Si aucun utilisateur n'existe avec ce token
@@ -163,7 +184,8 @@ class SecurityController extends AbstractController
         $formView = $form->createView();
         return $this->render('security/reset_password.html.twig', [
             'formView' => $formView,
-            'user' => $user
+            'user' => $user,
+            'hero' => $hero
         ]);
     }
 }
